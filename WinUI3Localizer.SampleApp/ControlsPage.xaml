@@ -1,0 +1,200 @@
+<Page
+    x:Class="WinUI3Localizer.SampleApp.ControlsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:WinUI3Localizer.SampleApp.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:l="using:WinUI3Localizer"
+    xmlns:local="using:WinUI3Localizer.SampleApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <StackPanel>
+            <!--  TextBlock  -->
+            <local:ExamplePresenter HeaderText="TextBlock">
+                <TextBlock
+                    l:Uids.Uid="ControlsPage_TextBlock"
+                    PointerEntered="LocalizedItem_PointerEntered" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;TextBlock l:Uids.Uid="ControlsPage_TextBlock" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  TextBox  -->
+            <local:ExamplePresenter
+                HorizontalContentAlignment="Stretch"
+                HeaderText="TextBox">
+                <TextBox
+                    l:Uids.Uid="ControlsPage_TextBox"
+                    PointerEntered="LocalizedItem_PointerEntered" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;TextBox l:Uids.Uid="ControlsPage_TextBox" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  Button  -->
+            <local:ExamplePresenter HeaderText="Button">
+                <Button
+                    l:Uids.Uid="ControlsPage_Button"
+                    PointerEntered="LocalizedItem_PointerEntered" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;Button l:Uids.Uid="ControlsPage_Button" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  DropDownButton  -->
+            <local:ExamplePresenter HeaderText="DropDownButton">
+                <DropDownButton
+                    l:Uids.Uid="ControlsPage_DropDownButton"
+                    PointerEntered="LocalizedItem_PointerEntered">
+                    <DropDownButton.Flyout>
+                        <MenuFlyout Placement="Bottom">
+                            <MenuFlyoutItem
+                                l:Uids.Uid="ControlsPage_DropDownButton_OptionA"
+                                PointerEntered="LocalizedItem_PointerEntered" />
+                            <MenuFlyoutItem
+                                l:Uids.Uid="ControlsPage_DropDownButton_OptionB"
+                                PointerEntered="LocalizedItem_PointerEntered" />
+                            <MenuFlyoutItem
+                                l:Uids.Uid="ControlsPage_DropDownButton_OptionC"
+                                PointerEntered="LocalizedItem_PointerEntered" />
+                        </MenuFlyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;DropDownButton l:Uids.Uid="ControlsPage_DropDownButton" /&gt;
+    &lt;DropDownButton.Flyout&gt;
+        &lt;MenuFlyout&gt;
+            &lt;MenuFlyoutItem l:Uids.Uid="ControlsPage_DropDownButton_OptionA" /&gt;
+            &lt;MenuFlyoutItem l:Uids.Uid="ControlsPage_DropDownButton_OptionB" /&gt;
+            &lt;MenuFlyoutItem l:Uids.Uid="ControlsPage_DropDownButton_OptionC" /&gt;
+        &lt;/MenuFlyout&gt;
+    &lt;/DropDownButton.Flyout&gt;
+&lt;/DropDownButton&gt;
+                    </x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  CheckBox  -->
+            <local:ExamplePresenter HeaderText="CheckBox">
+                <CheckBox
+                    l:Uids.Uid="ControlsPage_CheckBox"
+                    PointerEntered="LocalizedItem_PointerEntered" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;CheckBox l:Uids.Uid="ControlsPage_CheckBox" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  ComboBox  -->
+            <local:ExamplePresenter HeaderText="ComboBox">
+                <ComboBox
+                    x:Name="ComboBoxControl"
+                    ItemsSource="{x:Bind ComboBoxItems}"
+                    SelectedIndex="0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <TextBlock
+                                l:Uids.Uid="{x:Bind}"
+                                PointerEntered="LocalizedItem_PointerEntered" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;ComboBox ItemsSource="{x:Bind ComboBoxItems}"&gt;
+    &lt;ComboBox.ItemTemplate&gt;
+        &lt;DataTemplate x:DataType="x:String"&gt;
+            &lt;TextBlock l:Uids.Uid="{x:Bind}" /&gt;
+        &lt;/DataTemplate&gt;
+    &lt;/ComboBox.ItemTemplate&gt;
+&lt;/ComboBox&gt;
+                    </x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  RadioButtons  -->
+            <local:ExamplePresenter HeaderText="DropDownButton">
+                <RadioButtons
+                    l:Uids.Uid="ControlsPage_RadioButtons"
+                    PointerEntered="LocalizedItem_PointerEntered">
+                    <RadioButton
+                        l:Uids.Uid="ControlsPage_RadioButtons_OptionA"
+                        PointerEntered="LocalizedItem_PointerEntered" />
+                    <RadioButton
+                        l:Uids.Uid="ControlsPage_RadioButtons_OptionB"
+                        PointerEntered="LocalizedItem_PointerEntered" />
+                    <RadioButton
+                        l:Uids.Uid="ControlsPage_RadioButtons_OptionC"
+                        PointerEntered="LocalizedItem_PointerEntered" />
+                </RadioButtons>
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;RadioButtons l:Uids.Uid="ControlsPage_RadioButtons" /&gt;
+    &lt;RadioButton l:Uids.Uid="ControlsPage_RadioButtons_OptionA" /&gt;
+    &lt;RadioButton l:Uids.Uid="ControlsPage_RadioButtons_OptionB" /&gt;
+    &lt;RadioButton l:Uids.Uid="ControlsPage_RadioButtons_OptionC" /&gt;
+&lt;/RadioButtons&gt;
+                    </x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  ToggleSwitch  -->
+            <local:ExamplePresenter HeaderText="ToggleSwitch">
+                <ToggleSwitch
+                    l:Uids.Uid="ControlsPage_ToggleSwitch"
+                    PointerEntered="LocalizedItem_PointerEntered" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;ToggleSwitch l:Uids.Uid="ControlsPage_ToggleSwitch" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  RichTextBlock  -->
+            <local:ExamplePresenter HeaderText="RichTextBlock">
+                <RichTextBlock
+                    l:Uids.Uid="ControlsPage_RichTextBlock"
+                    PointerEntered="LocalizedItem_PointerEntered">
+                    <Paragraph>
+                        <Run l:Uids.Uid="ControlsPage_RichTextBlock" />
+                    </Paragraph>
+                </RichTextBlock>
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;RichTextBlock&gt;
+    &lt;Paragraph&gt;
+        &lt;Run l:Uids.Uid="ControlsPage_RichTextBlock" /&gt;
+    &lt;/Paragraph&gt;
+&lt;/RichTextBlock&gt;
+                    </x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  HyperlinkButton  -->
+            <local:ExamplePresenter HeaderText="HyperlinkButton">
+                <HyperlinkButton
+                    l:Uids.Uid="ControlsPage_HyperlinkButton"
+                    PointerEntered="LocalizedItem_PointerEntered" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;HyperlinkButton l:Uids.Uid="ControlsPage_HyperlinkButton" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  RatingControl  -->
+            <local:ExamplePresenter HeaderText="RatingControl">
+                <!--  PointerEntered doesn't work with the RatingControl.  -->
+                <RatingControl l:Uids.Uid="ControlsPage_RatingControl" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;RatingControl l:Uids.Uid="ControlsPage_RatingControl" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  Slider  -->
+            <local:ExamplePresenter
+                HorizontalContentAlignment="Stretch"
+                HeaderText="Slider">
+                <Slider
+                    l:Uids.Uid="ControlsPage_Slider"
+                    PointerEntered="LocalizedItem_PointerEntered" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;Slider l:Uids.Uid="ControlsPage_Slider" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  ColorPicker  -->
+            <local:ExamplePresenter
+                HeaderText="ColorPicker"
+                IsEnabled="False">
+                <Viewbox>
+                    <ColorPicker IsColorPreviewVisible="False" />
+                </Viewbox>
+                <local:ExamplePresenter.XamlSampleCode>
+                    The Localizer does not support the ColorPicker control.
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

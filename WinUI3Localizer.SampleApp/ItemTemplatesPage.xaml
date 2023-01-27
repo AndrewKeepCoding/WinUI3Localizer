@@ -1,0 +1,79 @@
+<Page
+    x:Class="WinUI3Localizer.SampleApp.ItemTemplatesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:l="using:WinUI3Localizer"
+    xmlns:local="using:WinUI3Localizer.SampleApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid>
+        <local:ExamplePresenter HeaderText="ItemsRepeater">
+            <ScrollViewer Grid.Row="1">
+                <ItemsRepeater ItemsSource="{x:Bind People}">
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="local:Person">
+                            <Grid
+                                ColumnDefinitions="*,*,*"
+                                RowDefinitions="Auto,Auto">
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    l:Uids.Uid="ItemTemplatesPage_ID"
+                                    FontSize="10"
+                                    Foreground="DimGray"
+                                    PointerEntered="LocalizedItem_PointerEntered" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    l:Uids.Uid="ItemTemplatesPage_FirstName"
+                                    FontSize="10"
+                                    Foreground="DimGray"
+                                    PointerEntered="LocalizedItem_PointerEntered" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    l:Uids.Uid="ItemTemplatesPage_LastName"
+                                    FontSize="10"
+                                    Foreground="DimGray"
+                                    PointerEntered="LocalizedItem_PointerEntered" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Text="{x:Bind ID}" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Text="{x:Bind FirstName}" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Text="{x:Bind LastName}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </ScrollViewer>
+            <local:ExamplePresenter.XamlSampleCode>
+                <x:String xml:space="preserve">&lt;ItemsRepeater ItemsSource="{x:Bind People}"&gt;
+    &lt;ItemsRepeater.ItemTemplate&gt;
+        &lt;DataTemplate x:DataTipe="local:Person"&gt;
+            &lt;Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto"&gt;
+                &lt;TextBlock Grid.Row="0" Grid.Column="0"
+                    l:Uids.Uid="ItemTemplatesPage_ID" /&gt;
+                &lt;TextBlock Grid.Row="0" Grid.Column="1"
+                    l:Uids.Uid="ItemTemplatesPage_FirstName" /&gt;
+                &lt;TextBlock Grid.Row="0" Grid.Column="2"
+                    l:Uids.Uid="ItemTemplatesPage_LastName" /&gt;
+                &lt;TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Bind ID}" /&gt;
+                &lt;TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind FirstName}" /&gt;
+                &lt;TextBlock Grid.Row="1" Grid.Column="2" Text="{x:Bind LastName}" /&gt;
+            &lt;/Grid&gt;
+        &lt;/DataTemplate&gt;
+    &lt;/ItemsRepeater.ItemTemplate&gt;
+&lt;/ItemsRepeater&gt;
+</x:String>
+            </local:ExamplePresenter.XamlSampleCode>
+        </local:ExamplePresenter>
+    </Grid>
+</Page>

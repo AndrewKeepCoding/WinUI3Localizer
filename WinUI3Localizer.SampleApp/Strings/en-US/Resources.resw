@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ControlsPage_Button.Content" xml:space="preserve">
+    <value>Click</value>
+  </data>
+  <data name="ControlsPage_CheckBox.Content" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="ControlsPage_ComboBox_OptionA.Text" xml:space="preserve">
+    <value>Option A</value>
+  </data>
+  <data name="ControlsPage_ComboBox_OptionB.Text" xml:space="preserve">
+    <value>Option B</value>
+  </data>
+  <data name="ControlsPage_ComboBox_OptionC.Text" xml:space="preserve">
+    <value>Option C</value>
+  </data>
+  <data name="ControlsPage_DropDownButton.Content" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="ControlsPage_DropDownButton_OptionA.Text" xml:space="preserve">
+    <value>Option A</value>
+  </data>
+  <data name="ControlsPage_DropDownButton_OptionB.Text" xml:space="preserve">
+    <value>Option B</value>
+  </data>
+  <data name="ControlsPage_DropDownButton_OptionC.Text" xml:space="preserve">
+    <value>Option C</value>
+  </data>
+  <data name="ControlsPage_Hyperlink" xml:space="preserve">
+    <value>This is a localized Hyperlink.</value>
+  </data>
+  <data name="ControlsPage_HyperlinkButton.Content" xml:space="preserve">
+    <value>Click</value>
+  </data>
+  <data name="ControlsPage_RadioButtons.Header" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="ControlsPage_RadioButtons_OptionA.Content" xml:space="preserve">
+    <value>Option A</value>
+  </data>
+  <data name="ControlsPage_RadioButtons_OptionB.Content" xml:space="preserve">
+    <value>Option B</value>
+  </data>
+  <data name="ControlsPage_RadioButtons_OptionC.Content" xml:space="preserve">
+    <value>Option C</value>
+  </data>
+  <data name="ControlsPage_RatingControl.Caption" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="ControlsPage_RichTextBlock.Text" xml:space="preserve">
+    <value>This is a localized RichTextBlock.</value>
+  </data>
+  <data name="ControlsPage_Slider.Header" xml:space="preserve">
+    <value>Slider</value>
+  </data>
+  <data name="ControlsPage_TextBlock.Text" xml:space="preserve">
+    <value>This is a localized TextBlock.</value>
+  </data>
+  <data name="ControlsPage_TextBox.PlaceholderText" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ControlsPage_ToggleSwitch.OffContent" xml:space="preserve">
+    <value>Deactivated</value>
+  </data>
+  <data name="ControlsPage_ToggleSwitch.OnContent" xml:space="preserve">
+    <value>Activated</value>
+  </data>
+  <data name="en-US" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="es-ES" xml:space="preserve">
+    <value>Español</value>
+  </data>
+  <data name="ItemTemplatesPage_FirstName.Text" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="ItemTemplatesPage_ID.Text" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ItemTemplatesPage_LastName.Text" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="ja" xml:space="preserve">
+    <value>日本語</value>
+  </data>
+  <data name="LocalizationActionsPage_Descriptions_Run_1.Foreground" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="MainWindow_AppTitleBar.Text" xml:space="preserve">
+    <value>WinUI 3 Localizer Sample App😎</value>
+  </data>
+  <data name="MainWindow_en-US.Text" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="MainWindow_es-ES.Text" xml:space="preserve">
+    <value>Spanish [Español]</value>
+  </data>
+  <data name="MainWindow_ja.Text" xml:space="preserve">
+    <value>Japanese [日本語]</value>
+  </data>
+  <data name="MainWindow_NavigationView_AutoSuggest.PlaceholderText" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="MainWindow_NavigationView_ControlsPage.Content" xml:space="preserve">
+    <value>Controls</value>
+  </data>
+  <data name="MainWindow_NavigationView_ItemTemplatesPage.Content" xml:space="preserve">
+    <value>Item Templates</value>
+  </data>
+  <data name="MainWindow_NavigationView_LocalizationActionsPage.Content" xml:space="preserve">
+    <value>Localization Actions</value>
+  </data>
+  <data name="MainWindow_NavigationView_MainPage.Content" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="MainWindow_NavigationView_Settings.Content" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MainWindow_NavigationView_StylesPage.Content" xml:space="preserve">
+    <value>Styles</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsPage_AvailableLanguages.Header" xml:space="preserve">
+    <value>Languages found in the "Strings" folder</value>
+  </data>
+  <data name="SettingsPage_Dictionaries.Text" xml:space="preserve">
+    <value>Dictionaries</value>
+  </data>
+  <data name="SettingsPage_StringResourcesFolder.Text" xml:space="preserve">
+    <value>Strings resources folder</value>
+  </data>
+  <data name="SettingsPage_SwitchLanguages.Text" xml:space="preserve">
+    <value>Switch Languages</value>
+  </data>
+  <data name="StylesPage_Bottom.Text" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="StylesPage_Left.Text" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="StylesPage_Right.Text" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="StylesPage_Top.Text" xml:space="preserve">
+    <value>Top</value>
+  </data>
+</root>

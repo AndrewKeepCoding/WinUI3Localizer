@@ -1,0 +1,53 @@
+<Page
+    x:Class="WinUI3Localizer.SampleApp.LocalizationActionsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:l="using:WinUI3Localizer"
+    xmlns:local="using:WinUI3Localizer.SampleApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ScrollViewer Margin="5">
+        <StackPanel>
+            <!--<TextBlock
+            Style="{StaticResource SubtitleTextBlockStyle}"
+            Text="LocalizationActions" />-->
+            <TextBlock
+                Text="Some dependency objects like 'Run', 'Bold' or 'Hyperlink' cannot be localized using dependency properties. The WinUI3Localizer provides 'LocazationActions' for these dependency objects."
+                TextWrapping="Wrap" />
+            <!--  Hyperlink  -->
+            <local:ExamplePresenter HeaderText="Hyperlink">
+                <TextBlock
+                    l:Uids.Uid="ControlsPage_Hyperlink_Run"
+                    PointerEntered="LocalizedItem_PointerEntered">
+                    <Hyperlink l:Uids.Uid="ControlsPage_Hyperlink" />
+                </TextBlock>
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;TextBlock&gt;
+    &lt;Hyperlink&gt;
+        &lt;Run l:Uids.Uid="ControlsPage_Hyperlink_Run" /&gt;
+    &lt;/Hyperlink&gt;
+&lt;/TextBlock&gt;
+                    </x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+                <local:ExamplePresenter.CSharpSampleCode>
+                    <x:String xml:space="preserve">// The WinUILocalizer has built-in LocalizationActions for 
+// "Run", "Span", "Bold" and "Hyperlink". 
+// The code below is an example showing how to add LocalizationActions.
+ILocalizer localizer = await new LocalizerBuilder()
+    .AddLocalizationAction(
+        new LocalizationActions.ActionItem(typeof(Hyperlink), args =>
+        {
+            if (args.DependencyObject is Hyperlink target  target.Inlines.Count is 0)
+            {
+                target.Inlines.Clear();
+                target.Inlines.Add(new Run() { Text = args.Value });
+            }
+        })
+    ).Build();
+                    </x:String>
+                </local:ExamplePresenter.CSharpSampleCode>
+            </local:ExamplePresenter>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

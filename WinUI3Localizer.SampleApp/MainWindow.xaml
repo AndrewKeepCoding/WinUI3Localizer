@@ -1,0 +1,36 @@
+<Window
+    x:Class="WinUI3Localizer.SampleApp.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:l="using:WinUI3Localizer"
+    xmlns:local="using:WinUI3Localizer.SampleApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid
+        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+        RowDefinitions="32,*">
+        <!--  Title bar  -->
+        <Grid
+            x:Name="AppTitleBar"
+            Grid.Row="0"
+            ColumnDefinitions="Auto,*">
+            <Image
+                Grid.Column="0"
+                Width="30"
+                Height="30"
+                Margin="14,0,0,0"
+                Source="../Assets/WindowsIcon.gif" />
+            <TextBlock
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                VerticalAlignment="Center"
+                l:Uids.Uid="MainWindow_AppTitleBar"
+                FontSize="12"
+                Text="WinUI 3 Localizer"
+                TextWrapping="NoWrap" />
+        </Grid>
+        <!--  Shell  -->
+        <local:ShellPage Grid.Row="1" />
+    </Grid>
+</Window>

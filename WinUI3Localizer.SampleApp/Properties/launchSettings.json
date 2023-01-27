@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WinUI3Localizer.SampleApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WinUI3Localizer.SampleApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
