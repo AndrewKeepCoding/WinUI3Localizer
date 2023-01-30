@@ -9,11 +9,8 @@
     mc:Ignorable="d">
     <ScrollViewer Margin="5">
         <StackPanel>
-            <!--<TextBlock
-            Style="{StaticResource SubtitleTextBlockStyle}"
-            Text="LocalizationActions" />-->
             <TextBlock
-                Text="Some dependency objects like 'Run', 'Bold' or 'Hyperlink' cannot be localized using dependency properties. The WinUI3Localizer provides 'LocazationActions' for these dependency objects."
+                Text="Some dependency objects like 'Run', 'Bold' or 'Hyperlink' cannot be localized using dependency properties. WinUI3Localizer provides 'LocazationActions' for these dependency objects."
                 TextWrapping="Wrap" />
             <!--  Hyperlink  -->
             <local:ExamplePresenter HeaderText="Hyperlink">
