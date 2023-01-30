@@ -12,8 +12,11 @@
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <!--
+    Uncomment this to make the app non-packaged.
     <WindowsPackageType>None</WindowsPackageType>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    -->
   </PropertyGroup>
 
   <ItemGroup>
