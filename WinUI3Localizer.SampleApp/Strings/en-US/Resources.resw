@@ -144,12 +144,6 @@
   <data name="ControlsPage_DropDownButton_OptionC.Text" xml:space="preserve">
     <value>Option C</value>
   </data>
-  <data name="ControlsPage_Hyperlink" xml:space="preserve">
-    <value>This is a localized Hyperlink.</value>
-  </data>
-  <data name="ControlsPage_HyperlinkButton.Content" xml:space="preserve">
-    <value>Click</value>
-  </data>
   <data name="ControlsPage_RadioButtons.Header" xml:space="preserve">
     <value>Options</value>
   </data>
@@ -200,6 +194,15 @@
   </data>
   <data name="ja" xml:space="preserve">
     <value>日本語</value>
+  </data>
+  <data name="LocalizationActionsPage_Description.Text" xml:space="preserve">
+    <value>Some DependencyObjects like 'Run', 'Bold' or 'Hyperlink' cannot be localized using dependency properties. WinUI3Localizer provides 'LocazationActions' for localization of these type of DependencyObjects.</value>
+  </data>
+  <data name="LocalizationActionsPage_Hyperlink" xml:space="preserve">
+    <value>This is a localized Hyperlink.</value>
+  </data>
+  <data name="LocalizationActionsPage_HyperlinkButton.Content" xml:space="preserve">
+    <value>Click</value>
   </data>
   <data name="MainPage" xml:space="preserve">
     <value>Main</value>

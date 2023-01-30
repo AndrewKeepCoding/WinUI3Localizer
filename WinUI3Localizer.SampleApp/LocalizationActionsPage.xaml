@@ -9,20 +9,16 @@
     mc:Ignorable="d">
     <ScrollViewer Margin="5">
         <StackPanel>
-            <TextBlock
-                Text="Some dependency objects like 'Run', 'Bold' or 'Hyperlink' cannot be localized using dependency properties. WinUI3Localizer provides 'LocazationActions' for these dependency objects."
-                TextWrapping="Wrap" />
+            <TextBlock l:Uids.Uid="LocalizationActionsPage_Description" TextWrapping="Wrap" />
             <!--  Hyperlink  -->
             <local:ExamplePresenter HeaderText="Hyperlink">
-                <TextBlock
-                    l:Uids.Uid="ControlsPage_Hyperlink_Run"
-                    PointerEntered="LocalizedItem_PointerEntered">
-                    <Hyperlink l:Uids.Uid="ControlsPage_Hyperlink" />
+                <TextBlock l:Uids.Uid="LocalizationActionsPage_Hyperlink_Run" PointerEntered="LocalizedItem_PointerEntered">
+                    <Hyperlink l:Uids.Uid="LocalizationActionsPage_Hyperlink" />
                 </TextBlock>
                 <local:ExamplePresenter.XamlSampleCode>
                     <x:String xml:space="preserve">&lt;TextBlock&gt;
     &lt;Hyperlink&gt;
-        &lt;Run l:Uids.Uid="ControlsPage_Hyperlink_Run" /&gt;
+        &lt;Run l:Uids.Uid="LocalizationActionsPage_Hyperlink_Run" /&gt;
     &lt;/Hyperlink&gt;
 &lt;/TextBlock&gt;
                     </x:String>

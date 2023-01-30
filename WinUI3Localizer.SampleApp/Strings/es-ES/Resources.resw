@@ -201,6 +201,9 @@
   <data name="ja" xml:space="preserve">
     <value>日本語</value>
   </data>
+  <data name="LocalizationActionsPage_Description.Text" xml:space="preserve">
+    <value>Algunos DependencyObjects como 'Run', 'Bold' o 'Hiperlink' no se pueden localizar mediante propiedades de dependencia. WinUI3Localizer proporciona 'LocazationActions' para la localización de estos tipos de DependencyObjects.</value>
+  </data>
   <data name="MainPage" xml:space="preserve">
     <value>Principal</value>
   </data>

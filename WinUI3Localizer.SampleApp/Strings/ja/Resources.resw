@@ -144,12 +144,6 @@
   <data name="ControlsPage_DropDownButton_OptionC.Text" xml:space="preserve">
     <value>オプション C</value>
   </data>
-  <data name="ControlsPage_Hyperlink" xml:space="preserve">
-    <value>これはローカライズされたHyperlinkです。</value>
-  </data>
-  <data name="ControlsPage_HyperlinkButton.Content" xml:space="preserve">
-    <value>クリック</value>
-  </data>
   <data name="ControlsPage_RadioButtons.Header" xml:space="preserve">
     <value>オプション</value>
   </data>
@@ -200,6 +194,15 @@
   </data>
   <data name="ja" xml:space="preserve">
     <value>日本語</value>
+  </data>
+  <data name="LocalizationActionsPage_Description.Text" xml:space="preserve">
+    <value>「Run」、「Bold」、「Hyperlink」などの一部の DependencyObject は、依存関係プロパティを使用してローカライズできません。 WinUI3Localizer は、このようなDependencyObject に対応するために「LocazationActions」を用意しています。</value>
+  </data>
+  <data name="LocalizationActionsPage_Hyperlink" xml:space="preserve">
+    <value>これはローカライズされたHyperlinkです。</value>
+  </data>
+  <data name="LocalizationActionsPage_HyperlinkButton.Content" xml:space="preserve">
+    <value>クリック</value>
   </data>
   <data name="MainPage" xml:space="preserve">
     <value>メイン</value>
