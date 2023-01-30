@@ -205,7 +205,7 @@
     <value>Principal</value>
   </data>
   <data name="MainWindow_AppTitleBar.Text" xml:space="preserve">
-    <value>WinUI 3 Localizer App de Muestra😎</value>
+    <value>WinUI3Localizer App de Muestra😎</value>
   </data>
   <data name="MainWindow_en-US.Text" xml:space="preserve">
     <value>Inglés [English]</value>

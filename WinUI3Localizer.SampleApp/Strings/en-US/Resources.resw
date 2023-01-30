@@ -201,14 +201,11 @@
   <data name="ja" xml:space="preserve">
     <value>日本語</value>
   </data>
-  <data name="LocalizationActionsPage_Descriptions_Run_1.Foreground" xml:space="preserve">
-    <value>Red</value>
-  </data>
   <data name="MainPage" xml:space="preserve">
     <value>Main</value>
   </data>
   <data name="MainWindow_AppTitleBar.Text" xml:space="preserve">
-    <value>WinUI 3 Localizer Sample App😎</value>
+    <value>WinUI3Localizer Sample App😎</value>
   </data>
   <data name="MainWindow_en-US.Text" xml:space="preserve">
     <value>English</value>

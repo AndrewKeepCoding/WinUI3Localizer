@@ -205,7 +205,7 @@
     <value>メイン</value>
   </data>
   <data name="MainWindow_AppTitleBar.Text" xml:space="preserve">
-    <value>WinUI 3 Localizer サンプルアプリ 😎</value>
+    <value>WinUI3Localizer サンプルアプリ 😎</value>
   </data>
   <data name="MainWindow_en-US.Text" xml:space="preserve">
     <value>英語 [English]</value>
