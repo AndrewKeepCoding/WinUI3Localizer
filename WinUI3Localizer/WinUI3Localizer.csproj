@@ -11,7 +11,7 @@
   <PropertyGroup>
     <Title>WinUI3Localizer</Title>
     <Description>
-      The WinUI3Localizer is a NuGet package that helps you localize your WinUI 3 app.
+      WinUI3Localizer is a NuGet package that helps you localize your WinUI 3 app.
       - Switch languages without restarting
       - You/users can edit localized strings even after deployment
       - You/users can add new languages even after deployment

@@ -12,8 +12,8 @@
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <!--<WindowsPackageType>None</WindowsPackageType>
-    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>-->
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
   </PropertyGroup>
 
   <ItemGroup>
@@ -52,24 +52,14 @@
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="WinUI3Localizer" Version="1.0.0" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
-  <!-- Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
-       Tools
-  extension to be activated for this project even if the Windows App SDK Nuget
-       package has
-  not yet been restored -->
+  <!-- Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging Tools extension 
+       to be activated for this project even if the Windows App SDK Nuget package has not yet been restored -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnablePreviewMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WinUI3Localizer\WinUI3Localizer.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="SettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
 
   <!-- If the app is "Non-Packaged", define "IS_NON_PACKAGED" constant. -->
@@ -77,12 +67,13 @@
     <DefineConstants>IS_NON_PACKAGED</DefineConstants>
   </PropertyGroup>
 
-  <!-- Embed all of the "Resources.resw" files. -->
+  <!-- Copy all "Resources.resw" files in the "Strings" folder to the output folder. -->
   <ItemGroup>
     <Content Include="Strings\**\*.resw">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
   <ItemGroup>
     <Page Update="ShellPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -113,17 +104,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-
-  <!--<ItemGroup>
-    <PRIResource Remove="Strings\en-US\Resources.resw" />
-  </ItemGroup>-->
-
-  <!-- If the app is "Non-Packaged", copy the "Strings" folder to the output directory -->
-  <Target Name="CopyStringResources" AfterTargets="Build">
-    <ItemGroup>
-      <StringResources Include="$(ProjectDir)Strings\**\*.*" />
-    </ItemGroup>
-    <Copy Condition="'$(WindowsPackageType)' == 'None'" SourceFiles="@(StringResources)" DestinationFiles="$(OutDir)Strings\%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
-  </Target>
+  <ItemGroup>
+    <Page Update="SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 
 </Project>

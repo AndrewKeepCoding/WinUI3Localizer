@@ -2,31 +2,27 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Documents;
 using Serilog;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
-using WinUI3Localizer;
 
 namespace WinUI3Localizer.SampleApp;
 
 public partial class App : Application
 {
-    private static IHost Host { get; } = BuildHost();
-
-    public static string StringsFolderPath { get; private set; } = string.Empty;
-
     private Window? window;
-
-    private string[] DefaultStringsResources { get; } = { "en-US", "es-ES", "ja" };
 
     public App()
     {
         InitializeComponent();
         RequestedTheme = ApplicationTheme.Dark;
     }
+
+    public static string StringsFolderPath { get; private set; } = string.Empty;
+
+    private static IHost Host { get; } = BuildHost();
 
     protected override async void OnLaunched(LaunchActivatedEventArgs args)
     {
@@ -36,69 +32,24 @@ public partial class App : Application
         this.window.Activate();
     }
 
-    private async Task PrepareDefaultStringsResourcesFolderForPackagedApps(StorageFolder stringsFolder)
+    private static async Task CreateStringResourceFileIfNotExists(StorageFolder stringsFolder, string language, string resourceFileName)
     {
-        foreach (string language in DefaultStringsResources)
+        StorageFolder languageFolder = await stringsFolder.CreateFolderAsync(
+            language,
+            CreationCollisionOption.OpenIfExists);
+
+        if (await languageFolder.TryGetItemAsync(resourceFileName) is null)
         {
-            StorageFolder languageFolder = await stringsFolder.CreateFolderAsync(
-                language,
-                CreationCollisionOption.OpenIfExists);
-
-            string resourcesFileName = "Resources.resw";
-
-            if (await languageFolder.TryGetItemAsync(resourcesFileName) is null)
-            {
-                Uri resourcesFileUri = new($"ms-appx:///Strings/{language}/{resourcesFileName}");
-                StorageFile defaultResourceFile = await StorageFile.GetFileFromApplicationUriAsync(resourcesFileUri);
-                _ = await defaultResourceFile.CopyAsync(languageFolder);
-            }
+            string resourceFilePath = Path.Combine(stringsFolder.Name, language, resourceFileName);
+            StorageFile resourceFile = await LoadStringResourcesFileFromAppResource(resourceFilePath);
+            _ = await resourceFile.CopyAsync(languageFolder);
         }
     }
 
-    /// <summary>
-    /// Creates default Resources.resw files for the WinUI3Localizer.
-    /// </summary>
-    private async Task InitializeLocalizer()
+    private static async Task<StorageFile> LoadStringResourcesFileFromAppResource(string filePath)
     {
-#if IS_NON_PACKAGED
-        // Initialize a "Strings" folder in the executables folder.
-        StringsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Strings");
-        //StorageFolder localFolder = await StorageFolder.GetFolderFromPathAsync(Directory.GetCurrentDirectory());
-        StorageFolder stringsFolder = await StorageFolder.GetFolderFromPathAsync(StringsFolderPath);
-#else
-        // Initialize a "Strings" folder in the "LocalFolder" for the packaged app.
-        StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-        StorageFolder stringsFolder = await localFolder.CreateFolderAsync("Strings", CreationCollisionOption.OpenIfExists);
-        StringsFolderPath = stringsFolder.Path;
-        await PrepareDefaultStringsResourcesFolderForPackagedApps(stringsFolder);
-#endif
-
-        ILocalizer localizer = await new LocalizerBuilder()
-            .AddStringResourcesFolderForLanguageDictionaries(StringsFolderPath)
-            //.SetLogger(Host.Services
-            //    .GetRequiredService<ILoggerFactory>()
-            //    .CreateLogger<Localizer>())
-            .SetOptions(options =>
-            {
-                options.DefaultLanguage = "en-US";
-                options.UseUidWhenLocalizedStringNotFound = true;
-            })
-            //.AddLocalizationAction(new LocalizationActionItem(typeof(Hyperlink), arguments =>
-            //{
-            //    if (arguments.DependencyObject is Hyperlink target && target.Inlines.Count is 0)
-            //    {
-            //        target.Inlines.Clear();
-            //        target.Inlines.Add(new Run() { Text = arguments.Value });
-            //    }
-            //}))
-            //.AddLocalizationAction(new LocalizationActionItem(typeof(Run), arguments =>
-            //{
-            //    if (arguments.DependencyObject is Run target)
-            //    {
-            //        target.Text = arguments.Value;
-            //    }
-            //}))
-            .Build();
+        Uri resourcesFileUri = new($"ms-appx:///{filePath}");
+        return await StorageFile.GetFileFromApplicationUriAsync(resourcesFileUri);
     }
 
     private static IHost BuildHost()
@@ -142,6 +93,58 @@ public partial class App : Application
                     //})
                     ;
             })
+            .Build();
+    }
+
+    /// <summary>
+    /// Creates default Resources.resw files for WinUI3Localizer.
+    /// </summary>
+    private async Task InitializeLocalizer()
+    {
+#if IS_NON_PACKAGED
+        // Initialize a "Strings" folder in the executables folder.
+        StringsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Strings");
+
+        //StorageFolder localFolder = await StorageFolder.GetFolderFromPathAsync(Directory.GetCurrentDirectory());
+        StorageFolder stringsFolder = await StorageFolder.GetFolderFromPathAsync(StringsFolderPath);
+#else
+        // Initialize a "Strings" folder in the "LocalFolder" for the packaged app.
+        StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+        StorageFolder stringsFolder = await localFolder.CreateFolderAsync("Strings", CreationCollisionOption.OpenIfExists);
+        StringsFolderPath = stringsFolder.Path;
+
+        // Create string resources file from app resources if doesn't exists.
+        string resourceFileName = "Resources.resw";
+        await CreateStringResourceFileIfNotExists(stringsFolder, "en-US", resourceFileName);
+        await CreateStringResourceFileIfNotExists(stringsFolder, "es-ES", resourceFileName);
+        await CreateStringResourceFileIfNotExists(stringsFolder, "ja", resourceFileName);
+#endif
+
+        ILocalizer localizer = await new LocalizerBuilder()
+            .AddStringResourcesFolderForLanguageDictionaries(StringsFolderPath)
+            //.SetLogger(Host.Services
+            //    .GetRequiredService<ILoggerFactory>()
+            //    .CreateLogger<Localizer>())
+            .SetOptions(options =>
+            {
+                options.DefaultLanguage = "en-US";
+                options.UseUidWhenLocalizedStringNotFound = true;
+            })
+            //.AddLocalizationAction(new LocalizationActionItem(typeof(Hyperlink), arguments =>
+            //{
+            //    if (arguments.DependencyObject is Hyperlink target && target.Inlines.Count is 0)
+            //    {
+            //        target.Inlines.Clear();
+            //        target.Inlines.Add(new Run() { Text = arguments.Value });
+            //    }
+            //}))
+            //.AddLocalizationAction(new LocalizationActionItem(typeof(Run), arguments =>
+            //{
+            //    if (arguments.DependencyObject is Run target)
+            //    {
+            //        target.Text = arguments.Value;
+            //    }
+            //}))
             .Build();
     }
 }
