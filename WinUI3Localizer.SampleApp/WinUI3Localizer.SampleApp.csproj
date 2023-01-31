@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
@@ -55,8 +55,11 @@
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-    <PackageReference Include="WinUI3Localizer" Version="1.0.0" />
     <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WinUI3Localizer\WinUI3Localizer.csproj" />
   </ItemGroup>
 
   <!-- Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging Tools extension 
@@ -121,4 +124,4 @@
     </Page>
   </ItemGroup>
 
-</Project>
+</Project> 
