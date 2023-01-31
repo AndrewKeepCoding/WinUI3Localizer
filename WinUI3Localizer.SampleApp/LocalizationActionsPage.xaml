@@ -9,16 +9,18 @@
     mc:Ignorable="d">
     <ScrollViewer Margin="5">
         <StackPanel>
-            <TextBlock l:Uids.Uid="LocalizationActionsPage_Description" TextWrapping="Wrap" />
+            <TextBlock
+                l:Uids.Uid="LocalizationActionsPage_Description"
+                TextWrapping="Wrap" />
             <!--  Hyperlink  -->
             <local:ExamplePresenter HeaderText="Hyperlink">
-                <TextBlock l:Uids.Uid="LocalizationActionsPage_Hyperlink_Run" PointerEntered="LocalizedItem_PointerEntered">
+                <TextBlock PointerEntered="LocalizedItem_PointerEntered">
                     <Hyperlink l:Uids.Uid="LocalizationActionsPage_Hyperlink" />
                 </TextBlock>
                 <local:ExamplePresenter.XamlSampleCode>
                     <x:String xml:space="preserve">&lt;TextBlock&gt;
     &lt;Hyperlink&gt;
-        &lt;Run l:Uids.Uid="LocalizationActionsPage_Hyperlink_Run" /&gt;
+        &lt;Run l:Uids.Uid="LocalizationActionsPage_Hyperlink" /&gt;
     &lt;/Hyperlink&gt;
 &lt;/TextBlock&gt;
                     </x:String>
