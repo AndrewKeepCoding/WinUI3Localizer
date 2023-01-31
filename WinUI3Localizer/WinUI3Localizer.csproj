@@ -29,6 +29,7 @@
     <Product>WinUI3Localizer</Product>
     <Copyright>Copyright (c) Andrew KeepCoding 2023</Copyright>
     <Authors>Andrew KeepCoding</Authors>
+    <PackageReadMeFile>README.md</PackageReadMeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,6 +39,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <InternalsVisibleTo Include="$(AssemblyName).Tests" />
   </ItemGroup>
+  
 </Project>
