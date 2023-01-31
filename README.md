@@ -137,21 +137,25 @@ Then in each language resources file, we need to add an item that corresponds to
 - en-US
 
   - Resources.resw
-    | Name | Value|
-    | ---- | ---- |
+
+    | Name | Value |
+    | ---- | ----- |
     | TestPageButton.Content | Awesome! |
 
 - es-ES:
 
   - Resources.resw
-    | Name | Value|
-    | ---- | ---- |
+
+    | Name | Value |
+    | ---- | ----- |
     | TestPageButton.Content | ¡Increíble! |
 
 - ja:
+
   - Resources.resw
-    | Name | Value|
-    | ---- | ---- |
+
+    | Name | Value |
+    | ---- | ----- |
     | TestPageButton.Content | 素晴らしい！ |
 
 ### **Getting localized strings**
@@ -177,8 +181,9 @@ In this case, we just use the `Uid` as `Name`.
 - en-US
 
   - Resources.resw
-    | Name | Value|
-    | ---- | ---- |
+
+    | Name | Value |
+    | ---- | ----- |
     | Red | Red |
     | Green | Green |
     | Blue | Blue |
@@ -186,16 +191,19 @@ In this case, we just use the `Uid` as `Name`.
 - es-ES:
 
   - Resources.resw
-    | Name | Value|
-    | ---- | ---- |
+
+    | Name | Value |
+    | ---- | ----- |
     | Red | Rojo |
     | Green | Verde |
     | Blue | Azul |
 
 - ja:
+
   - Resources.resw
-    | Name | Value|
-    | ---- | ---- |
+
+    | Name | Value |
+    | ---- | ----- |
     | Red | 赤 |
     | Green | 緑 |
     | Blue | 青 |
