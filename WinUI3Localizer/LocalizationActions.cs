@@ -1,4 +1,4 @@
-﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Documents;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ public static class LocalizationActions
         }),
         new ActionItem(typeof(Bold), arguments =>
         {
-            if (arguments.DependencyObject is Hyperlink target && target.Inlines.Count is 0)
+            if (arguments.DependencyObject is Hyperlink target)
             {
                 target.Inlines.Clear();
                 target.Inlines.Add(new Run() { Text = arguments.Value });
@@ -38,7 +38,7 @@ public static class LocalizationActions
         }),
         new ActionItem(typeof(Hyperlink), arguments =>
         {
-            if (arguments.DependencyObject is Hyperlink target && target.Inlines.Count is 0)
+            if (arguments.DependencyObject is Hyperlink target)
             {
                 target.Inlines.Clear();
                 target.Inlines.Add(new Run() { Text = arguments.Value });
