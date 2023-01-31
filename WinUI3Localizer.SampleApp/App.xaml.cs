@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml;
 using Serilog;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -32,18 +33,30 @@ public partial class App : Application
         this.window.Activate();
     }
 
-    private static async Task CreateStringResourceFileIfNotExists(StorageFolder stringsFolder, string language, string resourceFileName)
+    private static async Task MakeSureStringResourceFileExists(StorageFolder stringsFolder, string language, string resourceFileName)
     {
         StorageFolder languageFolder = await stringsFolder.CreateFolderAsync(
-            language,
+            desiredName: language,
             CreationCollisionOption.OpenIfExists);
 
-        if (await languageFolder.TryGetItemAsync(resourceFileName) is null)
+        string appResourceFilePath = Path.Combine(stringsFolder.Name, language, resourceFileName);
+        StorageFile appResourceFile = await LoadStringResourcesFileFromAppResource(appResourceFilePath);
+
+        IStorageItem? localResourceFile = await languageFolder.TryGetItemAsync(resourceFileName);
+
+        if (localResourceFile is null ||
+            (await GetModifiedDate(appResourceFile)) > (await GetModifiedDate(localResourceFile)))
         {
-            string resourceFilePath = Path.Combine(stringsFolder.Name, language, resourceFileName);
-            StorageFile resourceFile = await LoadStringResourcesFileFromAppResource(resourceFilePath);
-            _ = await resourceFile.CopyAsync(languageFolder);
+            _ = await appResourceFile.CopyAsync(
+                destinationFolder: languageFolder,
+                desiredNewName: appResourceFile.Name,
+                option: NameCollisionOption.ReplaceExisting);
         }
+    }
+
+    private static async Task<DateTimeOffset> GetModifiedDate(IStorageItem file)
+    {
+        return (await file.GetBasicPropertiesAsync()).DateModified;
     }
 
     private static async Task<StorageFile> LoadStringResourcesFileFromAppResource(string filePath)
@@ -115,9 +128,9 @@ public partial class App : Application
 
         // Create string resources file from app resources if doesn't exists.
         string resourceFileName = "Resources.resw";
-        await CreateStringResourceFileIfNotExists(stringsFolder, "en-US", resourceFileName);
-        await CreateStringResourceFileIfNotExists(stringsFolder, "es-ES", resourceFileName);
-        await CreateStringResourceFileIfNotExists(stringsFolder, "ja", resourceFileName);
+        await MakeSureStringResourceFileExists(stringsFolder, "en-US", resourceFileName);
+        await MakeSureStringResourceFileExists(stringsFolder, "es-ES", resourceFileName);
+        await MakeSureStringResourceFileExists(stringsFolder, "ja", resourceFileName);
 #endif
 
         ILocalizer localizer = await new LocalizerBuilder()

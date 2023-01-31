@@ -70,7 +70,15 @@
     <DefineConstants>IS_NON_PACKAGED</DefineConstants>
   </PropertyGroup>
 
-  <!-- Copy all "Resources.resw" files in the "Strings" folder to the output folder. -->
+  <!-- If the app is "Non-Packaged", copy the "Strings" folder to the output directory -->
+  <Target Name="CopyStringResources" AfterTargets="Build">
+    <ItemGroup>
+      <StringResources Include="$(ProjectDir)Strings\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(StringResources)" DestinationFiles="$(OutDir)Strings\%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
+  </Target>
+
+  <!-- Embed all "Resources.resw" files in the "Strings" folder to the output folder. -->
   <ItemGroup>
     <Content Include="Strings\**\*.resw">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
