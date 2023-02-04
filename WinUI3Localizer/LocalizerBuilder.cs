@@ -164,13 +164,16 @@ public class LocalizerBuilder
         if (directoryInfo.Parent?.Name is string language)
         {
             XmlDocument document = new();
-            document.Load(directoryInfo.FullName);
-
-            if (document.SelectNodes(xPath) is XmlNodeList nodeList)
+            if (File.Exists(directoryInfo.FullName))
             {
-                List<StringResourceItem> items = new();
-                items.AddRange(CreateStringResourceItems(nodeList));
-                return new StringResourceItems(language, items);
+                document.Load(directoryInfo.FullName);
+
+                if (document.SelectNodes(xPath) is XmlNodeList nodeList)
+                {
+                    List<StringResourceItem> items = new();
+                    items.AddRange(CreateStringResourceItems(nodeList));
+                    return new StringResourceItems(language, items);
+                }
             }
         }
 
