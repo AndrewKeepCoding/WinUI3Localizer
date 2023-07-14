@@ -50,7 +50,7 @@ Add this ItemGroup in the project file (\*.csproj) of your app.
   private async Task InitializeLocalizer()
   {
       // Initialize a "Strings" folder in the executables folder.
-      StringsFolderPath StringsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Strings");
+      StringsFolderPath StringsFolderPath = Path.Combine(AppContext.BaseDirectory, "Strings");
       StorageFolder stringsFolder = await StorageFolder.GetFolderFromPathAsync(StringsFolderPath);
 
       ILocalizer localizer = await new LocalizerBuilder()
