@@ -88,7 +88,9 @@ public class LocalizerBuilder
     {
         if (IsLocalizerAlreadyBuilt is true)
         {
-            throw new LocalizerException($"{nameof(Localizer)} is already built.");
+            LocalizerIsAlreadyBuiltException localizerException = new();
+            Logger?.LogError(localizerException, localizerException.Message);
+            throw localizerException;
         }
 
         Localizer localizer = new(this.options);
