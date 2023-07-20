@@ -52,16 +52,12 @@ public sealed partial class Localizer : ILocalizer, IDisposable
                 .Select(x => x.Language)
                 .ToArray();
         }
-        catch (LocalizerException)
-        {
-            throw;
-        }
         catch (Exception exception)
         {
-            ThrowLocalizerException(exception, "Failed to get available languages.");
+            FailedToGetAvailableLanguagesException localizerException = new(innerException: exception);
+            Logger.LogError(localizerException, localizerException.Message);
+            throw localizerException;
         }
-
-        return Array.Empty<string>();
     }
 
     public string GetCurrentLanguage() => CurrentDictionary.Language;
@@ -89,11 +85,10 @@ public sealed partial class Localizer : ILocalizer, IDisposable
         }
         catch (Exception exception)
         {
-            ThrowLocalizerException(exception, "Exception setting language. [{PreviousLanguage} -> {NextLanguage}]", previousLanguage, language);
+            FailedToSetLanguageException localizerException = new(previousLanguage, language, message: string.Empty, innerException: exception);
+            Logger.LogError(localizerException, localizerException.Message);
+            throw localizerException;
         }
-
-        ThrowLocalizerException(innerException: null, "Failed to set language. [{PreviousLanguage} -> {NextLanguage}]", previousLanguage, language);
-        return;
     }
 
     public string GetLocalizedString(string uid)
@@ -111,9 +106,15 @@ public sealed partial class Localizer : ILocalizer, IDisposable
                 return item.Value;
             }
         }
+        catch (LocalizerException)
+        {
+            throw;
+        }
         catch (Exception exception)
         {
-            ThrowLocalizerException(exception, "Failed to get localized string. [Uid: {Uid}]", uid);
+            FailedToGetLocalizedStringException localizerException = new(uid, innerException: exception);
+            Logger.LogError(localizerException, localizerException.Message);
+            throw localizerException;
         }
 
         return this.options.UseUidWhenLocalizedStringNotFound is true
@@ -135,9 +136,15 @@ public sealed partial class Localizer : ILocalizer, IDisposable
                 return items.Select(x => x.Value);
             }
         }
+        catch (LocalizerException)
+        {
+            throw;
+        }
         catch (Exception exception)
         {
-            ThrowLocalizerException(exception, "Failed to get localized string. [Uid: {Uid}]", uid);
+            FailedToGetLocalizedStringException localizerException = new(uid, innerException: exception);
+            Logger.LogError(localizerException, localizerException.Message);
+            throw localizerException;
         }
 
         return this.options.UseUidWhenLocalizedStringNotFound is true
@@ -226,13 +233,6 @@ public sealed partial class Localizer : ILocalizer, IDisposable
         Logger.LogTrace("Removed DependencyObject. [Type: {Type} Total: {Count}]",
             e.RemovedItemType,
             e.ItemsTotal);
-    }
-
-    private static void ThrowLocalizerException(Exception? innerException, string message, params object?[] args)
-    {
-        LocalizerException localizerException = new(message, innerException);
-        Logger.LogError(localizerException, message, args);
-        throw localizerException;
     }
 
     private static DependencyProperty? GetDependencyProperty(DependencyObject dependencyObject, string dependencyPropertyName)
