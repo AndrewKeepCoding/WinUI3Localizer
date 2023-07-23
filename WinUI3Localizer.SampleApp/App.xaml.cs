@@ -116,9 +116,7 @@ public partial class App : Application
     {
 #if IS_NON_PACKAGED
         // Initialize a "Strings" folder in the executables folder.
-        StringsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Strings");
-
-        //StorageFolder localFolder = await StorageFolder.GetFolderFromPathAsync(Directory.GetCurrentDirectory());
+        StringsFolderPath = Path.Combine(AppContext.BaseDirectory, "Strings");
         StorageFolder stringsFolder = await StorageFolder.GetFolderFromPathAsync(StringsFolderPath);
 #else
         // Initialize a "Strings" folder in the "LocalFolder" for the packaged app.
