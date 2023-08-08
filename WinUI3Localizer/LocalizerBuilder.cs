@@ -33,6 +33,46 @@ public class LocalizerBuilder
         return this;
     }
 
+    public LocalizerBuilder AddResourceFileGroupForLanguageDictionaries(
+        string resourceFolderPath,
+        string resourceFileMatcher = "*.resx",
+        bool ignoreExceptions = false
+    )
+    {
+        this.builderActions.Add(() =>
+        {
+            foreach (string localizationFilePath in Directory.EnumerateFiles(resourceFolderPath, resourceFileMatcher))
+            {
+                try
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(localizationFilePath);
+                    var dotIndex = fileName.IndexOf('.');
+                    var language = fileName.Substring(fileName.IndexOf('.') + 1);
+                    if (dotIndex == -1)
+                        language = "default";
+                    XmlDocument document = new();
+                    document.Load(localizationFilePath);
+
+                    if (document.SelectNodes(StringResourcesFileXPath) is XmlNodeList nodeList)
+                    {
+                        List<StringResourceItem> items = new();
+                        items.AddRange(CreateStringResourceItems(nodeList));
+                        this.languageDictionaries.Add(
+                            CreateLanguageDictionaryFromStringResourceItems(new StringResourceItems(language, items)));
+                    }
+                }
+                catch
+                {
+                    if (ignoreExceptions is false)
+                        throw;
+                }
+            }
+
+        });
+
+        return this;
+    }
+    
     public LocalizerBuilder AddStringResourcesFolderForLanguageDictionaries(
         string stringResourcesFolderPath,
         string resourcesFileName = "Resources.resw",
