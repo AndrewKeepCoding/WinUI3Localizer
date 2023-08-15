@@ -28,7 +28,7 @@ public sealed partial class Localizer : ILocalizer, IDisposable
             this.localizationActions = LocalizationActions.DefaultActions;
         }
 
-        Uids.DependencyObjectUidSet += Uids_DependencyObjectUidSet; ;
+        Uids.DependencyObjectUidSet += Uids_DependencyObjectUidSet;
     }
 
     public event EventHandler<LanguageChangedEventArgs>? LanguageChanged;
@@ -279,16 +279,16 @@ public sealed partial class Localizer : ILocalizer, IDisposable
 
     private void LocalizeDependencyObject(DependencyObject dependencyObject, LanguageDictionary.Item item)
     {
-                if (GetDependencyProperty(
-                    dependencyObject,
-                    item.DependencyPropertyName) is DependencyProperty dependencyProperty)
-                {
+        if (GetDependencyProperty(
+            dependencyObject,
+            item.DependencyPropertyName) is DependencyProperty dependencyProperty)
+        {
             LocalizeDependencyObjectsWithDependencyProperty(dependencyObject, dependencyProperty, item.Value);
-                }
-                else
-                {
-                    LocalizeDependencyObjectsWithoutDependencyProperty(dependencyObject, item.Value);
-                }
+        }
+        else
+        {
+            LocalizeDependencyObjectsWithoutDependencyProperty(dependencyObject, item.Value);
+        }
     }
 
     private void LocalizeDependencyObjectsWithDependencyProperty(DependencyObject dependencyObject, DependencyProperty dependencyProperty, string value)
@@ -304,7 +304,7 @@ public sealed partial class Localizer : ILocalizer, IDisposable
         }
 
         dependencyObject.SetValue(dependencyProperty, value);
-            }
+    }
 
     private void LocalizeDependencyObjectsWithoutDependencyProperty(DependencyObject dependencyObject, string value)
     {
