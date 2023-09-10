@@ -234,11 +234,19 @@
   <data name="MainWindow_NavigationView_MainPage.Content" xml:space="preserve">
     <value>Principal</value>
   </data>
+  <data name="MainWindow_NavigationView_MultipleResourcesPage.Content" xml:space="preserve">
+    <value>Múltiples recursos</value>
+  </data>
   <data name="MainWindow_NavigationView_Settings.Content" xml:space="preserve">
     <value>Configuraciones</value>
   </data>
   <data name="MainWindow_NavigationView_StylesPage.Content" xml:space="preserve">
     <value>Estilos</value>
+  </data>
+  <data name="MultipleResourcesPage_Description.Text" xml:space="preserve">
+    <value>Puedes mantener todas tus cadenas en un solo archivo de recursos (resw), o puedes distribuirlas en varios archivos de recursos. Por ejemplo, es posible que desees mantener tus mensajes de error en un archivo de recursos, las cadenas de tu manifiesto de paquete de la aplicación en otro, y las cadenas de tu interfaz de usuario en un tercero.
+
+Para especificar el alcance de un identificador de recurso de cadena a un archivo en particular, simplemente agrega /&lt;nombre-del-archivo-de-recursos&gt;/ antes del Uid. Este ejemplo supone que ErrorMessages.resw contiene un recurso con el nombre "ErrorMessageExample.Text" y el valor que describe el error.</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Configuraciones</value>

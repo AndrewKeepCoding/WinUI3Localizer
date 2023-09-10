@@ -24,6 +24,7 @@
     <None Remove="ExamplePresenter.xaml" />
     <None Remove="ItemTemplatesPage.xaml" />
     <None Remove="LocalizationActionsPage.xaml" />
+    <None Remove="MultipleResourcesPage.xaml" />
     <None Remove="SettingsPage.xaml" />
     <None Remove="ShellPage.xaml" />
     <None Remove="StylesPage.xaml" />

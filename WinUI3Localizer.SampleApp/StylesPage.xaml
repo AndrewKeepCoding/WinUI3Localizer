@@ -7,55 +7,56 @@
     xmlns:local="using:WinUI3Localizer.SampleApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid>
-        <local:ExamplePresenter HeaderText="Styles">
-            <Grid>
-                <Grid.Resources>
-                    <Style TargetType="Button">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Grid>
-                                        <Ellipse
-                                            Width="130"
-                                            Height="130"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Fill="HotPink" />
-                                        <TextBlock
-                                            Margin="5,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            l:Uids.Uid="StylesPage_Left"
-                                            PointerEntered="LocalizedItem_PointerEntered" />
-                                        <TextBlock
-                                            Margin="0,5,0,0"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Top"
-                                            l:Uids.Uid="StylesPage_Top"
-                                            PointerEntered="LocalizedItem_PointerEntered" />
-                                        <TextBlock
-                                            Margin="0,0,5,0"
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
-                                            l:Uids.Uid="StylesPage_Right"
-                                            PointerEntered="LocalizedItem_PointerEntered" />
-                                        <TextBlock
-                                            Margin="0,0,0,5"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Bottom"
-                                            l:Uids.Uid="StylesPage_Bottom"
-                                            PointerEntered="LocalizedItem_PointerEntered" />
-                                    </Grid>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Grid.Resources>
-                <Button />
-            </Grid>
-            <local:ExamplePresenter.XamlSampleCode>
-                <x:String xml:space="preserve">&lt;Style&gt;
+    <ScrollViewer>
+        <StackPanel Style="{StaticResource PageStackPanelStyle}">
+            <local:ExamplePresenter HeaderText="Styles">
+                <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Ellipse
+                                                Width="130"
+                                                Height="130"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Fill="HotPink" />
+                                            <TextBlock
+                                                Margin="5,0,0,0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                l:Uids.Uid="StylesPage_Left"
+                                                PointerEntered="LocalizedItem_PointerEntered" />
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Top"
+                                                l:Uids.Uid="StylesPage_Top"
+                                                PointerEntered="LocalizedItem_PointerEntered" />
+                                            <TextBlock
+                                                Margin="0,0,5,0"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                l:Uids.Uid="StylesPage_Right"
+                                                PointerEntered="LocalizedItem_PointerEntered" />
+                                            <TextBlock
+                                                Margin="0,0,0,5"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Bottom"
+                                                l:Uids.Uid="StylesPage_Bottom"
+                                                PointerEntered="LocalizedItem_PointerEntered" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <Button />
+                </Grid>
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;Style&gt;
     &lt;Setter Property="Template"&gt;
         &lt;Setter.Value&gt;
             &lt;ControlTemplate TargetType="Button"&gt;
@@ -86,7 +87,8 @@
     &lt;/Setter&gt;
 &lt;/Style&gt;
                 </x:String>
-            </local:ExamplePresenter.XamlSampleCode>
-        </local:ExamplePresenter>
-    </Grid>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+        </StackPanel>
+    </ScrollViewer>
 </Page>
