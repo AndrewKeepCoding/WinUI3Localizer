@@ -25,6 +25,8 @@ public class LocalizerBuilder
 
     private string stringResourcesFileXPath = "//root/data";
 
+    private ILogger? logger;
+
     public static bool IsLocalizerAlreadyBuilt => Localizer.Get() is Localizer;
 
     public LocalizerBuilder SetDefaultStringResourcesFileName(string fileName)
@@ -41,13 +43,12 @@ public class LocalizerBuilder
 
     public LocalizerBuilder SetLogger(ILogger<Localizer> logger)
     {
-        Logger = logger;
+        this.logger = logger;
         return this;
     }
 
     public LocalizerBuilder AddStringResourcesFolderForLanguageDictionaries(
         string stringResourcesFolderPath,
-        string resourcesFileName = "Resources.resw",
         bool ignoreExceptions = false)
     {
         this.builderActions.Add(() =>
@@ -63,14 +64,14 @@ public class LocalizerBuilder
                             ? string.Empty
                             : Path.GetFileNameWithoutExtension(fileName);
 
-                    if (CreateLanguageDictionaryFromStringResourcesFile(
+                        if (CreateLanguageDictionaryFromStringResourcesFile(
                             sourceName,
                             stringResourcesFileFullPath,
                             this.stringResourcesFileXPath) is LanguageDictionary dictionary)
-                    {
-                        this.languageDictionaries.Add(dictionary);
+                        {
+                            this.languageDictionaries.Add(dictionary);
+                        }
                     }
-                }
                 }
                 catch
                 {
@@ -108,15 +109,15 @@ public class LocalizerBuilder
         if (IsLocalizerAlreadyBuilt is true)
         {
             LocalizerIsAlreadyBuiltException localizerException = new();
-            Logger?.LogError(localizerException, localizerException.Message);
+            this.logger?.LogError(localizerException, localizerException.Message);
             throw localizerException;
         }
 
         Localizer localizer = new(this.options);
 
-        if (Logger is not null)
+        if (this.logger is not null)
         {
-            localizer.SetLogger(Logger);
+            localizer.SetLogger(this.logger);
         }
 
         foreach (Action action in this.builderActions)
