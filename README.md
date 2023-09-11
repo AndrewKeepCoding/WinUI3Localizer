@@ -119,7 +119,10 @@ Add this ItemGroup in the project file (\*.csproj) of your app.
 
 This is an example of how to localize the `Content` of a `Button`.
 
-First, we need to asign an `Uid` to the `Button`.
+First asign an `Uid` to the `Button`, then in each language resources file, add an item that corresponds to the `Uid`.
+
+You can also have multiple string resources files. For example, besides the default **Resources.resw** file, you can have a **Messages.resw** for your messages file.
+To just need to include `/<resources-file-name>/` before the string resource identifier.
 
 ```xml
 <Page
@@ -127,12 +130,16 @@ First, we need to asign an `Uid` to the `Button`.
     ...
     xmlns:l="using:WinUI3Localizer">
     <StackPanel>
-        <Button l:Uids.Uid="TestPage_Button" />
+        <Button l:Uids.Uid="TestPage_Button">
+            <Button.Flyout>
+                <Flyout>
+                    <TextBlock l:Uids.Uid="/Messages/ButtonFlyoutMessage" />
+                </Flyout>
+            </Button.Flyout>
+        </Button>
     </StackPanel>
 </Page>
 ```
-
-Then in each language resources file, we need to add an item that corresponds to the `Uid`.
 
 - en-US
 
@@ -142,6 +149,12 @@ Then in each language resources file, we need to add an item that corresponds to
     | ---- | ----- |
     | TestPageButton.Content | Awesome! |
 
+  - Messages.resw
+
+    | Name | Value |
+    | ---- | ----- |
+    | ButtonFlyoutMessage.Text | This is an awesome message! |
+
 - es-ES:
 
   - Resources.resw
@@ -150,6 +163,12 @@ Then in each language resources file, we need to add an item that corresponds to
     | ---- | ----- |
     | TestPageButton.Content | ¡Increíble! |
 
+  - Messages.resw
+
+    | Name | Value |
+    | ---- | ----- |
+    | ButtonFlyoutMessage.Text | ¡Esto es un mensaje increíble! |
+
 - ja:
 
   - Resources.resw
@@ -157,6 +176,12 @@ Then in each language resources file, we need to add an item that corresponds to
     | Name | Value |
     | ---- | ----- |
     | TestPageButton.Content | 素晴らしい！ |
+
+  - Messages.resw
+
+    | Name | Value |
+    | ---- | ----- |
+    | ButtonFlyoutMessage.Text | これは素晴らしいメッセージです！ |
 
 ### **Getting localized strings**
 
