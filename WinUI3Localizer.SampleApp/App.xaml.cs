@@ -125,10 +125,12 @@ public partial class App : Application
         StringsFolderPath = stringsFolder.Path;
 
         // Create string resources file from app resources if doesn't exists.
-        string resourceFileName = "Resources.resw";
-        await MakeSureStringResourceFileExists(stringsFolder, "en-US", resourceFileName);
-        await MakeSureStringResourceFileExists(stringsFolder, "es-ES", resourceFileName);
-        await MakeSureStringResourceFileExists(stringsFolder, "ja", resourceFileName);
+        await MakeSureStringResourceFileExists(stringsFolder, "en-US", "Resources.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "en-US", "ErrorMessages.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "es-ES", "Resources.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "es-ES", "ErrorMessages.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "ja", "Resources.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "ja", "ErrorMessages.resw");
 #endif
 
         ILocalizer localizer = await new LocalizerBuilder()

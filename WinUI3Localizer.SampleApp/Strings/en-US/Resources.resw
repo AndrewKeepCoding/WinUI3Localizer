@@ -234,11 +234,19 @@
   <data name="MainWindow_NavigationView_MainPage.Content" xml:space="preserve">
     <value>Main</value>
   </data>
+  <data name="MainWindow_NavigationView_MultipleResourcesPage.Content" xml:space="preserve">
+    <value>Multiple Resources</value>
+  </data>
   <data name="MainWindow_NavigationView_Settings.Content" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="MainWindow_NavigationView_StylesPage.Content" xml:space="preserve">
     <value>Styles</value>
+  </data>
+  <data name="MultipleResourcesPage_Description.Text" xml:space="preserve">
+    <value>You can keep all of your strings in a single Resources File (resw), or you can factor them across multiple Resources Files. For example, you might want to keep your error messages in one Resources File, your app package manifest strings in another, and your UI strings in a third.
+
+To scope a string resource identifier reference to a particular file, you just add /&lt;resources-file-name&gt;/ before the Uid. The example below assumes that ErrorMessages.resw contains a resource whose name is "ErrorMessageExample.Text" and whose value describes the error.</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
