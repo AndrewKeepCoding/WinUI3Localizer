@@ -7,16 +7,18 @@
     xmlns:local="using:WinUI3Localizer.SampleApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <StackPanel Spacing="20" Margin="5">
-        <StackPanel>
-            <TextBlock
-                l:Uids.Uid="SettingsPage_StringResourcesFolder"
-                PointerEntered="LocalizedItem_PointerEntered"
-                Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="Strings resources folder" />
-            <TextBlock TextWrapping="Wrap">
-                <Hyperlink x:Name="StringResourcesFolderHyperLink">None</Hyperlink>
-            </TextBlock>
+    <ScrollViewer>
+        <StackPanel Style="{StaticResource PageStackPanelStyle}">
+            <StackPanel>
+                <TextBlock
+                    l:Uids.Uid="SettingsPage_StringResourcesFolder"
+                    PointerEntered="LocalizedItem_PointerEntered"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="Strings resources folder" />
+                <TextBlock TextWrapping="Wrap">
+                    <Hyperlink x:Name="StringResourcesFolderHyperLink">None</Hyperlink>
+                </TextBlock>
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </ScrollViewer>
 </Page>

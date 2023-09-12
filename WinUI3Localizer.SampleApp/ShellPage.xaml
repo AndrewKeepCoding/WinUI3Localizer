@@ -33,6 +33,10 @@
                     l:Uids.Uid="MainWindow_NavigationView_LocalizationActionsPage"
                     Icon="PreviewLink"
                     Tag="LocalizationActionsPage" />
+                <NavigationViewItem
+                    l:Uids.Uid="MainWindow_NavigationView_MultipleResourcesPage"
+                    Icon="Bullets"
+                    Tag="MultipleResourcesPage" />
             </NavigationView.MenuItems>
             <NavigationView.PaneCustomContent>
                 <StackPanel
@@ -60,13 +64,13 @@
             <SplitView
                 DisplayMode="Inline"
                 IsPaneOpen="{x:Bind ShowStringResourcesToggleSwitch.IsChecked, Mode=OneWay, Converter={StaticResource NullableBooleanToBooleanConverter}}"
-                OpenPaneLength="600"
+                OpenPaneLength="500"
                 PaneBackground="Transparent"
                 PanePlacement="Right">
                 <SplitView.Pane>
                     <Grid
                         Grid.Column="1"
-                        Margin="10"
+                        Margin="20,10"
                         RowDefinitions="Auto,*">
                         <TextBlock
                             Grid.Row="0"
@@ -98,7 +102,7 @@
                     <Frame
                         x:Name="ContentFrame"
                         Grid.Column="0"
-                        Margin="10" />
+                        Margin="20,10" />
                 </Grid>
             </SplitView>
         </NavigationView>

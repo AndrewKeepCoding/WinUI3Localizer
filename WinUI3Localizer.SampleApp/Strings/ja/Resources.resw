@@ -234,11 +234,19 @@
   <data name="MainWindow_NavigationView_MainPage.Content" xml:space="preserve">
     <value>メイン</value>
   </data>
+  <data name="MainWindow_NavigationView_MultipleResourcesPage.Content" xml:space="preserve">
+    <value>マルチリソース</value>
+  </data>
   <data name="MainWindow_NavigationView_Settings.Content" xml:space="preserve">
     <value>設定</value>
   </data>
   <data name="MainWindow_NavigationView_StylesPage.Content" xml:space="preserve">
     <value>スタイル</value>
+  </data>
+  <data name="MultipleResourcesPage_Description.Text" xml:space="preserve">
+    <value>すべての文字列を単一のリソースファイル（resw）に保存することも、複数のリソースファイルに分散させることもできます。たとえば、エラーメッセージは1つのリソースファイルに、アプリのパッケージマニフェスト文字列は別のファイルに、UIの文字列は3番目のファイルに保存するケースが考えられます。
+
+特定のファイルへの文字列リソース識別子の参照を指定するには、Uidの前に/&lt;リソースファイル名&gt;/を追加します。以下の例では、ErrorMessages.resw に "ErrorMessageExample.Text" という名前のリソースが含まれ、その値がエラーを説明していると仮定しています。</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>設定</value>

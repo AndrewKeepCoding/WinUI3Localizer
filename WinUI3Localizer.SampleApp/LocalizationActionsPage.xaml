@@ -7,8 +7,8 @@
     xmlns:local="using:WinUI3Localizer.SampleApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <ScrollViewer Margin="5">
-        <StackPanel>
+    <ScrollViewer>
+        <StackPanel Style="{StaticResource PageStackPanelStyle}">
             <TextBlock
                 l:Uids.Uid="LocalizationActionsPage_Description"
                 TextWrapping="Wrap" />

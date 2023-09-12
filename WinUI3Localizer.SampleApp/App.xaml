@@ -13,8 +13,12 @@
             </ResourceDictionary.MergedDictionaries>
             <!--  Other app resources here  -->
             <converters:NullableBooleanToBooleanConverter x:Key="NullableBooleanToBooleanConverter" />
+            <Style
+                x:Key="PageStackPanelStyle"
+                TargetType="StackPanel">
+                <Setter Property="Spacing" Value="10" />
+            </Style>
             <Style TargetType="local:ExamplePresenter">
-                <Setter Property="Margin" Value="5" />
                 <Setter Property="CornerRadius" Value="5" />
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
