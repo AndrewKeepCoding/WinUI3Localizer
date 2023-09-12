@@ -58,7 +58,6 @@ Add this ItemGroup in the project file (\*.csproj) of your app.
           .SetOptions(options =>
           {
               options.DefaultLanguage = "en-US";
-              options.UseUidWhenLocalizedStringNotFound = true;
           })
           .Build();
   }
@@ -89,7 +88,6 @@ Add this ItemGroup in the project file (\*.csproj) of your app.
           .SetOptions(options =>
           {
               options.DefaultLanguage = "en-US";
-              options.UseUidWhenLocalizedStringNotFound = true;
           })
           .Build();
   }
