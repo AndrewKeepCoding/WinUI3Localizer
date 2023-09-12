@@ -98,7 +98,6 @@ public partial class App : Application
                     //        .SetOptions(options =>
                     //        {
                     //            options.DefaultLanguage = "ja";
-                    //            options.UseUidWhenLocalizedStringNotFound = true;
                     //        })
                     //        .Build()
                     //        .GetAwaiter()
@@ -141,7 +140,6 @@ public partial class App : Application
             .SetOptions(options =>
             {
                 options.DefaultLanguage = "en-US";
-                options.UseUidWhenLocalizedStringNotFound = true;
             })
             //.AddLocalizationAction(new LocalizationActionItem(typeof(Hyperlink), arguments =>
             //{
