@@ -184,6 +184,13 @@
                     <x:String xml:space="preserve">&lt;Slider l:Uids.Uid="ControlsPage_Slider" /&gt;</x:String>
                 </local:ExamplePresenter.XamlSampleCode>
             </local:ExamplePresenter>
+            <!--  ToolTip  -->
+            <local:ExamplePresenter HeaderText="ToolTip">
+                <Button l:Uids.Uid="ControlsPage_ToolTipButton" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;Button l:Uids.Uid="ControlsPage_ToolTipButton" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
             <!--  ColorPicker  -->
             <local:ExamplePresenter
                 HeaderText="ColorPicker"
