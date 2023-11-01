@@ -177,6 +177,15 @@
   <data name="ControlsPage_ToggleSwitch.OnContent" xml:space="preserve">
     <value>有効</value>
   </data>
+  <data name="ControlsPage_ToolTipButton.Content" xml:space="preserve">
+    <value>マウスポインタを置いてください</value>
+  </data>
+  <data name="ControlsPage_ToolTipButton.ToolTipService.Placement" xml:space="preserve">
+    <value>Top</value>
+  </data>
+  <data name="ControlsPage_ToolTipButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>これはローカライズされたToolTipです。</value>
+  </data>
   <data name="en-US" xml:space="preserve">
     <value>English</value>
   </data>

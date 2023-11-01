@@ -177,6 +177,15 @@
   <data name="ControlsPage_ToggleSwitch.OnContent" xml:space="preserve">
     <value>Activated</value>
   </data>
+  <data name="ControlsPage_ToolTipButton.Content" xml:space="preserve">
+    <value>Place the mouse pointer</value>
+  </data>
+  <data name="ControlsPage_ToolTipButton.ToolTipService.Placement" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="ControlsPage_ToolTipButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>This is a localized ToolTip.</value>
+  </data>
   <data name="en-US" xml:space="preserve">
     <value>English</value>
   </data>
