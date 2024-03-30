@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -26,6 +27,8 @@ public class LocalizerBuilder
     private string stringResourcesFileXPath = "//root/data";
 
     private ILogger? logger;
+
+    private PriResourceReaderFactory? priResourceReaderFactory;
 
     public static bool IsLocalizerAlreadyBuilt => Localizer.Get() is Localizer;
 
@@ -83,6 +86,33 @@ public class LocalizerBuilder
             }
         });
 
+        return this;
+    }
+
+    public LocalizerBuilder AddPriResourcesForLanguageDictionaries(
+        string[] languages,
+        string? subTreeName = null,
+        string? priFile = null)
+    {
+        this.builderActions.Add(() =>
+        {
+            if (this.priResourceReaderFactory == null)
+            {
+                this.priResourceReaderFactory = new();
+            }
+
+            for (int i = 0; i < languages.Length; i++)
+            {
+                PriResourceReader? reader = this.priResourceReaderFactory.GetPriResourceReader(priFile);
+
+                LanguageDictionary? dictionary = new(languages[i]);
+                foreach (LanguageDictionary.Item item in reader.GetItems(languages[i], subTreeName))
+                {
+                    dictionary.AddItem(item);
+                }
+                this.languageDictionaries.Add(dictionary);
+            }
+        });
         return this;
     }
 
@@ -167,17 +197,20 @@ public class LocalizerBuilder
         return dictionary;
     }
 
-    private static LanguageDictionary.Item CreateLanguageDictionaryItem(StringResourceItem stringResourceItem)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static LanguageDictionary.Item CreateLanguageDictionaryItem(StringResourceItem stringResourceItem) =>
+        CreateLanguageDictionaryItem(stringResourceItem.Name, stringResourceItem.Value);
+
+    internal static LanguageDictionary.Item CreateLanguageDictionaryItem(string name, string value)
     {
-        string name = stringResourceItem.Name;
         (string Uid, string DependencyPropertyName) = name.IndexOf(".") is int firstSeparatorIndex && firstSeparatorIndex > 1
             ? (name[..firstSeparatorIndex], string.Concat(name.AsSpan(firstSeparatorIndex + 1), "Property"))
             : (name, string.Empty);
         return new LanguageDictionary.Item(
             Uid,
             DependencyPropertyName,
-            stringResourceItem.Value,
-            stringResourceItem.Name);
+            value,
+            name);
     }
 
     private static StringResourceItems? CreateStringResourceItemsFromResourcesFile(string sourceName, string filePath, string xPath = "//root/data")

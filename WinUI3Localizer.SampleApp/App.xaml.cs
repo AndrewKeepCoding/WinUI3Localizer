@@ -133,7 +133,9 @@ public partial class App : Application
 #endif
 
         ILocalizer localizer = await new LocalizerBuilder()
-            .AddStringResourcesFolderForLanguageDictionaries(StringsFolderPath)
+            .AddPriResourcesForLanguageDictionaries(new[] { "en-US", "es-ES", "ja" } )
+            .AddPriResourcesForLanguageDictionaries(new[] { "en-US", "es-ES", "ja" }, "ErrorMessages")
+            //.AddStringResourcesFolderForLanguageDictionaries(StringsFolderPath)
             //.SetLogger(Host.Services
             //    .GetRequiredService<ILoggerFactory>()
             //    .CreateLogger<Localizer>())
