@@ -17,7 +17,7 @@
       - You/users can add new languages even after deployment
       - Use standard Resources.resw
     </Description>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <PackageTags>winui3;winappsdk;localization;localize;language;multilanguage</PackageTags>
     <PackageProjectUrl>https://github.com/AndrewKeepCoding/WinUI3Localizer</PackageProjectUrl>
     <RepositoryUrl>https://github.com/AndrewKeepCoding/WinUI3Localizer</RepositoryUrl>
@@ -27,7 +27,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageId>WinUI3Localizer</PackageId>
     <Product>WinUI3Localizer</Product>
-    <Copyright>Copyright (c) Andrew KeepCoding 2023</Copyright>
+    <Copyright>Copyright (c) Andrew KeepCoding 2024</Copyright>
     <Authors>Andrew KeepCoding</Authors>
     <PackageReadMeFile>README.md</PackageReadMeFile>
     <PackageIcon>winui.png</PackageIcon>
