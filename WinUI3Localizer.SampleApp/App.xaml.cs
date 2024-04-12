@@ -5,7 +5,6 @@ using Microsoft.UI.Xaml;
 using Serilog;
 using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Storage;
 
