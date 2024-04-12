@@ -17,7 +17,7 @@ public class PriResourceReaderTest
 
         Thread? thread = new Thread(() =>
         {
-            Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap.Initialize(0x00010004);
+            Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap.Initialize(0x00010005);
 
             string? priFile = Path.Combine(AppContext.BaseDirectory, "resources.pri");
             PriResourceReaderFactory? factory = new();
