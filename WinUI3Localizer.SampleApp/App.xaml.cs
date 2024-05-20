@@ -5,7 +5,6 @@ using Microsoft.UI.Xaml;
 using Serilog;
 using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -27,7 +26,7 @@ public partial class App : Application
 
     protected override async void OnLaunched(LaunchActivatedEventArgs args)
     {
-        await InitializeLocalizer();
+        await InitializeWinUI3Localizer();
 
         this.window = Host.Services.GetRequiredService<MainWindow>();
         this.window.Activate();
@@ -108,34 +107,16 @@ public partial class App : Application
             .Build();
     }
 
-    /// <summary>
-    /// Creates default Resources.resw files for WinUI3Localizer.
-    /// </summary>
-    private async Task InitializeLocalizer()
+    private static async Task InitializeWinUI3Localizer()
     {
 #if IS_NON_PACKAGED
-        // Initialize a "Strings" folder in the executables folder.
-        StringsFolderPath = Path.Combine(AppContext.BaseDirectory, "Strings");
-        StorageFolder stringsFolder = await StorageFolder.GetFolderFromPathAsync(StringsFolderPath);
+        PrepareEnvironmentForWinUI3LocalizerOnNonPackagedApp();
 #else
-        // Initialize a "Strings" folder in the "LocalFolder" for the packaged app.
-        StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-        StorageFolder stringsFolder = await localFolder.CreateFolderAsync("Strings", CreationCollisionOption.OpenIfExists);
-        StringsFolderPath = stringsFolder.Path;
-
-        // Create string resources file from app resources if doesn't exists.
-        await MakeSureStringResourceFileExists(stringsFolder, "en-US", "Resources.resw");
-        await MakeSureStringResourceFileExists(stringsFolder, "en-US", "ErrorMessages.resw");
-        await MakeSureStringResourceFileExists(stringsFolder, "es-ES", "Resources.resw");
-        await MakeSureStringResourceFileExists(stringsFolder, "es-ES", "ErrorMessages.resw");
-        await MakeSureStringResourceFileExists(stringsFolder, "ja", "Resources.resw");
-        await MakeSureStringResourceFileExists(stringsFolder, "ja", "ErrorMessages.resw");
+        await PrepareEnvironmentForWinUI3LocalizerOnPackagedApp();
 #endif
 
-        ILocalizer localizer = await new LocalizerBuilder()
-            .AddPriResourcesForLanguageDictionaries(new[] { "en-US", "es-ES", "ja" } )
-            .AddPriResourcesForLanguageDictionaries(new[] { "en-US", "es-ES", "ja" }, "ErrorMessages")
-            //.AddStringResourcesFolderForLanguageDictionaries(StringsFolderPath)
+        _ = await new LocalizerBuilder()
+            .AddStringResourcesFolderForLanguageDictionaries(StringsFolderPath)
             //.SetLogger(Host.Services
             //    .GetRequiredService<ILoggerFactory>()
             //    .CreateLogger<Localizer>())
@@ -160,4 +141,27 @@ public partial class App : Application
             //}))
             .Build();
     }
+#if IS_NON_PACKAGED
+    private static void PrepareEnvironmentForWinUI3LocalizerOnNonPackagedApp()
+    {
+        // Initialize a "Strings" folder in the executables folder.
+        StringsFolderPath = Path.Combine(AppContext.BaseDirectory, "Strings");
+    }
+#else
+    private static async Task PrepareEnvironmentForWinUI3LocalizerOnPackagedApp()
+    {
+        // Initialize a "Strings" folder in the "LocalFolder" for the packaged app.
+        StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+        StorageFolder stringsFolder = await localFolder.CreateFolderAsync("Strings", CreationCollisionOption.OpenIfExists);
+        StringsFolderPath = stringsFolder.Path;
+
+        // Create string resources file from app resources if doesn't exists.
+        await MakeSureStringResourceFileExists(stringsFolder, "en-US", "Resources.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "en-US", "ErrorMessages.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "es-ES", "Resources.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "es-ES", "ErrorMessages.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "ja", "Resources.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "ja", "ErrorMessages.resw");
+    }
+#endif
 }
