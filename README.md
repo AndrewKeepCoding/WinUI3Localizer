@@ -167,6 +167,34 @@ To just need to include `/<resources-file-name>/` before the string resource ide
     | ---- | ----- |
     | ButtonFlyoutMessage.Text | ¡Esto es un mensaje increíble! |
 
+- zh-CN:
+
+  - Resources.resw
+
+    | Name | Value |
+    | ---- | ----- |
+    | TestPageButton.Content | 完美! |
+
+  - Messages.resw
+
+    | Name | Value |
+    | ---- | ----- |
+    | ButtonFlyoutMessage.Text | 这是一条完美的消息！ |
+
+- zh-TW:
+
+  - Resources.resw
+
+    | Name | Value |
+    | ---- | ----- |
+    | TestPageButton.Content | 完美! |
+
+  - Messages.resw
+
+    | Name | Value |
+    | ---- | ----- |
+    | ButtonFlyoutMessage.Text | 這是一條完美的消息！ |
+
 - ja:
 
   - Resources.resw
@@ -220,6 +248,26 @@ In this case, we just use the `Uid` as `Name`.
     | Red | Rojo |
     | Green | Verde |
     | Blue | Azul |
+
+- zh-CN:
+
+  - Resources.resw
+
+    | Name | Value |
+    | ---- | ----- |
+    | Red | 红 |
+    | Green | 绿 |
+    | Blue | 蓝 |
+
+- zh-TW:
+
+  - Resources.resw
+
+    | Name | Value |
+    | ---- | ----- |
+    | Red | 紅 |
+    | Green | 緑 |
+    | Blue | 藍 |
 
 - ja:
 

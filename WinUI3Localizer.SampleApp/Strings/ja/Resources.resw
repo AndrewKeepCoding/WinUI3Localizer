@@ -284,4 +284,16 @@
   <data name="StylesPage_Top.Text" xml:space="preserve">
     <value>上</value>
   </data>
+  <data name="zh-CN" xml:space="preserve">
+    <value>中文</value>
+  </data>
+  <data name="MainWindow_zh-CN.Text" xml:space="preserve">
+    <value>中国語</value>
+  </data>
+  <data name="MainWindow_zh-TW.Text" xml:space="preserve">
+    <value>繁体中国語</value>
+  </data>
+  <data name="zh-TW" xml:space="preserve">
+    <value>繁體中文</value>
+  </data>
 </root>
