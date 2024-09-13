@@ -25,9 +25,8 @@
                 Grid.Column="1"
                 Margin="8,0,0,0"
                 VerticalAlignment="Center"
-                l:Uids.Uid="MainWindow_AppTitleBar"
+                l:Uids.Uid="MainWindow_AppTitleBar.Text"
                 FontSize="12"
-                Text="WinUI 3 Localizer"
                 TextWrapping="NoWrap" />
         </Grid>
         <!--  Shell  -->

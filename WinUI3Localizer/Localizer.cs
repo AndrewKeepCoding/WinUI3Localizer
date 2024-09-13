@@ -294,27 +294,45 @@ public sealed partial class Localizer : ILocalizer, IDisposable
 
     private void LocalizeDependencyObject(DependencyObject dependencyObject)
     {
-        if (Uids.GetUid(dependencyObject) is string uid &&
-            CurrentDictionary.TryGetItems(uid, out LanguageDictionary.Items? items) is true)
+        if (Uids.GetUid(dependencyObject) is not string uidSource ||
+            string.IsNullOrEmpty(uidSource) is true)
         {
-            foreach (LanguageDictionary.Item item in items)
-            {
-                LocalizeDependencyObject(dependencyObject, item);
-            }
-        }
-    }
-
-    private void LocalizeDependencyObject(DependencyObject dependencyObject, LanguageDictionary.Item item)
-    {
-        if (GetDependencyProperty(
-            dependencyObject,
-            item.DependencyPropertyName) is DependencyProperty dependencyProperty)
-        {
-            LocalizeDependencyObjectsWithDependencyProperty(dependencyObject, dependencyProperty, item.Value);
+            Logger.LogWarning("DependencyObject does not have Uid. [Type: {Type}]", dependencyObject.GetType());
             return;
         }
 
-        LocalizeDependencyObjectsWithoutDependencyProperty(dependencyObject, item.Value);
+        string uid = uidSource;
+        string? uidDependencyPropertyName = null;
+
+        if (uidSource.Split('.') is { Length: 2 } splitResult)
+        {
+            uid = splitResult[0];
+            uidDependencyPropertyName = splitResult[1] + "Property";
+        }
+
+        if (CurrentDictionary.TryGetItems(uid, out LanguageDictionary.Items? items) is false)
+        {
+            Logger.LogWarning("DependencyObject does not have Uid in the dictionary. [Type: {Type} Uid: {Uid}]", dependencyObject.GetType(), uid);
+            return;
+        }
+
+        foreach (LanguageDictionary.Item item in items)
+        {
+            LocalizeDependencyObject(dependencyObject, uidDependencyPropertyName ?? item.DependencyPropertyName, item.Value);
+        }
+    }
+
+    private void LocalizeDependencyObject(DependencyObject dependencyObject, string dependencyPropertyName, string value)
+    {
+        if (GetDependencyProperty(
+            dependencyObject,
+            dependencyPropertyName) is DependencyProperty dependencyProperty)
+        {
+            LocalizeDependencyObjectsWithDependencyProperty(dependencyObject, dependencyProperty, value);
+            return;
+        }
+
+        LocalizeDependencyObjectsWithoutDependencyProperty(dependencyObject, value);
     }
 
     private void LocalizeDependencyObjectsWithDependencyProperty(DependencyObject dependencyObject, DependencyProperty dependencyProperty, string value)
