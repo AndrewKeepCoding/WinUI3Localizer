@@ -216,7 +216,7 @@
   <data name="MainPage" xml:space="preserve">
     <value>Principal</value>
   </data>
-  <data name="MainWindow_AppTitleBar.Text" xml:space="preserve">
+  <data name="MainWindow_AppTitleBar" xml:space="preserve">
     <value>WinUI3Localizer App de Muestra😎</value>
   </data>
   <data name="MainWindow_en-US.Text" xml:space="preserve">
