@@ -160,6 +160,10 @@ public partial class App : Application
         await MakeSureStringResourceFileExists(stringsFolder, "en-US", "ErrorMessages.resw");
         await MakeSureStringResourceFileExists(stringsFolder, "es-ES", "Resources.resw");
         await MakeSureStringResourceFileExists(stringsFolder, "es-ES", "ErrorMessages.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "zh-CN", "Resources.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "zh-CN", "ErrorMessages.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "zh-TW", "Resources.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "zh-TW", "ErrorMessages.resw");
         await MakeSureStringResourceFileExists(stringsFolder, "ja", "Resources.resw");
         await MakeSureStringResourceFileExists(stringsFolder, "ja", "ErrorMessages.resw");
     }

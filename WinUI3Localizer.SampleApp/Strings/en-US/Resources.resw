@@ -284,4 +284,16 @@ To scope a string resource identifier reference to a particular file, you just a
   <data name="StylesPage_Top.Text" xml:space="preserve">
     <value>Top</value>
   </data>
+  <data name="zh-CN" xml:space="preserve">
+    <value>中文</value>
+  </data>
+  <data name="MainWindow_zh-CN.Text" xml:space="preserve">
+    <value>Chinese [中文]</value>
+  </data>
+  <data name="zh-TW" xml:space="preserve">
+    <value>繁體中文</value>
+  </data>
+  <data name="MainWindow_zh-TW.Text" xml:space="preserve">
+    <value>Chinese Traditional [繁體中文]</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,73 +118,73 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ControlsPage_Button.Content" xml:space="preserve">
-    <value>クリック</value>
+    <value>点击</value>
   </data>
   <data name="ControlsPage_CheckBox.Content" xml:space="preserve">
-    <value>有効</value>
+    <value>激活</value>
   </data>
   <data name="ControlsPage_ComboBox_OptionA.Text" xml:space="preserve">
-    <value>オプション A</value>
+    <value>选项 A</value>
   </data>
   <data name="ControlsPage_ComboBox_OptionB.Text" xml:space="preserve">
-    <value>オプション B</value>
+    <value>选项 B</value>
   </data>
   <data name="ControlsPage_ComboBox_OptionC.Text" xml:space="preserve">
-    <value>オプション C</value>
+    <value>选项 C</value>
   </data>
   <data name="ControlsPage_DropDownButton.Content" xml:space="preserve">
-    <value>オプション</value>
+    <value>选项</value>
   </data>
   <data name="ControlsPage_DropDownButton_OptionA.Text" xml:space="preserve">
-    <value>オプション A</value>
+    <value>选项 A</value>
   </data>
   <data name="ControlsPage_DropDownButton_OptionB.Text" xml:space="preserve">
-    <value>オプション B</value>
+    <value>选项 B</value>
   </data>
   <data name="ControlsPage_DropDownButton_OptionC.Text" xml:space="preserve">
-    <value>オプション C</value>
+    <value>选项 C</value>
   </data>
   <data name="ControlsPage_RadioButtons.Header" xml:space="preserve">
-    <value>オプション</value>
+    <value>选项</value>
   </data>
   <data name="ControlsPage_RadioButtons_OptionA.Content" xml:space="preserve">
-    <value>オプション A</value>
+    <value>选项 A</value>
   </data>
   <data name="ControlsPage_RadioButtons_OptionB.Content" xml:space="preserve">
-    <value>オプション B</value>
+    <value>选项 B</value>
   </data>
   <data name="ControlsPage_RadioButtons_OptionC.Content" xml:space="preserve">
-    <value>オプション C</value>
+    <value>选项 C</value>
   </data>
   <data name="ControlsPage_RatingControl.Caption" xml:space="preserve">
-    <value>評価</value>
+    <value>等级</value>
   </data>
   <data name="ControlsPage_RichTextBlock.Text" xml:space="preserve">
-    <value>これはローカライズされたRichTextBlockです。</value>
+    <value>这是一个 RichTextBlock 译文。</value>
   </data>
   <data name="ControlsPage_Slider.Header" xml:space="preserve">
-    <value>スライダー</value>
+    <value>滑块</value>
   </data>
   <data name="ControlsPage_TextBlock.Text" xml:space="preserve">
-    <value>これはローカライズされたTextBlockです。</value>
+    <value>这是一个 TextBlock 译文。</value>
   </data>
   <data name="ControlsPage_TextBox.PlaceholderText" xml:space="preserve">
-    <value>パスワード</value>
+    <value>密码</value>
   </data>
   <data name="ControlsPage_ToggleSwitch.OffContent" xml:space="preserve">
-    <value>無効</value>
+    <value>已停用</value>
   </data>
   <data name="ControlsPage_ToggleSwitch.OnContent" xml:space="preserve">
-    <value>有効</value>
+    <value>已激活</value>
   </data>
   <data name="ControlsPage_ToolTipButton.Content" xml:space="preserve">
-    <value>マウスポインタを置いてください</value>
+    <value>将鼠标指针放置此处</value>
   </data>
   <data name="ControlsPage_ToolTipButton.ToolTipService.Placement" xml:space="preserve">
-    <value>Top</value>
+    <value>底部</value>
   </data>
   <data name="ControlsPage_ToolTipButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>これはローカライズされたToolTipです。</value>
+    <value>这是翻译工具提示。</value>
   </data>
   <data name="en-US" xml:space="preserve">
     <value>English</value>
@@ -205,72 +205,72 @@
     <value>日本語</value>
   </data>
   <data name="LocalizationActionsPage_Description.Text" xml:space="preserve">
-    <value>「Run」、「Bold」、「Hyperlink」などの一部の DependencyObject は、依存関係プロパティを使用してローカライズできません。 WinUI3Localizer は、このようなDependencyObject に対応するために「LocazationActions」を用意しています。</value>
+    <value>某些 依赖项（例如“Run”、“Bold”或“Hyperlink”）无法使用依赖项属性进行本地化。WinUI3Localizer 提供了“LocazationActions”来翻译这些类型的 依赖项。</value>
   </data>
   <data name="LocalizationActionsPage_Hyperlink" xml:space="preserve">
-    <value>これはローカライズされたHyperlinkです。</value>
+    <value>这是一个译文的超链接。</value>
   </data>
   <data name="LocalizationActionsPage_HyperlinkButton.Content" xml:space="preserve">
-    <value>クリック</value>
+    <value>点击</value>
   </data>
   <data name="MainPage" xml:space="preserve">
-    <value>メイン</value>
+    <value>主要的</value>
   </data>
-  <data name="MainWindow_AppTitleBar" xml:space="preserve">
-    <value>WinUI3Localizer サンプルアプリ 😎</value>
+  <data name="MainWindow_AppTitleBar.Text" xml:space="preserve">
+    <value>WinUI3多语言演示程序😎</value>
   </data>
   <data name="MainWindow_en-US.Text" xml:space="preserve">
-    <value>英語 [English]</value>
+    <value>英语 [English]</value>
   </data>
   <data name="MainWindow_es-ES.Text" xml:space="preserve">
-    <value>スペイン語 [Español]</value>
+    <value>西班牙语 [Español]</value>
   </data>
   <data name="MainWindow_ja.Text" xml:space="preserve">
-    <value>日本語</value>
+    <value>日语 [日本語]</value>
   </data>
   <data name="MainWindow_NavigationView_AutoSuggest.PlaceholderText" xml:space="preserve">
-    <value>検索...</value>
+    <value>搜索...</value>
   </data>
   <data name="MainWindow_NavigationView_ControlsPage.Content" xml:space="preserve">
-    <value>コントロール</value>
+    <value>控制</value>
   </data>
   <data name="MainWindow_NavigationView_ItemTemplatesPage.Content" xml:space="preserve">
-    <value>アイテムテンプレート</value>
+    <value>项目模板</value>
   </data>
   <data name="MainWindow_NavigationView_LocalizationActionsPage.Content" xml:space="preserve">
-    <value>Localization Actions</value>
+    <value>汉化行动</value>
   </data>
   <data name="MainWindow_NavigationView_MainPage.Content" xml:space="preserve">
-    <value>メイン</value>
+    <value>主要的</value>
   </data>
   <data name="MainWindow_NavigationView_MultipleResourcesPage.Content" xml:space="preserve">
-    <value>マルチリソース</value>
+    <value>多种资源</value>
   </data>
   <data name="MainWindow_NavigationView_Settings.Content" xml:space="preserve">
-    <value>設定</value>
+    <value>设置</value>
   </data>
   <data name="MainWindow_NavigationView_StylesPage.Content" xml:space="preserve">
-    <value>スタイル</value>
+    <value>样式</value>
   </data>
   <data name="MultipleResourcesPage_Description.Text" xml:space="preserve">
-    <value>すべての文字列を単一のリソースファイル（resw）に保存することも、複数のリソースファイルに分散させることもできます。たとえば、エラーメッセージは1つのリソースファイルに、アプリのパッケージマニフェスト文字列は別のファイルに、UIの文字列は3番目のファイルに保存するケースが考えられます。
+    <value>您可以将所有字符串保存在一个资源文件 (resw) 中，也可以将它们分解到多个资源文件中。例如，您可能希望将错误消息保存在一个资源文件中，将应用包清单字符串保存在另一个资源文件中，将 UI 字符串保存在第三个资源文件中。
 
-特定のファイルへの文字列リソース識別子の参照を指定するには、Uidの前に/&lt;リソースファイル名&gt;/を追加します。以下の例では、ErrorMessages.resw に "ErrorMessageExample.Text" という名前のリソースが含まれ、その値がエラーを説明していると仮定しています。</value>
+要将字符串资源标识符引用范围限定到特定文件，只需在 Uid 前添加 /&lt;resources-file-name&gt;/。以下示例假设 ErrorMessages.resw 包含一个名为“ErrorMessageExample.Text”的资源，其值描述错误。</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>設定</value>
+    <value>设置</value>
   </data>
   <data name="SettingsPage_AvailableLanguages.Header" xml:space="preserve">
-    <value>Stringsフォルダーで検出された言語</value>
+    <value>在“字符串”文件夹中找到的语言</value>
   </data>
   <data name="SettingsPage_Dictionaries.Text" xml:space="preserve">
-    <value>ディクショナリー</value>
+    <value>字典</value>
   </data>
   <data name="SettingsPage_StringResourcesFolder.Text" xml:space="preserve">
-    <value>文字列リソースフォルダー</value>
+    <value>字符串资源文件夹</value>
   </data>
   <data name="SettingsPage_SwitchLanguages.Text" xml:space="preserve">
-    <value>言語切替</value>
+    <value>切换语言</value>
   </data>
   <data name="StylesPage_Bottom.Text" xml:space="preserve">
     <value>下</value>
@@ -288,10 +288,10 @@
     <value>中文</value>
   </data>
   <data name="MainWindow_zh-CN.Text" xml:space="preserve">
-    <value>中国語</value>
+    <value>中文</value>
   </data>
   <data name="MainWindow_zh-TW.Text" xml:space="preserve">
-    <value>繁体中国語</value>
+    <value>繁体中文</value>
   </data>
   <data name="zh-TW" xml:space="preserve">
     <value>繁體中文</value>
