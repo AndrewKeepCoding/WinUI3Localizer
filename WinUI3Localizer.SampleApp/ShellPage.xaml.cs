@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ public sealed partial class ShellPage : Page
             .FirstOrDefault(x => x.Language == Localizer.Get().GetCurrentLanguage());
 
         this.NavigationViewControl.Loaded += NavigationViewControl_Loaded;
+        this.ContentFrame.Navigated += On_Navigated;
 
         LanguageDictionaryItems = Localizer
             .Get()
@@ -42,7 +44,42 @@ public sealed partial class ShellPage : Page
             Uids.SetUid(settingsItem, "MainWindow_NavigationView_Settings");
         }
     }
+    private void NavigationViewControl_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+    {
+        if (sender.IsPaneOpen && (sender.DisplayMode == NavigationViewDisplayMode.Compact || sender.DisplayMode == NavigationViewDisplayMode.Minimal))
+        {
+            return;
+        }
+        this.ContentFrame.GoBack();
+    }
+    private void On_Navigated(object sender, NavigationEventArgs e)
+    {
+        this.NavigationViewControl.IsBackEnabled = this.ContentFrame.CanGoBack;
 
+        if (this.ContentFrame.SourcePageType == typeof(SettingsPage))
+        {
+            // SettingsItem is not part of NavView.MenuItems, and doesn't have a Tag.
+            this.NavigationViewControl.SelectedItem = (NavigationViewItem)this.NavigationViewControl.SettingsItem;
+            
+            // We don't use Control.Header sofar
+            // NavigationViewControl.Header = "Settings";
+        }
+        else if (this.ContentFrame.SourcePageType != null)
+        {
+            // Select the nav view item that corresponds to the page being navigated to.
+            string? s = this.ContentFrame.SourcePageType.FullName;
+            string result = s?.Substring(s.LastIndexOf('.') + 1) ?? string.Empty;
+            if (result.Length > 0)
+            {
+                this.NavigationViewControl.SelectedItem = this.NavigationViewControl.MenuItems
+                            .OfType<NavigationViewItem>()
+                            .First(i => i.Tag.Equals(result));
+
+                // We don't use Control.Header sofar
+                //this.NavigationViewControl.Header = ((NavigationViewItem)this.NavigationViewControl.SelectedItem).Tag;
+            }
+        }
+    }
     private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (args.IsSettingsSelected is true)
