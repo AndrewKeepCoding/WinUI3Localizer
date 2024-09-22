@@ -4,7 +4,7 @@ using System;
 using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Input;
 
-namespace WinUI3Localizer.SampleApp;
+namespace WinUI3Localizer.SampleApp.Pages;
 
 public sealed partial class SettingsPage : Page, IHasLocalizedItem
 {

@@ -6,6 +6,7 @@
     xmlns:l="using:WinUI3Localizer"
     xmlns:local="using:WinUI3Localizer.SampleApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="using:WinUI3Localizer.SampleApp.Pages"
     mc:Ignorable="d">
     <Grid
         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -30,6 +31,6 @@
                 TextWrapping="NoWrap" />
         </Grid>
         <!--  Shell  -->
-        <local:ShellPage Grid.Row="1" />
+        <pages:ShellPage Grid.Row="1" />
     </Grid>
 </Window>
