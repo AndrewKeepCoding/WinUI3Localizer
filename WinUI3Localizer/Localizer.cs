@@ -1,13 +1,12 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Markup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace WinUI3Localizer;
 
@@ -337,17 +336,37 @@ public sealed partial class Localizer : ILocalizer, IDisposable
 
     private void LocalizeDependencyObjectsWithDependencyProperty(DependencyObject dependencyObject, DependencyProperty dependencyProperty, string value)
     {
-        if (dependencyObject
+        Type propertyType = dependencyObject
             .GetValue(dependencyProperty)?
-            .GetType() is Type propertyType &&
-            propertyType.IsEnum is true &&
+            .GetType()
+            ?? typeof(object);
+
+        if (propertyType.IsEnum is true &&
             Enum.TryParse(propertyType, value, out object? enumValue) is true)
         {
             dependencyObject.SetValue(dependencyProperty, enumValue);
             return;
         }
 
-        dependencyObject.SetValue(dependencyProperty, value);
+        if (propertyType == typeof(string))
+        {
+            dependencyObject.SetValue(dependencyProperty, value);
+            return;
+        }
+
+        try
+        {
+            object convertedValue = XamlBindingHelper.ConvertValue(propertyType, value);
+            dependencyObject.SetValue(dependencyProperty, convertedValue);
+        }
+        catch (Exception exception)
+        {
+            throw new FailedToConertValueException(
+                Uids.GetUid(dependencyObject),
+                propertyType,
+                value,
+                innerException: exception);
+        }
     }
 
     private void LocalizeDependencyObjectsWithoutDependencyProperty(DependencyObject dependencyObject, string value)
