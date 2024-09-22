@@ -19,7 +19,7 @@
       - Use standard Resources.resw
     </Description>
     <Version>3.0.0-alpha</Version>
-    <PackageTags>winui3;winappsdk;localization;localize;language;multilanguage</PackageTags>
+    <PackageTags>winui;winui3;winappsdk;localization;localize;language;multilanguage</PackageTags>
     <PackageProjectUrl>https://github.com/AndrewKeepCoding/WinUI3Localizer</PackageProjectUrl>
     <RepositoryUrl>https://github.com/AndrewKeepCoding/WinUI3Localizer</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -28,7 +28,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageId>WinUI3Localizer</PackageId>
     <Product>WinUI3Localizer</Product>
-    <Copyright>Copyright (c) Andrew KeepCoding 2024</Copyright>
+    <Copyright>Copyright (c) Andrew KeepCoding 2023-$([System.DateTime]::Now.ToString('yyyy'))</Copyright>
     <Authors>Andrew KeepCoding</Authors>
     <PackageReadMeFile>README.md</PackageReadMeFile>
     <PackageIcon>winui.png</PackageIcon>
