@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WinUI3Localizer.SampleApp;
+namespace WinUI3Localizer.SampleApp.Pages;
 
 public sealed partial class ShellPage : Page
 {
@@ -31,6 +31,8 @@ public sealed partial class ShellPage : Page
         this.LanguageDictionaryDataGridControl.ItemsSource = LanguageDictionaryItems;
     }
 
+    private string Namespace { get; } = typeof(ShellPage).Namespace ?? string.Empty;
+
     private List<LanguageItem> AvailableLanguages { get; set; }
 
     private List<LanguageDictionary.Item> LanguageDictionaryItems { get; set; } = new();
@@ -51,7 +53,7 @@ public sealed partial class ShellPage : Page
         }
         else if (args.SelectedItem is NavigationViewItem item &&
             item.Tag is string pageName &&
-            Type.GetType("WinUI3Localizer.SampleApp." + pageName) is Type pageType)
+            Type.GetType($"{Namespace}.{pageName}") is Type pageType)
         {
             _ = this.ContentFrame.Navigate(pageType);
         }

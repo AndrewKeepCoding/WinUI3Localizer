@@ -1,7 +1,7 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 
-namespace WinUI3Localizer.SampleApp;
+namespace WinUI3Localizer.SampleApp.Pages;
 
 public sealed partial class MultipleResourcesPage : Page, IHasLocalizedItem
 {
