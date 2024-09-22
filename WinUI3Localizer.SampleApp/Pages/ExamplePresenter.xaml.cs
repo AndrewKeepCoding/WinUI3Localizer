@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Markup;
 
-namespace WinUI3Localizer.SampleApp;
+namespace WinUI3Localizer.SampleApp.Pages;
 
 [ContentProperty(Name = nameof(Example))]
 public sealed partial class ExamplePresenter : UserControl
@@ -88,7 +88,7 @@ public sealed partial class ExamplePresenter : UserControl
 
     public object Example
     {
-        get => (object)GetValue(ExampleProperty);
+        get => GetValue(ExampleProperty);
         set => SetValue(ExampleProperty, value);
     }
 

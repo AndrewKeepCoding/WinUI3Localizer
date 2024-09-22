@@ -2,7 +2,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using System.Collections.ObjectModel;
 
-namespace WinUI3Localizer.SampleApp;
+namespace WinUI3Localizer.SampleApp.Pages;
 
 public record Person(int ID, string FirstName, string LastName);
 

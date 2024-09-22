@@ -1,11 +1,11 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 
-namespace WinUI3Localizer.SampleApp;
+namespace WinUI3Localizer.SampleApp.Pages;
 
-public sealed partial class LocalizationActionsPage : Page, IHasLocalizedItem
+public sealed partial class StylesPage : Page, IHasLocalizedItem
 {
-    public LocalizationActionsPage()
+    public StylesPage()
     {
         InitializeComponent();
     }
