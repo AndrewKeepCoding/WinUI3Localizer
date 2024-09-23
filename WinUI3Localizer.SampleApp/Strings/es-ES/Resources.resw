@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -216,7 +216,7 @@
   <data name="MainPage" xml:space="preserve">
     <value>Principal</value>
   </data>
-  <data name="MainWindow_AppTitleBar" xml:space="preserve">
+  <data name="MainWindow_AppTitleBar.Text" xml:space="preserve">
     <value>WinUI3Localizer App de Muestra😎</value>
   </data>
   <data name="MainWindow_en-US.Text" xml:space="preserve">
@@ -283,5 +283,32 @@ Para especificar el alcance de un identificador de recurso de cadena a un archiv
   </data>
   <data name="StylesPage_Top.Text" xml:space="preserve">
     <value>Arriba</value>
+  </data>
+  <data name="MainWindow_NavigationView_NonStringValuesPage.Content" xml:space="preserve">
+    <value>No Cadena</value>
+  </data>
+  <data name="NonStringValuesPage_SolidColorBrush.Foreground" xml:space="preserve">
+    <value>Green</value>
+  </data>
+  <data name="NonStringValuesPage_SolidColorBrush.Text" xml:space="preserve">
+    <value>Green</value>
+  </data>
+  <data name="NonStringValuesPage_HorizontalAlignment.HorizontalAlignment" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="NonStringValuesPage_HorizontalAlignment.Text" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="NonStringValuesPage_CornerRadius.CornerRadius" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="NonStringValuesPage_CornerRadius.Content" xml:space="preserve">
+    <value>CornerRadius: 4</value>
+  </data>
+  <data name="NonStringValuesPage_BorderThickness.BorderThickness" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="NonStringValuesPage_BorderThickness.Content" xml:space="preserve">
+    <value>BorderThickness: 4</value>
   </data>
 </root>
