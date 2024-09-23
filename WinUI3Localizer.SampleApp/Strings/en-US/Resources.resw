@@ -216,7 +216,7 @@
   <data name="MainPage" xml:space="preserve">
     <value>Main</value>
   </data>
-  <data name="MainWindow_AppTitleBar" xml:space="preserve">
+  <data name="MainWindow_AppTitleBar.Text" xml:space="preserve">
     <value>WinUI3Localizer Sample App😎</value>
   </data>
   <data name="MainWindow_en-US.Text" xml:space="preserve">
@@ -283,5 +283,32 @@ To scope a string resource identifier reference to a particular file, you just a
   </data>
   <data name="StylesPage_Top.Text" xml:space="preserve">
     <value>Top</value>
+  </data>
+  <data name="MainWindow_NavigationView_NonStringValuesPage.Content" xml:space="preserve">
+    <value>Non-string Values</value>
+  </data>
+  <data name="NonStringValuesPage_SolidColorBrush.Foreground" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="NonStringValuesPage_SolidColorBrush.Text" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="NonStringValuesPage_HorizontalAlignment.HorizontalAlignment" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="NonStringValuesPage_HorizontalAlignment.Text" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="NonStringValuesPage_CornerRadius.CornerRadius" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="NonStringValuesPage_CornerRadius.Content" xml:space="preserve">
+    <value>CornerRadius: 1</value>
+  </data>
+  <data name="NonStringValuesPage_BorderThickness.BorderThickness" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="NonStringValuesPage_BorderThickness.Content" xml:space="preserve">
+    <value>BorderThickness: 1</value>
   </data>
 </root>

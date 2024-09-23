@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Localizer.SampleApp.Pages.NonStringValuesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:l="using:WinUI3Localizer"
+    xmlns:local="using:WinUI3Localizer.SampleApp.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <StackPanel Style="{StaticResource PageStackPanelStyle}">
+            <!--  SolidColorBrush  -->
+            <local:ExamplePresenter HeaderText="SolidColorBrush">
+                <TextBlock
+                    l:Uids.Uid="NonStringValuesPage_SolidColorBrush"
+                    PointerEntered="LocalizedItem_PointerEntered" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;TextBlock l:Uids.Uid="NonStringValuesPage_SolidColorBrush" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  HorizontalAlignment  -->
+            <local:ExamplePresenter
+                HorizontalContentAlignment="Stretch"
+                HeaderText="HorizontalAlignment">
+                <TextBlock
+                    l:Uids.Uid="NonStringValuesPage_HorizontalAlignment"
+                    PointerEntered="LocalizedItem_PointerEntered" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;TextBlock l:Uids.Uid="NonStringValuesPage_HorizontalAlignment" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  CornerRadius  -->
+            <local:ExamplePresenter
+                HorizontalContentAlignment="Stretch"
+                HeaderText="CornerRadius">
+                <Button
+                    l:Uids.Uid="NonStringValuesPage_CornerRadius"
+                    PointerEntered="LocalizedItem_PointerEntered" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;Button l:Uids.Uid="NonStringValuesPage_CornerRadius" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+            <!--  BorderThickness  -->
+            <local:ExamplePresenter
+                HorizontalContentAlignment="Stretch"
+                HeaderText="BorderThickness">
+                <Button
+                    l:Uids.Uid="NonStringValuesPage_BorderThickness"
+                    BorderBrush="SkyBlue"
+                    PointerEntered="LocalizedItem_PointerEntered" />
+                <local:ExamplePresenter.XamlSampleCode>
+                    <x:String xml:space="preserve">&lt;Button l:Uids.Uid="NonStringValuesPage_BorderThickness" /&gt;</x:String>
+                </local:ExamplePresenter.XamlSampleCode>
+            </local:ExamplePresenter>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
