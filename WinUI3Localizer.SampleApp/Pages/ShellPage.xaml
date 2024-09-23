@@ -37,6 +37,10 @@
                     l:Uids.Uid="MainWindow_NavigationView_MultipleResourcesPage"
                     Icon="Bullets"
                     Tag="MultipleResourcesPage" />
+                <NavigationViewItem
+                    l:Uids.Uid="MainWindow_NavigationView_NonStringValuesPage"
+                    Icon="Flag"
+                    Tag="NonStringValuesPage" />
             </NavigationView.MenuItems>
             <NavigationView.PaneCustomContent>
                 <StackPanel
