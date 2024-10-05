@@ -81,11 +81,11 @@
   </Target>
 
   <!-- Embed all "Resources.resw" files in the "Strings" folder to the output folder. -->
-  <ItemGroup>
-    <Content Include="Strings\**\*.resw">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+<ItemGroup>
+  <Content Include="Strings\**\*.resw">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WinUI3Localizer\WinUI3Localizer.csproj" />
   </ItemGroup>
