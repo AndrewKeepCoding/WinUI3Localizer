@@ -6,6 +6,7 @@ using Serilog;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Storage;
 
 namespace WinUI3Localizer.SampleApp;
@@ -58,11 +59,11 @@ public partial class App : Application
         return (await file.GetBasicPropertiesAsync()).DateModified;
     }
 
-    private static async Task<StorageFile> LoadStringResourcesFileFromAppResource(string filePath)
-    {
-        Uri resourcesFileUri = new($"ms-appx:///{filePath}");
-        return await StorageFile.GetFileFromApplicationUriAsync(resourcesFileUri);
-    }
+private static async Task<StorageFile> LoadStringResourcesFileFromAppResource(string filePath)
+{
+    Uri resourcesFileUri = new($"ms-appx:///{filePath}");
+    return await StorageFile.GetFileFromApplicationUriAsync(resourcesFileUri);
+}
 
     private static IHost BuildHost()
     {
@@ -162,6 +163,7 @@ public partial class App : Application
         await MakeSureStringResourceFileExists(stringsFolder, "es-ES", "ErrorMessages.resw");
         await MakeSureStringResourceFileExists(stringsFolder, "ja", "Resources.resw");
         await MakeSureStringResourceFileExists(stringsFolder, "ja", "ErrorMessages.resw");
+        await MakeSureStringResourceFileExists(stringsFolder, "Default", "Resources.resw");
     }
 #endif
 }
