@@ -42,6 +42,8 @@ public sealed partial class Localizer : ILocalizer, IDisposable
 
     private LanguageDictionary CurrentDictionary { get; set; } = new("");
 
+    private LanguageDictionary DefaultDictionary { get; set; } = new("");
+
     public static ILocalizer Get() => Instance;
 
     public IEnumerable<string> GetAvailableLanguages()
@@ -202,6 +204,11 @@ public sealed partial class Localizer : ILocalizer, IDisposable
             newDictionary.Language, newDictionary.GetItemsCount());
     }
 
+    internal void SetDefaultLanguageDictionary(LanguageDictionary languageDictionary)
+    {
+        DefaultDictionary = languageDictionary;
+    }
+
     internal void AddLocalizationAction(LocalizationActions.ActionItem item)
     {
         this.localizationActions.Add(item);
@@ -309,16 +316,18 @@ public sealed partial class Localizer : ILocalizer, IDisposable
             uidDependencyPropertyName = splitResult[1] + "Property";
         }
 
-        if (CurrentDictionary.TryGetItems(uid, out LanguageDictionary.Items? items) is false)
+        if (CurrentDictionary.TryGetItems(uid, out LanguageDictionary.Items? items) is true ||
+            DefaultDictionary.TryGetItems(uid, out items) is true)
         {
-            Logger.LogWarning("DependencyObject does not have Uid in the dictionary. [Type: {Type} Uid: {Uid}]", dependencyObject.GetType(), uid);
+            foreach (LanguageDictionary.Item item in items)
+            {
+                LocalizeDependencyObject(dependencyObject, uidDependencyPropertyName ?? item.DependencyPropertyName, item.Value);
+            }
+
             return;
         }
 
-        foreach (LanguageDictionary.Item item in items)
-        {
-            LocalizeDependencyObject(dependencyObject, uidDependencyPropertyName ?? item.DependencyPropertyName, item.Value);
-        }
+        Logger.LogWarning("DependencyObject does not have Uid in the dictionary. [Type: {Type} Uid: {Uid}]", dependencyObject.GetType(), uid);
     }
 
     private void LocalizeDependencyObject(DependencyObject dependencyObject, string dependencyPropertyName, string value)

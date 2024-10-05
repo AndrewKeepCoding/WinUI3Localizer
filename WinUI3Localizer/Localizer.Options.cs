@@ -4,6 +4,8 @@ public partial class Localizer
 {
     public class Options
     {
+        public string DefaultStringResourcesFolder { get; set; } = "Default";
+
         public string DefaultLanguage { get; set; } = "en-US";
 
         public bool DisableDefaultLocalizationActions { get; set; } = false;

@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Xml;
@@ -110,9 +111,11 @@ public class LocalizerBuilder
                 {
                     dictionary.AddItem(item);
                 }
+
                 this.languageDictionaries.Add(dictionary);
             }
         });
+
         return this;
     }
 
@@ -153,6 +156,12 @@ public class LocalizerBuilder
         foreach (Action action in this.builderActions)
         {
             action.Invoke();
+        }
+
+        if (this.languageDictionaries.FirstOrDefault(x => x.Language == this.options.DefaultStringResourcesFolder) is { } defaultLanguageDictionary)
+        {
+            localizer.SetDefaultLanguageDictionary(defaultLanguageDictionary);
+            _ = this.languageDictionaries.Remove(defaultLanguageDictionary);
         }
 
         foreach (LanguageDictionary dictionary in this.languageDictionaries)
