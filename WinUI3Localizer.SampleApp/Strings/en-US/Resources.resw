@@ -308,4 +308,7 @@ To scope a string resource identifier reference to a particular file, you just a
   <data name="NonStringValuesPage_BorderThickness.Content" xml:space="preserve">
     <value>BorderThickness: 1</value>
   </data>
+  <data name="ControlsPage_HyperlinkButton.Content" xml:space="preserve">
+    <value>Click</value>
+  </data>
 </root>
