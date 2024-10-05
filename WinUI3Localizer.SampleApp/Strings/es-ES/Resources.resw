@@ -308,4 +308,7 @@ Para especificar el alcance de un identificador de recurso de cadena a un archiv
   <data name="NonStringValuesPage_BorderThickness.Content" xml:space="preserve">
     <value>BorderThickness: 4</value>
   </data>
+  <data name="ControlsPage_HyperlinkButton.Content" xml:space="preserve">
+    <value>Clic</value>
+  </data>
 </root>
