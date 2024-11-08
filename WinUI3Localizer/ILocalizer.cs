@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace WinUI3Localizer;
 
@@ -12,7 +11,7 @@ public interface ILocalizer
 
     string GetCurrentLanguage();
 
-    Task SetLanguage(string language);
+    void SetLanguage(string language);
 
     string GetLocalizedString(string uid);
 

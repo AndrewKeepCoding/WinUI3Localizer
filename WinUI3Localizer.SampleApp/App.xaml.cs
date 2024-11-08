@@ -116,7 +116,7 @@ private static async Task<StorageFile> LoadStringResourcesFileFromAppResource(st
         await PrepareEnvironmentForWinUI3LocalizerOnPackagedApp();
 #endif
 
-        _ = await new LocalizerBuilder()
+        _ = new LocalizerBuilder()
             .AddStringResourcesFolderForLanguageDictionaries(StringsFolderPath)
             //.SetLogger(Host.Services
             //    .GetRequiredService<ILoggerFactory>()
