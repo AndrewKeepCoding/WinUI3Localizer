@@ -6,11 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace WinUI3Localizer;
 
-public sealed partial class Localizer : ILocalizer, IDisposable
+public sealed partial class Localizer : ILocalizer
 {
     private readonly Options options;
 
@@ -38,8 +37,6 @@ public sealed partial class Localizer : ILocalizer, IDisposable
 
     private static ILogger Logger { get; set; } = NullLogger.Instance;
 
-    private bool IsDisposed { get; set; }
-
     private LanguageDictionary CurrentDictionary { get; set; } = new("");
 
     private LanguageDictionary DefaultDictionary { get; set; } = new("");
@@ -65,7 +62,7 @@ public sealed partial class Localizer : ILocalizer, IDisposable
 
     public string GetCurrentLanguage() => CurrentDictionary.Language;
 
-    public async Task SetLanguage(string language)
+    public void SetLanguage(string language)
     {
         string previousLanguage = CurrentDictionary.Language;
 
@@ -77,7 +74,7 @@ public sealed partial class Localizer : ILocalizer, IDisposable
                 dictionary is not null)
             {
                 CurrentDictionary = dictionary;
-                await LocalizeDependencyObjects();
+                LocalizeDependencyObjects();
                 OnLanguageChanged(previousLanguage, CurrentDictionary.Language);
                 return;
             }
@@ -154,12 +151,6 @@ public sealed partial class Localizer : ILocalizer, IDisposable
     public LanguageDictionary GetCurrentLanguageDictionary() => CurrentDictionary;
 
     public IEnumerable<LanguageDictionary> GetLanguageDictionaries() => this.languageDictionaries.Values;
-
-    public void Dispose()
-    {
-        Dispose(isDisposing: true);
-        GC.SuppressFinalize(this);
-    }
 
     internal static void Set(ILocalizer localizer) => Instance = localizer;
 
@@ -290,9 +281,9 @@ public sealed partial class Localizer : ILocalizer, IDisposable
             .Where(x => x.Name == name);
     }
 
-    private async Task LocalizeDependencyObjects()
+    private void LocalizeDependencyObjects()
     {
-        foreach (DependencyObject dependencyObject in await this.dependencyObjectsReferences.GetDependencyObjects())
+        foreach (DependencyObject dependencyObject in this.dependencyObjectsReferences.GetDependencyObjects())
         {
             LocalizeDependencyObject(dependencyObject);
         }
@@ -391,14 +382,5 @@ public sealed partial class Localizer : ILocalizer, IDisposable
     {
         LanguageChanged?.Invoke(this, new LanguageChangedEventArgs(previousLanguage, currentLanguage));
         Logger.LogInformation("Changed language. [{PreviousLanguage} -> {CurrentLanguage}]", previousLanguage, currentLanguage);
-    }
-
-    private void Dispose(bool isDisposing)
-    {
-        if (IsDisposed is not true && isDisposing is true)
-        {
-            this.dependencyObjectsReferences.Dispose();
-            IsDisposed = true;
-        }
     }
 }

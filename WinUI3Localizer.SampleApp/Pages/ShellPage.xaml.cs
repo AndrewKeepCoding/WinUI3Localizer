@@ -79,11 +79,11 @@ public sealed partial class ShellPage : Page
         }
     }
 
-    private async void LanguagesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void LanguagesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (e.AddedItems.FirstOrDefault() is LanguageItem languageItem)
         {
-            await Localizer.Get().SetLanguage(languageItem.Language);
+            Localizer.Get().SetLanguage(languageItem.Language);
             LanguageDictionaryItems = Localizer
                 .Get()
                 .GetCurrentLanguageDictionary()

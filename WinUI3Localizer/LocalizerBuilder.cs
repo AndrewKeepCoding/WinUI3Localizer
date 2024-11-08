@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace WinUI3Localizer;
@@ -137,7 +136,7 @@ public class LocalizerBuilder
         return this;
     }
 
-    public async Task<ILocalizer> Build()
+    public ILocalizer Build()
     {
         if (IsLocalizerAlreadyBuilt is true)
         {
@@ -174,7 +173,7 @@ public class LocalizerBuilder
             localizer.AddLocalizationAction(item);
         }
 
-        await localizer.SetLanguage(this.options.DefaultLanguage);
+        localizer.SetLanguage(this.options.DefaultLanguage);
 
         Localizer.Set(localizer);
         return localizer;

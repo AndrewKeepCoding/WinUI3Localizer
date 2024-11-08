@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WinUI3Localizer;
 
@@ -19,7 +18,7 @@ public class NullLocalizer : ILocalizer
 
     public string GetCurrentLanguage() => string.Empty;
 
-    public Task SetLanguage(string language) => Task.FromResult(false);
+    public void SetLanguage(string language) { }
 
     public string GetLocalizedString(string uid) => uid;
 
