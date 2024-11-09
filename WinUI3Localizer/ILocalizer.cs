@@ -7,6 +7,8 @@ public interface ILocalizer
 {
     event EventHandler<LanguageChangedEventArgs>? LanguageChanged;
 
+    void AddLanguageDictionary(LanguageDictionary languageDictionary);
+
     IEnumerable<string> GetAvailableLanguages();
 
     string GetCurrentLanguage();

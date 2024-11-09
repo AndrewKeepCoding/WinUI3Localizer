@@ -106,7 +106,7 @@ public class LocalizerBuilder
                 PriResourceReader? reader = this.priResourceReaderFactory.GetPriResourceReader(priFile);
 
                 LanguageDictionary? dictionary = new(languages[i]);
-                foreach (LanguageDictionary.Item item in reader.GetItems(languages[i], subTreeName))
+                foreach (LanguageDictionaryItem item in reader.GetItems(languages[i], subTreeName))
                 {
                     dictionary.AddItem(item);
                 }
@@ -198,7 +198,7 @@ public class LocalizerBuilder
 
         foreach (StringResourceItem stringResourceItem in stringResourceItems.Items)
         {
-            LanguageDictionary.Item item = CreateLanguageDictionaryItem(stringResourceItem);
+            LanguageDictionaryItem item = CreateLanguageDictionaryItem(stringResourceItem);
             dictionary.AddItem(item);
         }
 
@@ -206,19 +206,19 @@ public class LocalizerBuilder
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static LanguageDictionary.Item CreateLanguageDictionaryItem(StringResourceItem stringResourceItem) =>
+    private static LanguageDictionaryItem CreateLanguageDictionaryItem(StringResourceItem stringResourceItem) =>
         CreateLanguageDictionaryItem(stringResourceItem.Name, stringResourceItem.Value);
 
-    internal static LanguageDictionary.Item CreateLanguageDictionaryItem(string name, string value)
+    internal static LanguageDictionaryItem CreateLanguageDictionaryItem(string name, string value)
     {
         (string Uid, string DependencyPropertyName) = name.IndexOf(".") is int firstSeparatorIndex && firstSeparatorIndex > 1
             ? (name[..firstSeparatorIndex], string.Concat(name.AsSpan(firstSeparatorIndex + 1), "Property"))
             : (name, string.Empty);
-        return new LanguageDictionary.Item(
+        return new LanguageDictionaryItem(
             Uid,
             DependencyPropertyName,
-            value,
-            name);
+            name,
+            value);
     }
 
     private static StringResourceItems? CreateStringResourceItemsFromResourcesFile(string sourceName, string filePath, string xPath = "//root/data")

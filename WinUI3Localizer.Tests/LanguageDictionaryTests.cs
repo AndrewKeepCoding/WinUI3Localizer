@@ -10,7 +10,7 @@ public class LanguageDictionaryTests
         // Arrange
         LanguageDictionary sut = new("en-US");
         string uid = "Uid";
-        LanguageDictionary.Item inputItem = new(uid, "DependencyPropertyName", "Value", "StringResourceItemName");
+        LanguageDictionaryItem inputItem = new(uid, "DependencyPropertyName", "Value", "StringResourceItemName");
 
         // Act
         sut.AddItem(inputItem);
@@ -26,8 +26,8 @@ public class LanguageDictionaryTests
         // Arrange
         LanguageDictionary sut = new("en-US");
         string uid = "Uid";
-        LanguageDictionary.Item item1 = new(uid, "DependencyPropertyName1", "Value1", "StringResourceItemName1");
-        LanguageDictionary.Item item2 = new(uid, "DependencyPropertyName2", "Value2", "StringResourceItemName2");
+        LanguageDictionaryItem item1 = new(uid, "DependencyPropertyName1", "Value1", "StringResourceItemName1");
+        LanguageDictionaryItem item2 = new(uid, "DependencyPropertyName2", "Value2", "StringResourceItemName2");
         sut.AddItem(item1);
 
         // Act
@@ -45,13 +45,13 @@ public class LanguageDictionaryTests
     {
         // Arrange
         LanguageDictionary sut = new("en-US");
-        LanguageDictionary.Item item1 = new("Uid1", "DependencyPropertyName1", "Value1", "StringResourceItemName1");
-        LanguageDictionary.Item item2 = new("Uid2", "DependencyPropertyName2", "Value2", "StringResourceItemName2");
+        LanguageDictionaryItem item1 = new("Uid1", "DependencyPropertyName1", "Value1", "StringResourceItemName1");
+        LanguageDictionaryItem item2 = new("Uid2", "DependencyPropertyName2", "Value2", "StringResourceItemName2");
         sut.AddItem(item1);
         sut.AddItem(item2);
 
         // Act
-        IEnumerable<LanguageDictionary.Item> items = sut.GetItems();
+        IEnumerable<LanguageDictionaryItem> items = sut.GetItems();
 
         // Assert
         items.Should().HaveCount(2);
@@ -64,8 +64,8 @@ public class LanguageDictionaryTests
     {
         // Arrange
         LanguageDictionary sut = new("en");
-        LanguageDictionary.Item item1 = new("Uid1", "DependencyPropertyName1", "Value1", "StringResourceItemName1");
-        LanguageDictionary.Item item2 = new("Uid2", "DependencyPropertyName2", "Value2", "StringResourceItemName2");
+        LanguageDictionaryItem item1 = new("Uid1", "DependencyPropertyName1", "Value1", "StringResourceItemName1");
+        LanguageDictionaryItem item2 = new("Uid2", "DependencyPropertyName2", "Value2", "StringResourceItemName2");
         sut.AddItem(item1);
         sut.AddItem(item2);
 
@@ -82,8 +82,8 @@ public class LanguageDictionaryTests
         // Arrange
         LanguageDictionary sut = new("en-US");
         string uid = "Uid";
-        LanguageDictionary.Item item1 = new(uid, "DependencyPropertyName1", "Value1", "StringResourceItemName1");
-        LanguageDictionary.Item item2 = new(uid, "DependencyPropertyName2", "Value2", "StringResourceItemName2");
+        LanguageDictionaryItem item1 = new(uid, "DependencyPropertyName1", "Value1", "StringResourceItemName1");
+        LanguageDictionaryItem item2 = new(uid, "DependencyPropertyName2", "Value2", "StringResourceItemName2");
         sut.AddItem(item1);
         sut.AddItem(item2);
 
@@ -102,7 +102,7 @@ public class LanguageDictionaryTests
     {
         // Arrange
         LanguageDictionary sut = new("en-US");
-        LanguageDictionary.Item item = new("Uid", "DependencyPropertyName", "Value", "StringResourceItemName");
+        LanguageDictionaryItem item = new("Uid", "DependencyPropertyName", "Value", "StringResourceItemName");
 
         // Act
         bool result = sut.TryGetItems(item.Uid, out LanguageDictionary.Items? items);
