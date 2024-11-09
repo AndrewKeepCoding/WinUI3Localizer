@@ -36,7 +36,7 @@ internal class PriResourceReader
             return PriResourceReader.GetItemsCore(resourceMap, subTreeName, resourceContext);
         }
 
-        return Enumerable.Empty<LanguageDictionaryItem>();
+        return [];
     }
 
     private static IEnumerable<LanguageDictionaryItem> GetItemsCore(ResourceMap resourceMap, string subTreeName, ResourceContext resourceContext)
