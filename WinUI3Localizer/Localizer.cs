@@ -15,9 +15,9 @@ public sealed partial class Localizer : ILocalizer
 
     private readonly DependencyObjectWeakReferences dependencyObjectsReferences = new();
 
-    private readonly Dictionary<string, LanguageDictionary> languageDictionaries = new();
+    private readonly Dictionary<string, LanguageDictionary> languageDictionaries = [];
 
-    private readonly List<LocalizationActions.ActionItem> localizationActions = new();
+    private readonly List<LocalizationActions.ActionItem> localizationActions = [];
 
     internal Localizer(Options options)
     {
@@ -176,7 +176,7 @@ public sealed partial class Localizer : ILocalizer
             throw localizerException;
         }
 
-        return Array.Empty<string>();
+        return [];
     }
 
     public LanguageDictionary GetCurrentLanguageDictionary() => CurrentDictionary;
@@ -281,6 +281,41 @@ public sealed partial class Localizer : ILocalizer
             .Where(x => x.Name == name);
     }
 
+    private static void LocalizeDependencyObjectsWithDependencyProperty(DependencyObject dependencyObject, DependencyProperty dependencyProperty, string value)
+    {
+        Type propertyType = dependencyObject
+            .GetValue(dependencyProperty)?
+            .GetType()
+            ?? typeof(object);
+
+        if (propertyType.IsEnum is true &&
+            Enum.TryParse(propertyType, value, out object? enumValue) is true)
+        {
+            dependencyObject.SetValue(dependencyProperty, enumValue);
+            return;
+        }
+
+        if (propertyType == typeof(string))
+        {
+            dependencyObject.SetValue(dependencyProperty, value);
+            return;
+        }
+
+        try
+        {
+            object convertedValue = XamlBindingHelper.ConvertValue(propertyType, value);
+            dependencyObject.SetValue(dependencyProperty, convertedValue);
+        }
+        catch (Exception exception)
+        {
+            throw new FailedToConertValueException(
+                Uids.GetUid(dependencyObject),
+                propertyType,
+                value,
+                innerException: exception);
+        }
+    }
+
     private void LocalizeDependencyObjects()
     {
         foreach (DependencyObject dependencyObject in this.dependencyObjectsReferences.GetDependencyObjects())
@@ -327,48 +362,12 @@ public sealed partial class Localizer : ILocalizer
             dependencyObject,
             dependencyPropertyName) is DependencyProperty dependencyProperty)
         {
-            LocalizeDependencyObjectsWithDependencyProperty(dependencyObject, dependencyProperty, value);
+            Localizer.LocalizeDependencyObjectsWithDependencyProperty(dependencyObject, dependencyProperty, value);
             return;
         }
 
         LocalizeDependencyObjectsWithoutDependencyProperty(dependencyObject, value);
     }
-
-    private void LocalizeDependencyObjectsWithDependencyProperty(DependencyObject dependencyObject, DependencyProperty dependencyProperty, string value)
-    {
-        Type propertyType = dependencyObject
-            .GetValue(dependencyProperty)?
-            .GetType()
-            ?? typeof(object);
-
-        if (propertyType.IsEnum is true &&
-            Enum.TryParse(propertyType, value, out object? enumValue) is true)
-        {
-            dependencyObject.SetValue(dependencyProperty, enumValue);
-            return;
-        }
-
-        if (propertyType == typeof(string))
-        {
-            dependencyObject.SetValue(dependencyProperty, value);
-            return;
-        }
-
-        try
-        {
-            object convertedValue = XamlBindingHelper.ConvertValue(propertyType, value);
-            dependencyObject.SetValue(dependencyProperty, convertedValue);
-        }
-        catch (Exception exception)
-        {
-            throw new FailedToConertValueException(
-                Uids.GetUid(dependencyObject),
-                propertyType,
-                value,
-                innerException: exception);
-        }
-    }
-
     private void LocalizeDependencyObjectsWithoutDependencyProperty(DependencyObject dependencyObject, string value)
     {
         foreach (LocalizationActions.ActionItem item in this.localizationActions

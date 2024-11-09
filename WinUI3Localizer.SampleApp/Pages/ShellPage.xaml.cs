@@ -35,7 +35,12 @@ public sealed partial class ShellPage : Page
 
     private List<LanguageItem> AvailableLanguages { get; set; }
 
-    private List<LanguageDictionaryItem> LanguageDictionaryItems { get; set; } = new();
+    private List<LanguageDictionaryItem> LanguageDictionaryItems { get; set; } = [];
+
+    private void LanguagesSplitButton_Click(SplitButton sender, SplitButtonClickEventArgs args)
+    {
+        Localizer.Get().SetLanguage(Localizer.Get().GetCurrentLanguage());
+    }
 
     private void NavigationViewControl_Loaded(object sender, RoutedEventArgs e)
     {
@@ -97,10 +102,5 @@ public sealed partial class ShellPage : Page
         this.LanguagesSplitButton.Content = Localizer.Get().GetLocalizedString(languageItem.Language);
         this.LanguageDictionaryDataGridControl.ItemsSource = LanguageDictionaryItems;
         this.LanguagesSplitButton.Flyout.Hide();
-    }
-
-    private void LanguagesSplitButton_Click(SplitButton sender, SplitButtonClickEventArgs args)
-    {
-        Localizer.Get().SetLanguage(Localizer.Get().GetCurrentLanguage());
     }
 }
