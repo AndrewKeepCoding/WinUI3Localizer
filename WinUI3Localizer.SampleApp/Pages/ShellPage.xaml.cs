@@ -17,7 +17,7 @@ public sealed partial class ShellPage : Page
             .Select(x => new LanguageItem(Language: x, UidKey: $"{nameof(MainWindow)}_{x}"))
             .ToList();
 
-        this.LanguagesComboBox.SelectedItem = AvailableLanguages
+        this.LanguagesGridView.SelectedItem = AvailableLanguages
             .FirstOrDefault(x => x.Language == Localizer.Get().GetCurrentLanguage());
 
         this.NavigationViewControl.Loaded += NavigationViewControl_Loaded;
@@ -35,14 +35,16 @@ public sealed partial class ShellPage : Page
 
     private List<LanguageItem> AvailableLanguages { get; set; }
 
-    private List<LanguageDictionary.Item> LanguageDictionaryItems { get; set; } = new();
+    private List<LanguageDictionaryItem> LanguageDictionaryItems { get; set; } = new();
 
     private void NavigationViewControl_Loaded(object sender, RoutedEventArgs e)
     {
-        if (this.NavigationViewControl.SettingsItem is NavigationViewItem settingsItem)
+        if (this.NavigationViewControl.SettingsItem is not NavigationViewItem settingsItem)
         {
-            Uids.SetUid(settingsItem, "MainWindow_NavigationView_Settings");
+            return;
         }
+
+        Uids.SetUid(settingsItem, "MainWindow_NavigationView_Settings");
     }
 
     private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -67,29 +69,38 @@ public sealed partial class ShellPage : Page
 
     private void LocalizedItem_PointerEntered(object sender, PointerRoutedEventArgs e)
     {
-        if (sender is DependencyObject dependencyObject)
+        if (sender is not DependencyObject dependencyObject ||
+            Uids.GetUid(dependencyObject) is not string uid ||
+            LanguageDictionaryItems.Where(x => x.Uid == uid).FirstOrDefault() is not LanguageDictionaryItem item)
         {
-            string uid = Uids.GetUid(dependencyObject);
-            if (LanguageDictionaryItems.Where(x => x.Uid == uid).FirstOrDefault() is LanguageDictionary.Item item)
-            {
-                this.LanguageDictionaryDataGridControl.SelectedItem = item;
-                this.LanguageDictionaryDataGridControl.ScrollIntoView(item, null);
-                e.Handled = true;
-            }
+            return;
         }
+
+        this.LanguageDictionaryDataGridControl.SelectedItem = item;
+        this.LanguageDictionaryDataGridControl.ScrollIntoView(item, null);
+        e.Handled = true;
     }
 
-    private void LanguagesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void LanguagesGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (e.AddedItems.FirstOrDefault() is LanguageItem languageItem)
+        if (e.AddedItems.FirstOrDefault() is not LanguageItem languageItem)
         {
-            Localizer.Get().SetLanguage(languageItem.Language);
-            LanguageDictionaryItems = Localizer
-                .Get()
-                .GetCurrentLanguageDictionary()
-                .GetItems()
-                .ToList();
-            this.LanguageDictionaryDataGridControl.ItemsSource = LanguageDictionaryItems;
+            return;
         }
+
+        Localizer.Get().SetLanguage(languageItem.Language);
+        LanguageDictionaryItems = Localizer
+            .Get()
+            .GetCurrentLanguageDictionary()
+            .GetItems()
+            .ToList();
+        this.LanguagesSplitButton.Content = Localizer.Get().GetLocalizedString(languageItem.Language);
+        this.LanguageDictionaryDataGridControl.ItemsSource = LanguageDictionaryItems;
+        this.LanguagesSplitButton.Flyout.Hide();
+    }
+
+    private void LanguagesSplitButton_Click(SplitButton sender, SplitButtonClickEventArgs args)
+    {
+        Localizer.Get().SetLanguage(Localizer.Get().GetCurrentLanguage());
     }
 }

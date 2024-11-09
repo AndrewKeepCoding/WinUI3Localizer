@@ -42,73 +42,74 @@
                     Icon="Flag"
                     Tag="NonStringValuesPage" />
             </NavigationView.MenuItems>
-            <NavigationView.PaneCustomContent>
-                <StackPanel
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal"
-                    Spacing="10">
-                    <ToggleButton
-                        x:Name="ShowStringResourcesToggleSwitch"
-                        Content="String Resources"
-                        IsChecked="True" />
-                    <ComboBox
-                        x:Name="LanguagesComboBox"
-                        VerticalAlignment="Center"
-                        ItemsSource="{x:Bind AvailableLanguages, Mode=OneWay}"
-                        SelectionChanged="LanguagesComboBox_SelectionChanged">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate x:DataType="local:LanguageItem">
-                                <TextBlock l:Uids.Uid="{x:Bind UidKey}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </StackPanel>
-            </NavigationView.PaneCustomContent>
+
             <!--  Navigation content  -->
-            <SplitView
-                DisplayMode="Inline"
-                IsPaneOpen="{x:Bind ShowStringResourcesToggleSwitch.IsChecked, Mode=OneWay, Converter={StaticResource NullableBooleanToBooleanConverter}}"
-                OpenPaneLength="500"
-                PaneBackground="Transparent"
-                PanePlacement="Right">
-                <SplitView.Pane>
-                    <Grid
-                        Grid.Column="1"
-                        Margin="20,10"
-                        RowDefinitions="Auto,*">
-                        <TextBlock
-                            Grid.Row="0"
-                            Style="{StaticResource SubtitleTextBlockStyle}"
-                            Text="String resources" />
-                        <controls:DataGrid
-                            x:Name="LanguageDictionaryDataGridControl"
-                            Grid.Row="1"
-                            AutoGenerateColumns="False"
-                            CanUserReorderColumns="False"
-                            IsReadOnly="True">
-                            <controls:DataGrid.Resources>
-                                <Color x:Key="DataGridColumnHeaderBackgroundColor">Transparent</Color>
-                            </controls:DataGrid.Resources>
-                            <controls:DataGrid.Columns>
-                                <controls:DataGridTextColumn
-                                    Binding="{Binding StringResourceItemName}"
-                                    FontSize="12"
-                                    Header="Name" />
-                                <controls:DataGridTextColumn
-                                    Binding="{Binding Value}"
-                                    FontSize="12"
-                                    Header="Value" />
-                            </controls:DataGrid.Columns>
-                        </controls:DataGrid>
-                    </Grid>
-                </SplitView.Pane>
-                <Grid ColumnDefinitions="*,Auto">
-                    <Frame
-                        x:Name="ContentFrame"
-                        Grid.Column="0"
-                        Margin="20,10" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="500" />
+                </Grid.ColumnDefinitions>
+                <Frame
+                    x:Name="ContentFrame"
+                    Grid.Column="0"
+                    Margin="20,10" />
+                <Grid
+                    Grid.Column="1"
+                    Margin="20,10"
+                    RowDefinitions="Auto,*">
+                    <TextBlock
+                        Grid.Row="0"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="String resources" />
+                    <controls:DataGrid
+                        x:Name="LanguageDictionaryDataGridControl"
+                        Grid.Row="1"
+                        AutoGenerateColumns="False"
+                        CanUserReorderColumns="False"
+                        HorizontalScrollBarVisibility="Visible"
+                        IsReadOnly="False">
+                        <controls:DataGrid.Resources>
+                            <Color x:Key="DataGridColumnHeaderBackgroundColor">Transparent</Color>
+                        </controls:DataGrid.Resources>
+                        <controls:DataGrid.Columns>
+                            <controls:DataGridTextColumn
+                                Binding="{Binding StringResourceItemName}"
+                                FontSize="12"
+                                Header="Name" />
+                            <controls:DataGridTextColumn
+                                Binding="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                EditingElementStyle="{StaticResource DefaultTextBoxStyle}"
+                                FontSize="12"
+                                Header="Value"
+                                IsReadOnly="False" />
+                        </controls:DataGrid.Columns>
+                    </controls:DataGrid>
                 </Grid>
-            </SplitView>
+            </Grid>
         </NavigationView>
+        <SplitButton
+            x:Name="LanguagesSplitButton"
+            Margin="0,10,150,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="LanguagesSplitButton_Click">
+            <SplitButton.Flyout>
+                <Flyout>
+                    <ListView
+                        x:Name="LanguagesGridView"
+                        ItemsSource="{x:Bind AvailableLanguages, Mode=OneWay}"
+                        SelectionChanged="LanguagesGridView_SelectionChanged">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="local:LanguageItem">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    l:Uids.Uid="{x:Bind UidKey}"
+                                    HorizontalTextAlignment="Left" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Flyout>
+            </SplitButton.Flyout>
+        </SplitButton>
     </Grid>
 </Page>

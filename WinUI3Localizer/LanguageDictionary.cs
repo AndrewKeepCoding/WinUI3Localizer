@@ -6,8 +6,6 @@ namespace WinUI3Localizer;
 
 public class LanguageDictionary
 {
-    public record Item(string Uid, string DependencyPropertyName, string Value, string StringResourceItemName);
-
     private readonly Dictionary<string, Items> dictionary = new();
 
     public LanguageDictionary(string language)
@@ -17,7 +15,7 @@ public class LanguageDictionary
 
     public string Language { get; }
 
-    public void AddItem(Item item)
+    public void AddItem(LanguageDictionaryItem item)
     {
         if (this.dictionary.ContainsKey(item.Uid) is true)
         {
@@ -29,7 +27,7 @@ public class LanguageDictionary
         }
     }
 
-    public IEnumerable<Item> GetItems()
+    public IEnumerable<LanguageDictionaryItem> GetItems()
     {
         return this.dictionary.Values.SelectMany(x => x).ToList();
     }
@@ -44,5 +42,5 @@ public class LanguageDictionary
         return this.dictionary.TryGetValue(uid, out items);
     }
 
-    public class Items : List<Item>, IEnumerable<Item> { }
+    public class Items : List<LanguageDictionaryItem>, IEnumerable<LanguageDictionaryItem> { }
 }
