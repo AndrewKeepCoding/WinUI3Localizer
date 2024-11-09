@@ -14,7 +14,7 @@ internal class PriResourceReader
         this.resourceManager = resourceManager;
     }
 
-    public IEnumerable<LanguageDictionary.Item> GetItems(string language, string subTreeName = "Resources")
+    public IEnumerable<LanguageDictionaryItem> GetItems(string language, string subTreeName = "Resources")
     {
         if (string.IsNullOrEmpty(subTreeName) is true ||
             subTreeName == "/")
@@ -36,10 +36,10 @@ internal class PriResourceReader
             return PriResourceReader.GetItemsCore(resourceMap, subTreeName, resourceContext);
         }
 
-        return Enumerable.Empty<LanguageDictionary.Item>();
+        return Enumerable.Empty<LanguageDictionaryItem>();
     }
 
-    private static IEnumerable<LanguageDictionary.Item> GetItemsCore(ResourceMap resourceMap, string subTreeName, ResourceContext resourceContext)
+    private static IEnumerable<LanguageDictionaryItem> GetItemsCore(ResourceMap resourceMap, string subTreeName, ResourceContext resourceContext)
     {
         bool isResourcesSubTree = string.Equals(subTreeName, "Resources", StringComparison.OrdinalIgnoreCase);
         uint count = resourceMap.ResourceCount;

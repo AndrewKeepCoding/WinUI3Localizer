@@ -14,6 +14,8 @@ public class NullLocalizer : ILocalizer
 
     public static ILocalizer Instance { get; } = new NullLocalizer();
 
+    public void AddLanguageDictionary(LanguageDictionary languageDictionary) { }
+
     public IEnumerable<string> GetAvailableLanguages() => Array.Empty<string>();
 
     public string GetCurrentLanguage() => string.Empty;

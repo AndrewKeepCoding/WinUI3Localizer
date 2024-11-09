@@ -43,6 +43,37 @@ public sealed partial class Localizer : ILocalizer
 
     public static ILocalizer Get() => Instance;
 
+    public void AddLanguageDictionary(LanguageDictionary languageDictionary)
+    {
+        if (this.languageDictionaries.TryGetValue(
+            languageDictionary.Language,
+            out LanguageDictionary? targetDictionary) is true)
+        {
+            int previousItemsCount = targetDictionary.GetItemsCount();
+
+            foreach (LanguageDictionaryItem item in languageDictionary.GetItems())
+            {
+                targetDictionary.AddItem(item);
+            }
+
+            Logger.LogInformation("Merged dictionaries. [Language: {Language} Items: {PreviousItemsCount} -> {CurrentItemsCount}]",
+                targetDictionary.Language, previousItemsCount, targetDictionary.GetItemsCount());
+
+            return;
+        }
+
+        LanguageDictionary newDictionary = new(languageDictionary.Language);
+
+        foreach (LanguageDictionaryItem item in languageDictionary.GetItems())
+        {
+            newDictionary.AddItem(item);
+        }
+
+        this.languageDictionaries.Add(newDictionary.Language, newDictionary);
+        Logger.LogInformation("Added new dictionary. [Language: {Language} Items: {ItemsCount}]",
+            newDictionary.Language, newDictionary.GetItemsCount());
+    }
+
     public IEnumerable<string> GetAvailableLanguages()
     {
         try
@@ -101,7 +132,7 @@ public sealed partial class Localizer : ILocalizer
                 dictionary?.TryGetItems(
                     uid,
                     out LanguageDictionary.Items? items) is true &&
-                    items.LastOrDefault() is LanguageDictionary.Item item)
+                    items.LastOrDefault() is LanguageDictionaryItem item)
             {
                 return item.Value;
             }
@@ -162,37 +193,6 @@ public sealed partial class Localizer : ILocalizer
         this.dependencyObjectsReferences.DependencyObjectAdded += DependencyObjectsReferences_DependencyObjectAdded;
         this.dependencyObjectsReferences.DependencyObjectRemoved -= DependencyObjectsReferences_DependencyObjectRemoved;
         this.dependencyObjectsReferences.DependencyObjectRemoved += DependencyObjectsReferences_DependencyObjectRemoved;
-    }
-
-    internal void AddLanguageDictionary(LanguageDictionary languageDictionary)
-    {
-        if (this.languageDictionaries.TryGetValue(
-            languageDictionary.Language,
-            out LanguageDictionary? targetDictionary) is true)
-        {
-            int previousItemsCount = targetDictionary.GetItemsCount();
-
-            foreach (LanguageDictionary.Item item in languageDictionary.GetItems())
-            {
-                targetDictionary.AddItem(item);
-            }
-
-            Logger.LogInformation("Merged dictionaries. [Language: {Language} Items: {PreviousItemsCount} -> {CurrentItemsCount}]",
-                targetDictionary.Language, previousItemsCount, targetDictionary.GetItemsCount());
-
-            return;
-        }
-
-        LanguageDictionary newDictionary = new(languageDictionary.Language);
-
-        foreach (LanguageDictionary.Item item in languageDictionary.GetItems())
-        {
-            newDictionary.AddItem(item);
-        }
-
-        this.languageDictionaries.Add(newDictionary.Language, newDictionary);
-        Logger.LogInformation("Added new dictionary. [Language: {Language} Items: {ItemsCount}]",
-            newDictionary.Language, newDictionary.GetItemsCount());
     }
 
     internal void SetDefaultLanguageDictionary(LanguageDictionary languageDictionary)
@@ -310,7 +310,7 @@ public sealed partial class Localizer : ILocalizer
         if (CurrentDictionary.TryGetItems(uid, out LanguageDictionary.Items? items) is true ||
             DefaultDictionary.TryGetItems(uid, out items) is true)
         {
-            foreach (LanguageDictionary.Item item in items)
+            foreach (LanguageDictionaryItem item in items)
             {
                 LocalizeDependencyObject(dependencyObject, uidDependencyPropertyName ?? item.DependencyPropertyName, item.Value);
             }
