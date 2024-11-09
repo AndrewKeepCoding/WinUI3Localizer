@@ -14,11 +14,11 @@ public class LocalizerBuilder
 
     private record StringResourceItems(string Language, IEnumerable<StringResourceItem> Items);
 
-    private readonly List<Action> builderActions = new();
+    private readonly List<Action> builderActions = [];
 
-    private readonly List<LanguageDictionary> languageDictionaries = new();
+    private readonly List<LanguageDictionary> languageDictionaries = [];
 
-    private readonly List<LocalizationActions.ActionItem> localizationActions = new();
+    private readonly List<LocalizationActions.ActionItem> localizationActions = [];
 
     private readonly Localizer.Options options = new();
 
@@ -96,17 +96,14 @@ public class LocalizerBuilder
     {
         this.builderActions.Add(() =>
         {
-            if (this.priResourceReaderFactory == null)
-            {
-                this.priResourceReaderFactory = new();
-            }
+            this.priResourceReaderFactory ??= new();
 
             for (int i = 0; i < languages.Length; i++)
             {
-                PriResourceReader? reader = this.priResourceReaderFactory.GetPriResourceReader(priFile);
+                PriResourceReader reader = this.priResourceReaderFactory.GetPriResourceReader(priFile);
+                LanguageDictionary dictionary = new(languages[i]);
 
-                LanguageDictionary? dictionary = new(languages[i]);
-                foreach (LanguageDictionaryItem item in reader.GetItems(languages[i], subTreeName))
+                foreach (LanguageDictionaryItem item in reader.GetItems(languages[i], subTreeName ?? string.Empty))
                 {
                     dictionary.AddItem(item);
                 }
@@ -227,12 +224,12 @@ public class LocalizerBuilder
 
         if (directoryInfo.Parent?.Name is string language)
         {
-            XmlDocument document = new();
+            XmlDocument document = [];
             document.Load(directoryInfo.FullName);
 
             if (document.SelectNodes(xPath) is XmlNodeList nodeList)
             {
-                List<StringResourceItem> items = new();
+                List<StringResourceItem> items = [];
                 IEnumerable<StringResourceItem> stringResourceItems = CreateStringResourceItems(sourceName, nodeList);
                 items.AddRange(stringResourceItems);
                 return new StringResourceItems(language, items);
