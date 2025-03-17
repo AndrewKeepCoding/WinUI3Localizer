@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Localizer.SampleApp.Pages.DynamicDictionariesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:l="using:WinUI3Localizer"
+    xmlns:local="using:WinUI3Localizer.SampleApp.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Spacing="8">
+            <TextBlock
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="Add dictionaries" />
+            <TextBlock Text="Add dictionaries."/>
+            <Grid ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="LanguageTextBox"
+                    Grid.Column="0"
+                    Header="Language" />
+                <NumberBox x:Name="PriorityNumberBox"
+                    Grid.Column="1"
+                    Header="Priority"
+                    Value="1" />
+                <TextBox x:Name="NameTextBox"
+                    Grid.Column="2"
+                    Header="Name" />
+                <Button
+                    Grid.Column="3"
+                    VerticalAlignment="Bottom"
+                    Click="AddDictionaryButton_Click"
+                    Content="Add Dictionary" />
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Spacing="8">
+            <TextBlock
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="Add items to dictionaries" />
+            <TextBlock Text="Add items to the selected language dictionary."/>
+            <Grid ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="UidTextBox"
+                    Grid.Column="0"
+                    Header="Uid" />
+                <TextBox x:Name="DependencyPropertyNameTextBox"
+                    Grid.Column="1"
+                    Header="Dependency Property Name" />
+                <TextBox x:Name="ValueTextBox"
+                    Grid.Column="2"
+                    Header="Value" />
+                <Button
+                    Grid.Column="3"
+                    VerticalAlignment="Bottom"
+                    Click="AddItemButton_Click"
+                    Content="Add Item" />
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Spacing="8">
+            <TextBlock
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="Language dictionaries" />
+            <controls:DataGrid x:Name="LanguageDictionaryDataGrid"
+                AutoGenerateColumns="False"
+                CanUserReorderColumns="False"
+                HorizontalScrollBarVisibility="Visible">
+                <controls:DataGrid.Resources>
+                    <Color x:Key="DataGridColumnHeaderBackgroundColor">Transparent</Color>
+                </controls:DataGrid.Resources>
+                <controls:DataGrid.Columns>
+                    <controls:DataGridTextColumn
+                        Binding="{Binding Language}"
+                        Header="Language" />
+                    <controls:DataGridTextColumn
+                        Binding="{Binding Priority}"
+                        Header="Priority" />
+                    <controls:DataGridTextColumn
+                        Binding="{Binding Name}"
+                        Header="Name" />
+                    <controls:DataGridTextColumn
+                        Binding="{Binding Count}"
+                        Header="Items" />
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
+        </StackPanel>
+    </Grid>
+</Page>

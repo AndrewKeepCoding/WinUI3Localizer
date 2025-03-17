@@ -1,22 +1,26 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace WinUI3Localizer;
 
 public class NullLocalizer : ILocalizer
 {
-    private NullLocalizer()
-    {
-    }
+    private NullLocalizer() { }
 
     public event EventHandler<LanguageChangedEventArgs>? LanguageChanged { add { } remove { } }
 
+    public event EventHandler<LanguageDictionaryAddedEventArgs>? LanguageDictionaryAdded { add { } remove { } }
+
+    public event EventHandler<LanguageDictionaryRemovedEventArgs>? LanguageDictionaryRemoved { add { } remove { } }
+
     public static ILocalizer Instance { get; } = new NullLocalizer();
 
-    public void AddLanguageDictionary(LanguageDictionary languageDictionary) { }
+    public bool AddLanguageDictionary(LanguageDictionary languageDictionary) => false;
 
-    public IEnumerable<string> GetAvailableLanguages() => Array.Empty<string>();
+    public bool RemoveLanguageDictionary(LanguageDictionary languageDictionary) => false;
+
+    public LanguageDictionary[] GetLanguageDictionaries(string _ = "") => [];
+
+    public string[] GetAvailableLanguages() => [];
 
     public string GetCurrentLanguage() => string.Empty;
 
@@ -24,9 +28,5 @@ public class NullLocalizer : ILocalizer
 
     public string GetLocalizedString(string uid) => uid;
 
-    public IEnumerable<string> GetLocalizedStrings(string uid) => new string[] { uid };
-
-    public LanguageDictionary GetCurrentLanguageDictionary() => new("");
-
-    public IEnumerable<LanguageDictionary> GetLanguageDictionaries() => Enumerable.Empty<LanguageDictionary>();
+    public string[] GetLocalizedStrings(string uid) => [uid];
 }

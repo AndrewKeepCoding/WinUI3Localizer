@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace WinUI3Localizer;
 
@@ -7,9 +6,17 @@ public interface ILocalizer
 {
     event EventHandler<LanguageChangedEventArgs>? LanguageChanged;
 
-    void AddLanguageDictionary(LanguageDictionary languageDictionary);
+    event EventHandler<LanguageDictionaryAddedEventArgs>? LanguageDictionaryAdded;
 
-    IEnumerable<string> GetAvailableLanguages();
+    event EventHandler<LanguageDictionaryRemovedEventArgs>? LanguageDictionaryRemoved;
+
+    bool AddLanguageDictionary(LanguageDictionary languageDictionary);
+
+    bool RemoveLanguageDictionary(LanguageDictionary languageDictionary);
+
+    LanguageDictionary[] GetLanguageDictionaries(string language = "");
+
+    string[] GetAvailableLanguages();
 
     string GetCurrentLanguage();
 
@@ -17,9 +24,5 @@ public interface ILocalizer
 
     string GetLocalizedString(string uid);
 
-    IEnumerable<string> GetLocalizedStrings(string uid);
-
-    LanguageDictionary GetCurrentLanguageDictionary();
-
-    IEnumerable<LanguageDictionary> GetLanguageDictionaries();
+    string[] GetLocalizedStrings(string uid);
 }

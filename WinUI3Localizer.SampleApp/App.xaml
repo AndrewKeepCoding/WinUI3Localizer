@@ -17,10 +17,10 @@
             <Style
                 x:Key="PageStackPanelStyle"
                 TargetType="StackPanel">
-                <Setter Property="Spacing" Value="10" />
+                <Setter Property="Spacing" Value="8" />
             </Style>
             <Style TargetType="pages:ExamplePresenter">
-                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="CornerRadius" Value="4" />
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
                 <Setter Property="HeaderTextStyle" Value="{StaticResource SubtitleTextBlockStyle}" />
