@@ -9,14 +9,12 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <converters:EmptyStringToVisibilityCollapsedConverter x:Key="EmptyStringToVisibilityCollapsedConverter" />
-        <Style
-            x:Key="BlockStackPanelStyle"
+        <Style x:Key="BlockStackPanelStyle"
             TargetType="StackPanel">
-            <Setter Property="Padding" Value="10,10,10,10" />
-            <Setter Property="Spacing" Value="5" />
+            <Setter Property="Padding" Value="8,8,8,8" />
+            <Setter Property="Spacing" Value="8" />
         </Style>
-        <Style
-            x:Key="BlockLabelTextBlockStyle"
+        <Style x:Key="BlockLabelTextBlockStyle"
             TargetType="TextBlock">
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
@@ -68,13 +66,11 @@
                     Style="{StaticResource BlockLabelTextBlockStyle}"
                     Text="{x:Bind CodeLabel, Mode=OneWay}" />
                 <StackPanel>
-                    <Grid
-                        x:Name="XamlSampleCodeBlock"
+                    <Grid x:Name="XamlSampleCodeBlock"
                         Visibility="Collapsed">
                         <RichTextBlock x:Name="XamlSampleCodeRichTextBlock" />
                     </Grid>
-                    <Grid
-                        x:Name="CSharpSampleCodeBlock"
+                    <Grid x:Name="CSharpSampleCodeBlock"
                         Visibility="Collapsed">
                         <RichTextBlock x:Name="CSharpSampleCodeRichTextBlock" />
                     </Grid>

@@ -60,6 +60,8 @@ public class LocalizerBuilder
             {
                 try
                 {
+                    string stringResourcesFolderName = Path.GetFileName(stringResourcesFolderPath) ?? string.Empty;
+
                     foreach (string stringResourcesFileFullPath in Directory.GetFiles(languageFolderPath, "*.resw"))
                     {
                         string fileName = Path.GetFileName(stringResourcesFileFullPath);
@@ -67,10 +69,16 @@ public class LocalizerBuilder
                             ? string.Empty
                             : Path.GetFileNameWithoutExtension(fileName);
 
+                        string languageFolderName = Path.GetFileName(languageFolderPath);
+                        string dictionaryName = string.IsNullOrEmpty(stringResourcesFolderName) is false ? stringResourcesFolderName : string.Empty;
+                        dictionaryName += string.IsNullOrEmpty(languageFolderName) is false ? $"/{languageFolderName}" : string.Empty;
+                        dictionaryName += $"/{fileName}";
+
                         if (CreateLanguageDictionaryFromStringResourcesFile(
                             sourceName,
                             stringResourcesFileFullPath,
-                            this.stringResourcesFileXPath) is LanguageDictionary dictionary)
+                            this.stringResourcesFileXPath,
+                            dictionaryName) is LanguageDictionary dictionary)
                         {
                             this.languageDictionaries.Add(dictionary);
                         }
@@ -101,7 +109,7 @@ public class LocalizerBuilder
             for (int i = 0; i < languages.Length; i++)
             {
                 PriResourceReader reader = this.priResourceReaderFactory.GetPriResourceReader(priFile);
-                LanguageDictionary dictionary = new(languages[i]);
+                LanguageDictionary dictionary = new(languages[i], $"PriResource-{languages[i]}");
 
                 foreach (LanguageDictionaryItem item in reader.GetItems(languages[i], subTreeName ?? string.Empty))
                 {
@@ -154,7 +162,7 @@ public class LocalizerBuilder
             action.Invoke();
         }
 
-        if (this.languageDictionaries.FirstOrDefault(x => x.Language == this.options.DefaultStringResourcesFolder) is { } defaultLanguageDictionary)
+        if (this.languageDictionaries.FirstOrDefault(dictionary => dictionary.Language == this.options.DefaultStringResourcesFolder) is { } defaultLanguageDictionary)
         {
             localizer.SetDefaultLanguageDictionary(defaultLanguageDictionary);
             _ = this.languageDictionaries.Remove(defaultLanguageDictionary);
@@ -162,7 +170,7 @@ public class LocalizerBuilder
 
         foreach (LanguageDictionary dictionary in this.languageDictionaries)
         {
-            localizer.AddLanguageDictionary(dictionary);
+            _ = localizer.AddLanguageDictionary(dictionary);
         }
 
         foreach (LocalizationActions.ActionItem item in this.localizationActions)
@@ -176,22 +184,22 @@ public class LocalizerBuilder
         return localizer;
     }
 
-    private static LanguageDictionary? CreateLanguageDictionaryFromStringResourcesFile(string sourceName, string filePath, string fileXPath)
+    private static LanguageDictionary? CreateLanguageDictionaryFromStringResourcesFile(string sourceName, string filePath, string fileXPath, string dictionaryName)
     {
         if (CreateStringResourceItemsFromResourcesFile(
             sourceName,
             filePath,
             fileXPath) is StringResourceItems stringResourceItems)
         {
-            return CreateLanguageDictionaryFromStringResourceItems(stringResourceItems);
+            return CreateLanguageDictionaryFromStringResourceItems(stringResourceItems, dictionaryName);
         }
 
         return null;
     }
 
-    private static LanguageDictionary CreateLanguageDictionaryFromStringResourceItems(StringResourceItems stringResourceItems)
+    private static LanguageDictionary CreateLanguageDictionaryFromStringResourceItems(StringResourceItems stringResourceItems, string dictionaryName)
     {
-        LanguageDictionary dictionary = new(stringResourceItems.Language);
+        LanguageDictionary dictionary = new(stringResourceItems.Language, dictionaryName);
 
         foreach (StringResourceItem stringResourceItem in stringResourceItems.Items)
         {

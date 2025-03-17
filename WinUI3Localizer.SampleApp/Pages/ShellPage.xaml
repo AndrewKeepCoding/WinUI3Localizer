@@ -41,6 +41,10 @@
                     l:Uids.Uid="MainWindow_NavigationView_NonStringValuesPage"
                     Icon="Flag"
                     Tag="NonStringValuesPage" />
+                <NavigationViewItem
+                    l:Uids.Uid="MainWindow_NavigationView_DynamicDictionariesPage"
+                    Icon="PhoneBook"
+                    Tag="DynamicDictionariesPage" />
             </NavigationView.MenuItems>
 
             <!--  Navigation content  -->
