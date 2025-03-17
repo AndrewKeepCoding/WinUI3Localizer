@@ -9,25 +9,38 @@ namespace WinUI3Localizer.SampleApp.Pages;
 
 public sealed partial class ShellPage : Page
 {
+    private readonly ILocalizer localizer;
+
     public ShellPage()
     {
         InitializeComponent();
 
-        AvailableLanguages = Localizer.Get().GetAvailableLanguages()
-            .Select(x => new LanguageItem(Language: x, UidKey: $"{nameof(MainWindow)}_{x}"))
-            .ToList();
+        this.localizer = Localizer.Get();
+        this.localizer.LanguageDictionaryAdded += Localizer_LanguageDictionariesUpdated;
+        this.localizer.LanguageDictionaryRemoved += Localizer_LanguageDictionariesUpdated;
+
+        AvailableLanguages = [.. this.localizer
+            .GetAvailableLanguages()
+            .Select(language => new LanguageItem(language, UidKey: $"{nameof(MainWindow)}_{language}"))];
 
         this.LanguagesGridView.SelectedItem = AvailableLanguages
-            .FirstOrDefault(x => x.Language == Localizer.Get().GetCurrentLanguage());
+            .FirstOrDefault(item => item.Language == this.localizer.GetCurrentLanguage());
 
         this.NavigationViewControl.Loaded += NavigationViewControl_Loaded;
 
-        LanguageDictionaryItems = Localizer
-            .Get()
-            .GetCurrentLanguageDictionary()
-            .GetItems()
-            .ToList();
+        RefreshLanguageDictionaryItems();
+    }
 
+    private void Localizer_LanguageDictionariesUpdated(object? sender, object e)
+    {
+        RefreshLanguageDictionaryItems();
+    }
+
+    private void RefreshLanguageDictionaryItems()
+    {
+        LanguageDictionaryItems = [.. this.localizer
+            .GetLanguageDictionaries(this.localizer.GetCurrentLanguage())
+            .SelectMany(dictionary => dictionary.GetItems())];
         this.LanguageDictionaryDataGridControl.ItemsSource = LanguageDictionaryItems;
     }
 
@@ -39,7 +52,7 @@ public sealed partial class ShellPage : Page
 
     private void LanguagesSplitButton_Click(SplitButton sender, SplitButtonClickEventArgs args)
     {
-        Localizer.Get().SetLanguage(Localizer.Get().GetCurrentLanguage());
+        Localizer.Get().SetLanguage(this.localizer.GetCurrentLanguage());
     }
 
     private void NavigationViewControl_Loaded(object sender, RoutedEventArgs e)
@@ -76,7 +89,9 @@ public sealed partial class ShellPage : Page
     {
         if (sender is not DependencyObject dependencyObject ||
             Uids.GetUid(dependencyObject) is not string uid ||
-            LanguageDictionaryItems.Where(x => x.Uid == uid).FirstOrDefault() is not LanguageDictionaryItem item)
+            LanguageDictionaryItems
+                .Where(item => item.Uid == uid)
+                .FirstOrDefault() is not LanguageDictionaryItem item)
         {
             return;
         }
@@ -93,13 +108,11 @@ public sealed partial class ShellPage : Page
             return;
         }
 
-        Localizer.Get().SetLanguage(languageItem.Language);
-        LanguageDictionaryItems = Localizer
-            .Get()
-            .GetCurrentLanguageDictionary()
-            .GetItems()
-            .ToList();
-        this.LanguagesSplitButton.Content = Localizer.Get().GetLocalizedString(languageItem.Language);
+        this.localizer.SetLanguage(languageItem.Language);
+        LanguageDictionaryItems = [.. this.localizer
+            .GetLanguageDictionaries(this.localizer.GetCurrentLanguage())
+            .SelectMany(dictionary => dictionary.GetItems())];
+        this.LanguagesSplitButton.Content = this.localizer.GetLocalizedString(languageItem.Language);
         this.LanguageDictionaryDataGridControl.ItemsSource = LanguageDictionaryItems;
         this.LanguagesSplitButton.Flyout.Hide();
     }

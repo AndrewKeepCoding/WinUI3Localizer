@@ -27,6 +27,7 @@
     <None Remove="ItemTemplatesPage.xaml" />
     <None Remove="LocalizationActionsPage.xaml" />
     <None Remove="MultipleResourcesPage.xaml" />
+    <None Remove="Pages\DynamicDictionariesPage.xaml" />
     <None Remove="Pages\NonStringValuesPage.xaml" />
     <None Remove="SettingsPage.xaml" />
     <None Remove="ShellPage.xaml" />
@@ -89,6 +90,11 @@
 </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WinUI3Localizer\WinUI3Localizer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\DynamicDictionariesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\NonStringValuesPage.xaml">

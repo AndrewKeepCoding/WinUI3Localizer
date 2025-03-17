@@ -15,13 +15,16 @@ public sealed partial class Localizer : ILocalizer
 
     private readonly DependencyObjectWeakReferences dependencyObjectsReferences = new();
 
-    private readonly Dictionary<string, LanguageDictionary> languageDictionaries = [];
+    private readonly HashSet<LanguageDictionary> allLanguageDictionaries = [];
+
+    private readonly List<LanguageDictionary> currentLanguageDictionaries = [];
 
     private readonly List<LocalizationActions.ActionItem> localizationActions = [];
 
     internal Localizer(Options options)
     {
         this.options = options;
+        CurrentLanguage = options.DefaultLanguage;
 
         if (this.options.DisableDefaultLocalizationActions is false)
         {
@@ -33,55 +36,64 @@ public sealed partial class Localizer : ILocalizer
 
     public event EventHandler<LanguageChangedEventArgs>? LanguageChanged;
 
+    public event EventHandler<LanguageDictionaryAddedEventArgs>? LanguageDictionaryAdded;
+
+    public event EventHandler<LanguageDictionaryRemovedEventArgs>? LanguageDictionaryRemoved;
+
     private static ILocalizer Instance { get; set; } = NullLocalizer.Instance;
 
     private static ILogger Logger { get; set; } = NullLogger.Instance;
 
-    private LanguageDictionary CurrentDictionary { get; set; } = new("");
+    private string CurrentLanguage { get; set; }
 
-    private LanguageDictionary DefaultDictionary { get; set; } = new("");
+    private LanguageDictionary DefaultDictionary { get; set; } = new(language: "", name: "");
 
     public static ILocalizer Get() => Instance;
 
-    public void AddLanguageDictionary(LanguageDictionary languageDictionary)
+    public bool AddLanguageDictionary(LanguageDictionary languageDictionary)
     {
-        if (this.languageDictionaries.TryGetValue(
-            languageDictionary.Language,
-            out LanguageDictionary? targetDictionary) is true)
+        if (this.allLanguageDictionaries.Add(languageDictionary) is false)
         {
-            int previousItemsCount = targetDictionary.GetItemsCount();
-
-            foreach (LanguageDictionaryItem item in languageDictionary.GetItems())
-            {
-                targetDictionary.AddItem(item);
-            }
-
-            Logger.LogInformation("Merged dictionaries. [Language: {Language} Items: {PreviousItemsCount} -> {CurrentItemsCount}]",
-                targetDictionary.Language, previousItemsCount, targetDictionary.GetItemsCount());
-
-            return;
+            Logger.LogWarning("LanguageDictionary already exists. [Language: {Language} Name: {Name}]", languageDictionary.Language, languageDictionary.Name);
+            return false;
         }
 
-        LanguageDictionary newDictionary = new(languageDictionary.Language);
-
-        foreach (LanguageDictionaryItem item in languageDictionary.GetItems())
-        {
-            newDictionary.AddItem(item);
-        }
-
-        this.languageDictionaries.Add(newDictionary.Language, newDictionary);
-        Logger.LogInformation("Added new dictionary. [Language: {Language} Items: {ItemsCount}]",
-            newDictionary.Language, newDictionary.GetItemsCount());
+        this.currentLanguageDictionaries.Clear();
+        LanguageDictionaryAdded?.Invoke(this, new LanguageDictionaryAddedEventArgs(languageDictionary));
+        Logger.LogInformation("Added new dictionary. [Language: {Language} Items: {ItemsCount} Name: {Name}]", languageDictionary.Language, languageDictionary.Count, languageDictionary.Name);
+        return true;
     }
 
-    public IEnumerable<string> GetAvailableLanguages()
+    public bool RemoveLanguageDictionary(LanguageDictionary languageDictionary)
+    {
+        if (this.allLanguageDictionaries.Remove(languageDictionary) is false)
+        {
+            Logger.LogWarning("LanguageDictionary does not exist. [Language: {Language} / Name: {Name}]", languageDictionary.Language, languageDictionary.Name);
+            return false;
+        }
+
+        this.currentLanguageDictionaries.Clear();
+        LanguageDictionaryRemoved?.Invoke(this, new LanguageDictionaryRemovedEventArgs(languageDictionary));
+        Logger.LogInformation("Removed dictionary. [Language: {Language} / Name: {Name}]", languageDictionary.Language, languageDictionary.Name);
+        return true;
+    }
+
+    public LanguageDictionary[] GetLanguageDictionaries(string language = "")
+    {
+        IEnumerable<LanguageDictionary> dictionaries = language == string.Empty
+            ? this.allLanguageDictionaries
+            : this.allLanguageDictionaries.Where(dictionary => dictionary.Language == language);
+        return [.. dictionaries.OrderByDescending(dictionary => dictionary.Priority)];
+    }
+
+    public string[] GetAvailableLanguages()
     {
         try
         {
-            return this.languageDictionaries
-                .Values
-                .Select(x => x.Language)
-                .ToArray();
+            IEnumerable<string> languages = this.allLanguageDictionaries
+                .Select(dictionary => dictionary.Language)
+                .Distinct();
+            return [.. languages];
         }
         catch (Exception exception)
         {
@@ -91,24 +103,17 @@ public sealed partial class Localizer : ILocalizer
         }
     }
 
-    public string GetCurrentLanguage() => CurrentDictionary.Language;
+    public string GetCurrentLanguage() => CurrentLanguage;
 
     public void SetLanguage(string language)
     {
-        string previousLanguage = CurrentDictionary.Language;
+        string previousLanguage = CurrentLanguage;
 
         try
         {
-            if (this.languageDictionaries.TryGetValue(
-                language,
-                out LanguageDictionary? dictionary) is true &&
-                dictionary is not null)
-            {
-                CurrentDictionary = dictionary;
-                LocalizeDependencyObjects();
-                OnLanguageChanged(previousLanguage, CurrentDictionary.Language);
-                return;
-            }
+            CurrentLanguage = language;
+            LocalizeDependencyObjects();
+            OnLanguageChanged(previousLanguage, CurrentLanguage);
         }
         catch (LocalizerException)
         {
@@ -126,16 +131,7 @@ public sealed partial class Localizer : ILocalizer
     {
         try
         {
-            if (this.languageDictionaries.TryGetValue(
-                GetCurrentLanguage(),
-                out LanguageDictionary? dictionary) is true &&
-                dictionary?.TryGetItems(
-                    uid,
-                    out LanguageDictionary.Items? items) is true &&
-                    items.LastOrDefault() is LanguageDictionaryItem item)
-            {
-                return item.Value;
-            }
+            return GetLocalizedStrings(uid).FirstOrDefault() ?? string.Empty;
         }
         catch (LocalizerException)
         {
@@ -147,23 +143,16 @@ public sealed partial class Localizer : ILocalizer
             Logger.LogError(localizerException, localizerException.Message);
             throw localizerException;
         }
-
-        return string.Empty;
     }
 
-    public IEnumerable<string> GetLocalizedStrings(string uid)
+    public string[] GetLocalizedStrings(string uid)
     {
         try
         {
-            if (this.languageDictionaries.TryGetValue(
-                GetCurrentLanguage(),
-                out LanguageDictionary? dictionary) is true &&
-                dictionary?.TryGetItems(
-                    uid,
-                    out LanguageDictionary.Items? items) is true)
-            {
-                return items.Select(x => x.Value);
-            }
+            return [.. GetLanguageDictionaries(CurrentLanguage)
+                .SelectMany(dictionary => dictionary.GetItems())
+                .Where(item => item.Uid == uid)
+                .Select(item => item.Value)];
         }
         catch (LocalizerException)
         {
@@ -175,13 +164,7 @@ public sealed partial class Localizer : ILocalizer
             Logger.LogError(localizerException, localizerException.Message);
             throw localizerException;
         }
-
-        return [];
     }
-
-    public LanguageDictionary GetCurrentLanguageDictionary() => CurrentDictionary;
-
-    public IEnumerable<LanguageDictionary> GetLanguageDictionaries() => this.languageDictionaries.Values;
 
     internal static void Set(ILocalizer localizer) => Instance = localizer;
 
@@ -208,7 +191,7 @@ public sealed partial class Localizer : ILocalizer
     internal void RegisterDependencyObject(DependencyObject dependencyObject)
     {
         this.dependencyObjectsReferences.Add(dependencyObject);
-        LocalizeDependencyObject(dependencyObject);
+        LocalizeDependencyObject(dependencyObject, GetLanguageDictionaries(CurrentLanguage));
     }
 
     private static void Uids_DependencyObjectUidSet(object? sender, DependencyObject dependencyObject)
@@ -259,7 +242,7 @@ public sealed partial class Localizer : ILocalizer
 
             string attachedPropertyName = splitResult[1];
             IEnumerable<PropertyInfo> attachedProperties = types
-                .Select(x => x.GetProperty(attachedPropertyName))
+                .Select(type => type.GetProperty(attachedPropertyName))
                 .OfType<PropertyInfo>();
 
             foreach (PropertyInfo attachedProperty in attachedProperties)
@@ -277,8 +260,8 @@ public sealed partial class Localizer : ILocalizer
     private static IEnumerable<Type> GetTypesFromName(string name)
     {
         return AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(x => x.GetTypes())
-            .Where(x => x.Name == name);
+            .SelectMany(assembly => assembly.GetTypes())
+            .Where(type => type.Name == name);
     }
 
     private static void LocalizeDependencyObjectsWithDependencyProperty(DependencyObject dependencyObject, DependencyProperty dependencyProperty, string value)
@@ -318,13 +301,15 @@ public sealed partial class Localizer : ILocalizer
 
     private void LocalizeDependencyObjects()
     {
+        IEnumerable<LanguageDictionary> languageDictionaries = GetLanguageDictionaries(CurrentLanguage);
+
         foreach (DependencyObject dependencyObject in this.dependencyObjectsReferences.GetDependencyObjects())
         {
-            LocalizeDependencyObject(dependencyObject);
+            LocalizeDependencyObject(dependencyObject, languageDictionaries);
         }
     }
 
-    private void LocalizeDependencyObject(DependencyObject dependencyObject)
+    private void LocalizeDependencyObject(DependencyObject dependencyObject, IEnumerable<LanguageDictionary> languageDictionaries)
     {
         if (Uids.GetUid(dependencyObject) is not string uidSource ||
             string.IsNullOrEmpty(uidSource) is true)
@@ -342,18 +327,25 @@ public sealed partial class Localizer : ILocalizer
             uidDependencyPropertyName = splitResult[1] + "Property";
         }
 
-        if (CurrentDictionary.TryGetItems(uid, out LanguageDictionary.Items? items) is true ||
-            DefaultDictionary.TryGetItems(uid, out items) is true)
-        {
-            foreach (LanguageDictionaryItem item in items)
-            {
-                LocalizeDependencyObject(dependencyObject, uidDependencyPropertyName ?? item.DependencyPropertyName, item.Value);
-            }
+        IEnumerable<LanguageDictionaryItem> items = languageDictionaries
+            .SelectMany(dictionary => dictionary
+                .GetItems()
+                .Where(item => item.Uid == uid));
 
-            return;
+        if (items.Any() is false)
+        {
+            items = DefaultDictionary.GetItems().Where(item => item.Uid == uid);
         }
 
-        Logger.LogWarning("DependencyObject does not have Uid in the dictionary. [Type: {Type} Uid: {Uid}]", dependencyObject.GetType(), uid);
+        foreach (LanguageDictionaryItem item in items)
+        {
+            LocalizeDependencyObject(dependencyObject, uidDependencyPropertyName ?? item.DependencyPropertyName, item.Value);
+        }
+
+        if (items.Any() is false)
+        {
+            Logger.LogWarning("DependencyObject does not have Uid in the dictionary. [Type: {Type} Uid: {Uid}]", dependencyObject.GetType(), uid);
+        }
     }
 
     private void LocalizeDependencyObject(DependencyObject dependencyObject, string dependencyPropertyName, string value)
@@ -368,10 +360,11 @@ public sealed partial class Localizer : ILocalizer
 
         LocalizeDependencyObjectsWithoutDependencyProperty(dependencyObject, value);
     }
+
     private void LocalizeDependencyObjectsWithoutDependencyProperty(DependencyObject dependencyObject, string value)
     {
         foreach (LocalizationActions.ActionItem item in this.localizationActions
-            .Where(x => x.TargetType == dependencyObject.GetType()))
+            .Where(action => action.TargetType == dependencyObject.GetType()))
         {
             item.Action(new LocalizationActions.ActionArguments(dependencyObject, value));
         }

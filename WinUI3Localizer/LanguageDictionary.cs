@@ -1,19 +1,21 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace WinUI3Localizer;
 
-public class LanguageDictionary
+public partial class LanguageDictionary(string language, string name)
 {
-    private readonly Dictionary<string, Items> dictionary = new();
+    // Key: Uid
+    private readonly Dictionary<string, Items> dictionary = [];
 
-    public LanguageDictionary(string language)
-    {
-        Language = language;
-    }
+    public string Language { get; } = language;
 
-    public string Language { get; }
+    public string Name { get; } = name;
+
+    public int Count => this.dictionary.Values.Sum(items => items.Count);
+
+    // The priority of the dictionary. The higher the value, the higher the priority. The default value is 0.
+    public int Priority { get; set; } = 0;
 
     public void AddItem(LanguageDictionaryItem item)
     {
@@ -23,24 +25,15 @@ public class LanguageDictionary
         }
         else
         {
-            this.dictionary[item.Uid] = new Items() { item };
+            this.dictionary[item.Uid] = [item];
         }
     }
 
     public IEnumerable<LanguageDictionaryItem> GetItems()
     {
-        return this.dictionary.Values.SelectMany(x => x).ToList();
+        IEnumerable<LanguageDictionaryItem> items = this.dictionary.Values.SelectMany(item => item);
+        return [.. items];
     }
 
-    public int GetItemsCount()
-    {
-        return this.dictionary.Values.Sum(x => x.Count);
-    }
-
-    public bool TryGetItems(string uid, [MaybeNullWhen(false)] out Items items)
-    {
-        return this.dictionary.TryGetValue(uid, out items);
-    }
-
-    public class Items : List<LanguageDictionaryItem>, IEnumerable<LanguageDictionaryItem> { }
+    public partial class Items : List<LanguageDictionaryItem>, IEnumerable<LanguageDictionaryItem> { }
 }
