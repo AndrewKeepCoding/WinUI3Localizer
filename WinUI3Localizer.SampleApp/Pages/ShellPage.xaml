@@ -11,8 +11,7 @@
     mc:Ignorable="d">
     <Grid>
         <!--  Navigation menu  -->
-        <NavigationView
-            x:Name="NavigationViewControl"
+        <NavigationView x:Name="NavigationViewControl"
             PaneDisplayMode="Top"
             SelectionChanged="NavigationView_SelectionChanged">
             <NavigationView.MenuItems>
@@ -53,8 +52,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="500" />
                 </Grid.ColumnDefinitions>
-                <Frame
-                    x:Name="ContentFrame"
+                <Frame x:Name="ContentFrame"
                     Grid.Column="0"
                     Margin="20,10" />
                 <Grid
@@ -65,8 +63,7 @@
                         Grid.Row="0"
                         Style="{StaticResource SubtitleTextBlockStyle}"
                         Text="String resources" />
-                    <controls:DataGrid
-                        x:Name="LanguageDictionaryDataGridControl"
+                    <controls:DataGrid x:Name="LanguageDictionaryDataGridControl"
                         Grid.Row="1"
                         AutoGenerateColumns="False"
                         CanUserReorderColumns="False"
@@ -91,16 +88,15 @@
                 </Grid>
             </Grid>
         </NavigationView>
-        <SplitButton
-            x:Name="LanguagesSplitButton"
+        <SplitButton x:Name="LanguagesSplitButton"
             Margin="0,10,150,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
+            l:Uids.Uid="MainWindow_LanguagesSplitButton"
             Click="LanguagesSplitButton_Click">
             <SplitButton.Flyout>
                 <Flyout>
-                    <ListView
-                        x:Name="LanguagesGridView"
+                    <ListView x:Name="LanguagesGridView"
                         ItemsSource="{x:Bind AvailableLanguages, Mode=OneWay}"
                         SelectionChanged="LanguagesGridView_SelectionChanged">
                         <ListView.ItemTemplate>

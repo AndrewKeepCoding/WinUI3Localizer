@@ -14,8 +14,7 @@
             </ResourceDictionary.MergedDictionaries>
             <!--  Other app resources here  -->
             <converters:NullableBooleanToBooleanConverter x:Key="NullableBooleanToBooleanConverter" />
-            <Style
-                x:Key="PageStackPanelStyle"
+            <Style x:Key="PageStackPanelStyle"
                 TargetType="StackPanel">
                 <Setter Property="Spacing" Value="8" />
             </Style>
