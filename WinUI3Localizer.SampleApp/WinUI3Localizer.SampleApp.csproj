@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
@@ -83,11 +83,11 @@
   </Target>
 
   <!-- Embed all "Resources.resw" files in the "Strings" folder to the output folder. -->
-<ItemGroup>
-  <Content Include="Strings\**\*.resw">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </Content>
-</ItemGroup>
+  <ItemGroup>
+    <Content Include="Strings\**\*.resw">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WinUI3Localizer\WinUI3Localizer.csproj" />
   </ItemGroup>
@@ -125,4 +125,4 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-</Project> 
+</Project>

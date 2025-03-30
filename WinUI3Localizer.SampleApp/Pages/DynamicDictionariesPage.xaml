@@ -16,11 +16,13 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Spacing="8">
+        <StackPanel
+            Grid.Row="0"
+            Spacing="8">
             <TextBlock
                 Style="{StaticResource SubtitleTextBlockStyle}"
                 Text="Add dictionaries" />
-            <TextBlock Text="Add dictionaries."/>
+            <TextBlock Text="Add dictionaries." />
             <Grid ColumnSpacing="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -45,11 +47,13 @@
                     Content="Add Dictionary" />
             </Grid>
         </StackPanel>
-        <StackPanel Grid.Row="1" Spacing="8">
+        <StackPanel
+            Grid.Row="1"
+            Spacing="8">
             <TextBlock
                 Style="{StaticResource SubtitleTextBlockStyle}"
                 Text="Add items to dictionaries" />
-            <TextBlock Text="Add items to the selected language dictionary."/>
+            <TextBlock Text="Add items to the selected language dictionary." />
             <Grid ColumnSpacing="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -73,7 +77,9 @@
                     Content="Add Item" />
             </Grid>
         </StackPanel>
-        <StackPanel Grid.Row="2" Spacing="8">
+        <StackPanel
+            Grid.Row="2"
+            Spacing="8">
             <TextBlock
                 Style="{StaticResource SubtitleTextBlockStyle}"
                 Text="Language dictionaries" />
