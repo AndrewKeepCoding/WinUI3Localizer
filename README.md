@@ -50,11 +50,10 @@ Add this ItemGroup in the project file (\*.csproj) of your app.
   private async Task InitializeLocalizer()
   {
       // Initialize a "Strings" folder in the executables folder.
-      StringsFolderPath StringsFolderPath = Path.Combine(AppContext.BaseDirectory, "Strings");
-      StorageFolder stringsFolder = await StorageFolder.GetFolderFromPathAsync(StringsFolderPath);
+      string stringsFolderPath = Path.Combine(AppContext.BaseDirectory, "Strings");
 
-      ILocalizer localizer = await new LocalizerBuilder()
-          .AddStringResourcesFolderForLanguageDictionaries(StringsFolderPath)
+      ILocalizer localizer = new LocalizerBuilder()
+          .AddStringResourcesFolderForLanguageDictionaries(stringsFolderPath)
           .SetOptions(options =>
           {
               options.DefaultLanguage = "en-US";
@@ -79,11 +78,11 @@ Add this ItemGroup in the project file (\*.csproj) of your app.
 
       // Create string resources file from app resources if doesn't exists.
       string resourceFileName = "Resources.resw";
-      await CreateStringResourceFileIfNotExists(stringsFolder, "en-US", resourceFileName);
-      await CreateStringResourceFileIfNotExists(stringsFolder, "es-ES", resourceFileName);
-      await CreateStringResourceFileIfNotExists(stringsFolder, "ja", resourceFileName);
+      await MakeSureStringResourceFileExists(stringsFolder, "en-US", resourceFileName);
+      await MakeSureStringResourceFileExists(stringsFolder, "es-ES", resourceFileName);
+      await MakeSureStringResourceFileExists(stringsFolder, "ja", resourceFileName);
 
-      ILocalizer localizer = await new LocalizerBuilder()
+      ILocalizer localizer = new LocalizerBuilder()
           .AddStringResourcesFolderForLanguageDictionaries(stringsFolder.Path)
           .SetOptions(options =>
           {
@@ -92,17 +91,24 @@ Add this ItemGroup in the project file (\*.csproj) of your app.
           .Build();
   }
 
-  private static async Task CreateStringResourceFileIfNotExists(StorageFolder stringsFolder, string language, string resourceFileName)
+  private static async Task MakeSureStringResourceFileExists(StorageFolder stringsFolder, string language, string resourceFileName)
   {
       StorageFolder languageFolder = await stringsFolder.CreateFolderAsync(
-          language,
+          desiredName: language,
           CreationCollisionOption.OpenIfExists);
 
-      if (await languageFolder.TryGetItemAsync(resourceFileName) is null)
+      string appResourceFilePath = Path.Combine(stringsFolder.Name, language, resourceFileName);
+      StorageFile appResourceFile = await LoadStringResourcesFileFromAppResource(appResourceFilePath);
+
+      IStorageItem? localResourceFile = await languageFolder.TryGetItemAsync(resourceFileName);
+
+      if (localResourceFile is null ||
+          (await GetModifiedDate(appResourceFile)) > (await GetModifiedDate(localResourceFile)))
       {
-          string resourceFilePath = Path.Combine(stringsFolder.Name, language, resourceFileName);
-          StorageFile resourceFile = await LoadStringResourcesFileFromAppResource(resourceFilePath);
-          _ = await resourceFile.CopyAsync(languageFolder);
+          _ = await appResourceFile.CopyAsync(
+              destinationFolder: languageFolder,
+              desiredNewName: appResourceFile.Name,
+              option: NameCollisionOption.ReplaceExisting);
       }
   }
 
@@ -110,6 +116,11 @@ Add this ItemGroup in the project file (\*.csproj) of your app.
   {
       Uri resourcesFileUri = new($"ms-appx:///{filePath}");
       return await StorageFile.GetFileFromApplicationUriAsync(resourcesFileUri);
+  }
+
+  private static async Task<DateTimeOffset> GetModifiedDate(IStorageItem file)
+  {
+      return (await file.GetBasicPropertiesAsync()).DateModified;
   }
   ```
 
@@ -119,7 +130,7 @@ This is an example of how to localize the `Content` of a `Button`.
 
 First asign an `Uid` to the `Button`, then in each language resources file, add an item that corresponds to the `Uid`.
 
-You can also have multiple string resources files. For example, besides the default **Resources.resw** file, you can have a **Messages.resw** for your messages file.
+You can also have multiple string resources files. For example, besides the **Resources.resw** file, you can have a **Messages.resw** for your messages file.
 To just need to include `/<resources-file-name>/` before the string resource identifier.
 
 ```xml
@@ -230,6 +241,55 @@ In this case, we just use the `Uid` as `Name`.
     | Red | 赤 |
     | Green | 緑 |
     | Blue | 青 |
+
+### Default Resources
+
+You can place a **Resources.resw** file directly under the **Strings** folder, which will be referenced when the key is not found in the current language's **Resources.resw**.
+
+### Dynamic Resources
+
+- Add new dictionaries:
+  ```csharp
+  var newDictionary = new LanguageDictionary(
+      language: "en-US",
+      name: "Additional English Dictionary")
+  {
+      // The higher the value, the higher the priority. The default value is 0.
+      Priority = (int)this.PriorityNumberBox.Value,
+  };
+
+  _ = this.localizer.AddLanguageDictionary(newDictionary);
+  ```
+
+- Add dictionary items:
+  ```csharp
+  ILocalizer localizer = Localizer.Get();
+
+  string currentLanguage = localizer.GetCurrentLanguage();
+  LanguageDictionary currentDictionary = localizer.GetLanguageDictionaries(currentLanguage).First();
+
+  LanguageDictionaryItem newItem = new(
+      uid: "TestPage_Button",
+      dependencyPropertyName: "Content",
+      stringResourceItemName: "TestPage_Button.Content",
+      value: "Click!");
+
+  currentDictionary.AddItem(newItem);
+  ```
+
+- Edit dictionary items:
+  ```csharp
+  ILocalizer localizer = Localizer.Get();
+
+  string currentLanguage = localizer.GetCurrentLanguage();
+
+  LanguageDictionary currentDictionary = localizer.GetLanguageDictionaries(currentLanguage).First();
+  LanguageDictionaryItem targetItem = currentDictionary
+     .GetItems()
+     .First(item => item.Uid == "TestPage_Button");
+  targetItem.Value = "New Test Value";
+  ```
+
 ### **Minimal example**
 Refer to [TemplateStudioWinUI3LocalizerSampleApp
 ](https://github.com/AndrewKeepCoding/TemplateStudioWinUI3LocalizerSampleApp)
