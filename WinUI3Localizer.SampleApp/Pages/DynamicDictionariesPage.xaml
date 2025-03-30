@@ -9,6 +9,7 @@
     xmlns:local="using:WinUI3Localizer.SampleApp.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+
     <Grid RowSpacing="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

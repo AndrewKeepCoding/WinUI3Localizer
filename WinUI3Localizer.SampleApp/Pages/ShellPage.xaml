@@ -97,7 +97,7 @@
             <SplitButton.Flyout>
                 <Flyout>
                     <ListView x:Name="LanguagesGridView"
-                        ItemsSource="{x:Bind AvailableLanguages, Mode=OneWay}"
+                        ItemsSource="{x:Bind AvailableLanguages}"
                         SelectionChanged="LanguagesGridView_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="local:LanguageItem">
