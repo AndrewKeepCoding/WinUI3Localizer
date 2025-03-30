@@ -32,38 +32,6 @@ public partial class App : Application
         this.window.Activate();
     }
 
-    private static async Task MakeSureStringResourceFileExists(StorageFolder stringsFolder, string language, string resourceFileName)
-    {
-        StorageFolder languageFolder = await stringsFolder.CreateFolderAsync(
-            desiredName: language,
-            CreationCollisionOption.OpenIfExists);
-
-        string appResourceFilePath = Path.Combine(stringsFolder.Name, language, resourceFileName);
-        StorageFile appResourceFile = await LoadStringResourcesFileFromAppResource(appResourceFilePath);
-
-        IStorageItem? localResourceFile = await languageFolder.TryGetItemAsync(resourceFileName);
-
-        if (localResourceFile is null ||
-            (await GetModifiedDate(appResourceFile)) > (await GetModifiedDate(localResourceFile)))
-        {
-            _ = await appResourceFile.CopyAsync(
-                destinationFolder: languageFolder,
-                desiredNewName: appResourceFile.Name,
-                option: NameCollisionOption.ReplaceExisting);
-        }
-    }
-
-    private static async Task<DateTimeOffset> GetModifiedDate(IStorageItem file)
-    {
-        return (await file.GetBasicPropertiesAsync()).DateModified;
-    }
-
-    private static async Task<StorageFile> LoadStringResourcesFileFromAppResource(string filePath)
-    {
-        Uri resourcesFileUri = new($"ms-appx:///{filePath}");
-        return await StorageFile.GetFileFromApplicationUriAsync(resourcesFileUri);
-    }
-
     private static IHost BuildHost()
     {
         return Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
@@ -166,4 +134,36 @@ public partial class App : Application
         await MakeSureStringResourceFileExists(stringsFolder, "Default", "Resources.resw");
     }
 #endif
+
+    private static async Task MakeSureStringResourceFileExists(StorageFolder stringsFolder, string language, string resourceFileName)
+    {
+        StorageFolder languageFolder = await stringsFolder.CreateFolderAsync(
+            desiredName: language,
+            CreationCollisionOption.OpenIfExists);
+
+        string appResourceFilePath = Path.Combine(stringsFolder.Name, language, resourceFileName);
+        StorageFile appResourceFile = await LoadStringResourcesFileFromAppResource(appResourceFilePath);
+
+        IStorageItem? localResourceFile = await languageFolder.TryGetItemAsync(resourceFileName);
+
+        if (localResourceFile is null ||
+            (await GetModifiedDate(appResourceFile)) > (await GetModifiedDate(localResourceFile)))
+        {
+            _ = await appResourceFile.CopyAsync(
+                destinationFolder: languageFolder,
+                desiredNewName: appResourceFile.Name,
+                option: NameCollisionOption.ReplaceExisting);
+        }
+    }
+
+    private static async Task<StorageFile> LoadStringResourcesFileFromAppResource(string filePath)
+    {
+        Uri resourcesFileUri = new($"ms-appx:///{filePath}");
+        return await StorageFile.GetFileFromApplicationUriAsync(resourcesFileUri);
+    }
+
+    private static async Task<DateTimeOffset> GetModifiedDate(IStorageItem file)
+    {
+        return (await file.GetBasicPropertiesAsync()).DateModified;
+    }
 }
