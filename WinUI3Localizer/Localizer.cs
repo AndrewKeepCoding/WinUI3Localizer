@@ -291,7 +291,7 @@ public sealed partial class Localizer : ILocalizer
         }
         catch (Exception exception)
         {
-            throw new FailedToConertValueException(
+            throw new FailedToConvertValueException(
                 Uids.GetUid(dependencyObject),
                 propertyType,
                 value,
