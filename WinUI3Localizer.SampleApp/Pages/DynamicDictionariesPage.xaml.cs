@@ -13,23 +13,6 @@ public sealed partial class DynamicDictionariesPage : Page
         InitializeComponent();
         this.localizer = Localizer.Get();
         Loaded += DynamicDictionariesPage_Loaded;
-
-        ILocalizer localizer = Localizer.Get();
-        string currentLanguage = localizer.GetCurrentLanguage();
-
-        LanguageDictionary currentDictionary = localizer.GetLanguageDictionaries(currentLanguage).First();
-
-        LanguageDictionaryItem newItem = new(
-            uid: "TestPage_Button",
-            dependencyPropertyName: "Content",
-            stringResourceItemName: "TestPage_Button.Content",
-            value: "Test Value");
-
-        LanguageDictionaryItem targetItem = currentDictionary
-            .GetItems()
-            .First(item => item.Uid == "TestPage_Button");
-        targetItem.Value = "New Test Value";
-        currentDictionary.AddItem(newItem);
     }
 
     private void DynamicDictionariesPage_Loaded(object sender, RoutedEventArgs e)
