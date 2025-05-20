@@ -203,7 +203,7 @@ public class LocalizerBuilder
 
     internal static LanguageDictionary.Item CreateLanguageDictionaryItem(string name, string value)
     {
-        (string Uid, string DependencyPropertyName) = name.IndexOf(".") is int firstSeparatorIndex && firstSeparatorIndex > 1
+        (string Uid, string DependencyPropertyName) = name.IndexOf(".", StringComparison.Ordinal) is int firstSeparatorIndex && firstSeparatorIndex > 1
             ? (name[..firstSeparatorIndex], string.Concat(name.AsSpan(firstSeparatorIndex + 1), "Property"))
             : (name, string.Empty);
         return new LanguageDictionary.Item(
