@@ -27,7 +27,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageId>WinUI3Localizer</PackageId>
     <Product>WinUI3Localizer</Product>
-    <Copyright>Copyright (c) Andrew KeepCoding 2024</Copyright>
+    <Copyright>Copyright (c) Andrew KeepCoding 2025</Copyright>
     <Authors>Andrew KeepCoding</Authors>
     <PackageReadMeFile>README.md</PackageReadMeFile>
     <PackageIcon>winui.png</PackageIcon>
