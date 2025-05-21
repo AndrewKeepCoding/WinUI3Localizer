@@ -254,7 +254,7 @@ public sealed partial class Localizer : ILocalizer, IDisposable
         }
 
         // TODO: This should be done on the building process.
-        if (dependencyPropertyName.Split(".") is string[] splitResult &&
+        if (dependencyPropertyName.Split('.') is string[] splitResult &&
             splitResult.Length is 2)
         {
             string attachedPropertyClassName = splitResult[0];
