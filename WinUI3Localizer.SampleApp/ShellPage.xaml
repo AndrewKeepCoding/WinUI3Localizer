@@ -2,7 +2,7 @@
     x:Class="WinUI3Localizer.SampleApp.ShellPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:tv="using:WinUI.TableView"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:l="using:WinUI3Localizer"
     xmlns:local="using:WinUI3Localizer.SampleApp"
@@ -76,26 +76,22 @@
                             Grid.Row="0"
                             Style="{StaticResource SubtitleTextBlockStyle}"
                             Text="String resources" />
-                        <controls:DataGrid
-                            x:Name="LanguageDictionaryDataGridControl"
+                        <tv:TableView 
+                            x:Name="LanguageDictionaryTableViewControl"
                             Grid.Row="1"
                             AutoGenerateColumns="False"
-                            CanUserReorderColumns="False"
+                            SelectionUnit="Row"
+                            ShowExportOptions="True"
                             IsReadOnly="True">
-                            <controls:DataGrid.Resources>
-                                <Color x:Key="DataGridColumnHeaderBackgroundColor">Transparent</Color>
-                            </controls:DataGrid.Resources>
-                            <controls:DataGrid.Columns>
-                                <controls:DataGridTextColumn
+                            <tv:TableView.Columns>
+                                <tv:TableViewTextColumn 
                                     Binding="{Binding StringResourceItemName}"
-                                    FontSize="12"
                                     Header="Name" />
-                                <controls:DataGridTextColumn
+                                <tv:TableViewTextColumn 
                                     Binding="{Binding Value}"
-                                    FontSize="12"
                                     Header="Value" />
-                            </controls:DataGrid.Columns>
-                        </controls:DataGrid>
+                            </tv:TableView.Columns>
+                        </tv:TableView>
                     </Grid>
                 </SplitView.Pane>
                 <Grid ColumnDefinitions="*,Auto">
