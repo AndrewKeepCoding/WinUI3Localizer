@@ -28,7 +28,7 @@ public sealed partial class ShellPage : Page
             .GetItems()
             .ToList();
 
-        this.LanguageDictionaryDataGridControl.ItemsSource = LanguageDictionaryItems;
+        this.LanguageDictionaryTableViewControl.ItemsSource = LanguageDictionaryItems;
     }
 
     private List<LanguageItem> AvailableLanguages { get; set; }
@@ -70,8 +70,8 @@ public sealed partial class ShellPage : Page
             string uid = Uids.GetUid(dependencyObject);
             if (LanguageDictionaryItems.Where(x => x.Uid == uid).FirstOrDefault() is LanguageDictionary.Item item)
             {
-                this.LanguageDictionaryDataGridControl.SelectedItem = item;
-                this.LanguageDictionaryDataGridControl.ScrollIntoView(item, null);
+                this.LanguageDictionaryTableViewControl.SelectedItem = item;
+                this.LanguageDictionaryTableViewControl.ScrollIntoView(item);
                 e.Handled = true;
             }
         }
@@ -87,7 +87,7 @@ public sealed partial class ShellPage : Page
                 .GetCurrentLanguageDictionary()
                 .GetItems()
                 .ToList();
-            this.LanguageDictionaryDataGridControl.ItemsSource = LanguageDictionaryItems;
+            this.LanguageDictionaryTableViewControl.ItemsSource = LanguageDictionaryItems;
         }
     }
 }
