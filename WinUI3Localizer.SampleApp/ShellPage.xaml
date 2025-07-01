@@ -81,16 +81,15 @@
                             Grid.Row="1"
                             AutoGenerateColumns="False"
                             SelectionUnit="Row"
-                            ShowExportOptions="True">
+                            ShowExportOptions="True"
+                            IsReadOnly="True">
                             <tv:TableView.Columns>
                                 <tv:TableViewTextColumn 
                                     Binding="{Binding StringResourceItemName}"
-                                    Header="Name"
-                                    IsReadOnly="True" />
+                                    Header="Name" />
                                 <tv:TableViewTextColumn 
                                     Binding="{Binding Value}"
-                                    Header="Value" 
-                                    IsReadOnly="False" />
+                                    Header="Value" />
                             </tv:TableView.Columns>
                         </tv:TableView>
                     </Grid>
