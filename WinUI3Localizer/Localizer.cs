@@ -260,7 +260,18 @@ public sealed partial class Localizer : ILocalizer
     private static IEnumerable<Type> GetTypesFromName(string name)
     {
         return AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(assembly => assembly.GetTypes())
+            .SelectMany(assembly =>
+            {
+                try
+                {
+                    return assembly.GetTypes();
+                }
+                catch (ReflectionTypeLoadException exception)
+                {
+                    return exception.Types.Where(type => type is not null);
+                }
+                
+            })
             .Where(type => type.Name == name);
     }
 
