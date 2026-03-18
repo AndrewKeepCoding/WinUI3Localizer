@@ -33,7 +33,7 @@ ILocalizer localizer = await new LocalizerBuilder()
     .AddLocalizationAction(
         new LocalizationActions.ActionItem(typeof(Hyperlink), args =>
         {
-            if (args.DependencyObject is Hyperlink target  target.Inlines.Count is 0)
+            if (args.DependencyObject is Hyperlink target &amp;&amp; target.Inlines.Count is 0)
             {
                 target.Inlines.Clear();
                 target.Inlines.Add(new Run() { Text = args.Value });

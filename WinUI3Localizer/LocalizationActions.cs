@@ -30,7 +30,7 @@ public static class LocalizationActions
         }),
         new ActionItem(typeof(Bold), arguments =>
         {
-            if (arguments.DependencyObject is Hyperlink target)
+            if (arguments.DependencyObject is Bold target)
             {
                 target.Inlines.Clear();
                 target.Inlines.Add(new Run() { Text = arguments.Value });
