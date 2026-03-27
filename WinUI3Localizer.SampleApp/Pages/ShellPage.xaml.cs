@@ -22,8 +22,10 @@ public sealed partial class ShellPage : Page
         AvailableLanguages = [.. this.localizer
             .GetAvailableLanguages()
             .Select(language => new LanguageItem(language, UidKey: $"{nameof(MainWindow)}_{language}"))];
-
         this.LanguagesGridView.SelectedItem = AvailableLanguages
+            .FirstOrDefault(item => item.Language == this.localizer.GetCurrentLanguage());
+
+        this.LanguageDictionaryTableViewControl.SelectedItem = AvailableLanguages
             .FirstOrDefault(item => item.Language == this.localizer.GetCurrentLanguage());
 
         this.NavigationViewControl.Loaded += NavigationViewControl_Loaded;
@@ -41,7 +43,7 @@ public sealed partial class ShellPage : Page
         LanguageDictionaryItems = [.. this.localizer
             .GetLanguageDictionaries(this.localizer.GetCurrentLanguage())
             .SelectMany(dictionary => dictionary.GetItems())];
-        this.LanguageDictionaryDataGridControl.ItemsSource = LanguageDictionaryItems;
+        this.LanguageDictionaryTableViewControl.ItemsSource = LanguageDictionaryItems;
     }
 
     private string Namespace { get; } = typeof(ShellPage).Namespace ?? string.Empty;
@@ -96,8 +98,8 @@ public sealed partial class ShellPage : Page
             return;
         }
 
-        this.LanguageDictionaryDataGridControl.SelectedItem = item;
-        this.LanguageDictionaryDataGridControl.ScrollIntoView(item, null);
+        this.LanguageDictionaryTableViewControl.SelectedItem = item;
+        this.LanguageDictionaryTableViewControl.ScrollIntoView(item);
         e.Handled = true;
     }
 
@@ -113,7 +115,7 @@ public sealed partial class ShellPage : Page
             .GetLanguageDictionaries(this.localizer.GetCurrentLanguage())
             .SelectMany(dictionary => dictionary.GetItems())];
         this.LanguagesSplitButton.Content = this.localizer.GetLocalizedString(languageItem.Language);
-        this.LanguageDictionaryDataGridControl.ItemsSource = LanguageDictionaryItems;
+        this.LanguageDictionaryTableViewControl.ItemsSource = LanguageDictionaryItems;
         this.LanguagesSplitButton.Flyout.Hide();
     }
 }

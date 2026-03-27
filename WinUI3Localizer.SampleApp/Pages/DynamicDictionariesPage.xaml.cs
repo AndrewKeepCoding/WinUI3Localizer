@@ -1,6 +1,5 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System.Linq;
 
 namespace WinUI3Localizer.SampleApp.Pages;
 
@@ -24,7 +23,7 @@ public sealed partial class DynamicDictionariesPage : Page
         this.ValueTextBox.Text = "Dynamic WinUI3 Localizer Sample App🤩";
 
         LanguageDictionary[] dictionaries = this.localizer.GetLanguageDictionaries();
-        this.LanguageDictionaryDataGrid.ItemsSource = dictionaries;
+        this.LanguageDictionaryTableView.ItemsSource = dictionaries;
     }
 
     private void AddDictionaryButton_Click(object sender, RoutedEventArgs e)
@@ -36,12 +35,12 @@ public sealed partial class DynamicDictionariesPage : Page
 
         _ = this.localizer.AddLanguageDictionary(newDictionary);
         LanguageDictionary[] dictionaries = this.localizer.GetLanguageDictionaries();
-        this.LanguageDictionaryDataGrid.ItemsSource = dictionaries;
+        this.LanguageDictionaryTableView.ItemsSource = dictionaries;
     }
 
     private void AddItemButton_Click(object sender, RoutedEventArgs e)
     {
-        if (this.LanguageDictionaryDataGrid.SelectedItem is not LanguageDictionary dictionary)
+        if (this.LanguageDictionaryTableView.SelectedItem is not LanguageDictionary dictionary)
         {
             return;
         }
@@ -53,7 +52,7 @@ public sealed partial class DynamicDictionariesPage : Page
             this.ValueTextBox.Text);
         dictionary.AddItem(item);
         LanguageDictionary[] dictionaries = this.localizer.GetLanguageDictionaries();
-        this.LanguageDictionaryDataGrid.ItemsSource = dictionaries;
+        this.LanguageDictionaryTableView.ItemsSource = dictionaries;
 
         this.localizer.SetLanguage(this.localizer.GetCurrentLanguage());
     }

@@ -3,11 +3,11 @@
     x:Class="WinUI3Localizer.SampleApp.Pages.DynamicDictionariesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:l="using:WinUI3Localizer"
     xmlns:local="using:WinUI3Localizer.SampleApp.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tv="using:WinUI.TableView"
     mc:Ignorable="d">
 
     <Grid RowSpacing="16">
@@ -16,12 +16,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel
-            Grid.Row="0"
-            Spacing="8">
-            <TextBlock
-                Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="Add dictionaries" />
+        <StackPanel Grid.Row="0" Spacing="8">
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Add dictionaries" />
             <TextBlock Text="Add dictionaries." />
             <Grid ColumnSpacing="8">
                 <Grid.ColumnDefinitions>
@@ -47,12 +43,8 @@
                     Content="Add Dictionary" />
             </Grid>
         </StackPanel>
-        <StackPanel
-            Grid.Row="1"
-            Spacing="8">
-            <TextBlock
-                Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="Add items to dictionaries" />
+        <StackPanel Grid.Row="1" Spacing="8">
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Add items to dictionaries" />
             <TextBlock Text="Add items to the selected language dictionary." />
             <Grid ColumnSpacing="8">
                 <Grid.ColumnDefinitions>
@@ -77,34 +69,22 @@
                     Content="Add Item" />
             </Grid>
         </StackPanel>
-        <StackPanel
-            Grid.Row="2"
-            Spacing="8">
-            <TextBlock
-                Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="Language dictionaries" />
-            <controls:DataGrid x:Name="LanguageDictionaryDataGrid"
+        <StackPanel Grid.Row="2" Spacing="8">
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Language dictionaries" />
+            <tv:TableView x:Name="LanguageDictionaryTableView"
                 AutoGenerateColumns="False"
-                CanUserReorderColumns="False"
-                HorizontalScrollBarVisibility="Visible">
-                <controls:DataGrid.Resources>
+                ReorderMode="Disabled"
+                ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                <tv:TableView.Resources>
                     <Color x:Key="DataGridColumnHeaderBackgroundColor">Transparent</Color>
-                </controls:DataGrid.Resources>
-                <controls:DataGrid.Columns>
-                    <controls:DataGridTextColumn
-                        Binding="{Binding Language}"
-                        Header="Language" />
-                    <controls:DataGridTextColumn
-                        Binding="{Binding Priority}"
-                        Header="Priority" />
-                    <controls:DataGridTextColumn
-                        Binding="{Binding Name}"
-                        Header="Name" />
-                    <controls:DataGridTextColumn
-                        Binding="{Binding Count}"
-                        Header="Items" />
-                </controls:DataGrid.Columns>
-            </controls:DataGrid>
+                </tv:TableView.Resources>
+                <tv:TableView.Columns>
+                    <tv:TableViewTextColumn Binding="{Binding Language}" Header="Language" />
+                    <tv:TableViewTextColumn Binding="{Binding Priority}" Header="Priority" />
+                    <tv:TableViewTextColumn Binding="{Binding Name}" Header="Name" />
+                    <tv:TableViewTextColumn Binding="{Binding Count}" Header="Items" />
+                </tv:TableView.Columns>
+            </tv:TableView>
         </StackPanel>
     </Grid>
 </Page>
