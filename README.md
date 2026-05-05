@@ -117,7 +117,7 @@ Add this ItemGroup in the project file (\*.csproj) of your app.
 
 This is an example of how to localize the `Content` of a `Button`.
 
-First asign an `Uid` to the `Button`, then in each language resources file, add an item that corresponds to the `Uid`.
+First assign an `Uid` to the `Button`, then in each language resources file, add an item that corresponds to the `Uid`.
 
 You can also have multiple string resources files. For example, besides the default **Resources.resw** file, you can have a **Messages.resw** for your messages file.
 To just need to include `/<resources-file-name>/` before the string resource identifier.
