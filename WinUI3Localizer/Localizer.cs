@@ -1,7 +1,9 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,8 @@ public sealed partial class Localizer : ILocalizer, IDisposable
     private readonly Dictionary<string, LanguageDictionary> languageDictionaries = new();
 
     private readonly List<LocalizationActions.ActionItem> localizationActions = new();
+
+    private readonly HashSet<ComboBox> comboBoxesToRefresh = new();
 
     internal Localizer(Options options)
     {
@@ -76,8 +80,15 @@ public sealed partial class Localizer : ILocalizer, IDisposable
                 dictionary is not null)
             {
                 CurrentDictionary = dictionary;
+                this.comboBoxesToRefresh.Clear();
+
                 await LocalizeDependencyObjects();
-                OnLanguageChanged(previousLanguage, CurrentDictionary.Language);
+                await RefreshComboBoxes();
+
+                OnLanguageChanged(
+                    previousLanguage,
+                    CurrentDictionary.Language);
+
                 return;
             }
         }
@@ -348,6 +359,106 @@ public sealed partial class Localizer : ILocalizer, IDisposable
         }
 
         dependencyObject.SetValue(dependencyProperty, value);
+
+        if (dependencyObject is ComboBoxItem comboBoxItem &&
+            dependencyProperty == ComboBoxItem.ContentProperty)
+        {
+            if (ItemsControl.ItemsControlFromItemContainer(comboBoxItem)
+                is ComboBox comboBox &&
+                comboBox.IndexFromContainer(comboBoxItem) == comboBox.SelectedIndex)
+            {
+                _ = this.comboBoxesToRefresh.Add(comboBox);
+            }
+        }
+    }
+
+    private async Task RefreshComboBoxes()
+    {
+        if (this.comboBoxesToRefresh.Count == 0)
+            return;
+
+        ComboBox[] comboBoxes = this.comboBoxesToRefresh.ToArray();
+        this.comboBoxesToRefresh.Clear();
+
+        TaskCompletionSource completion = new(
+            TaskCreationOptions.RunContinuationsAsynchronously);
+
+        ComboBox firstComboBox = comboBoxes[0];
+
+        if (!firstComboBox.DispatcherQueue.TryEnqueue(() =>
+        {
+            try
+            {
+                foreach (ComboBox comboBox in comboBoxes)
+                {
+                    _ = comboBox.ApplyTemplate();
+
+                    ContentPresenter? contentPresenter =
+                        FindDescendant<ContentPresenter>(
+                            comboBox,
+                            x => x.Name == "ContentPresenter");
+
+                    if (contentPresenter is null ||
+                        comboBox.SelectedIndex < 0)
+                    {
+                        continue;
+                    }
+
+                    if (comboBox.ContainerFromIndex(comboBox.SelectedIndex)
+                        is not ComboBoxItem comboBoxItem)
+                    {
+                        continue;
+                    }
+
+                    contentPresenter.Content = comboBoxItem.Content;
+                    contentPresenter.ContentTemplate =
+                        comboBoxItem.ContentTemplate;
+                    contentPresenter.ContentTemplateSelector =
+                        comboBoxItem.ContentTemplateSelector;
+                }
+            }
+            finally
+            {
+                completion.SetResult();
+            }
+        }))
+        {
+            return;
+        }
+
+        await completion.Task;
+    }
+
+    // CommunityTool.WinUI.Extensions has this, but if we want to avoid adding a dependency, we can implement it ourselves
+    private static T? FindDescendant<T>(
+        DependencyObject dependencyObject,
+        Func<T, bool> predicate)
+        where T : DependencyObject
+    {
+        int childCount =
+            VisualTreeHelper.GetChildrenCount(dependencyObject);
+
+        for (int i = 0; i < childCount; i++)
+        {
+            DependencyObject child =
+                VisualTreeHelper.GetChild(dependencyObject, i);
+
+            if (child is T match &&
+                predicate(match))
+            {
+                return match;
+            }
+
+            T? descendant =
+                FindDescendant(child, predicate);
+
+            if (descendant is not null)
+            {
+                return descendant;
+            }
+        }
+
+        return null;
     }
 
     private void LocalizeDependencyObjectsWithoutDependencyProperty(DependencyObject dependencyObject, string value)
